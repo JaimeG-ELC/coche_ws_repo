@@ -23,6 +23,7 @@ class WayPointGenerator : public rclcpp::Node
         double min_distance;
         double prev_x;
         double prev_y;
+        double v;
         std::ofstream csv_odom;
         std::string map_frame;
         std::string car_frame;
@@ -32,7 +33,11 @@ class WayPointGenerator : public rclcpp::Node
         std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
         geometry_msgs::msg::TransformStamped current_transform_;
 
+        rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom0_sub_;
+
+
         rclcpp::TimerBase::SharedPtr timer_;
+        void odom0Callback(const nav_msgs::msg::Odometry::SharedPtr msg);
         void timer_callback();
 };
 

@@ -3,13 +3,13 @@
     min_lookahead_dist: 0.8
     max_lookahead_dist: 4.0
     lookahead_ratio: 8.5
-    max_speed: 5.0
+    max_speed: 7.0
     min_speed: 0.4
     kp: 0.25
     max_steering_angle: 14.705
     window_size: 10
     max_lateral_acc: 1.5
-    csv_path:  "/root/coche_ws/src/pure_pursuit_pkg/racelines/raceline_27_07.csv"
+    csv_path:  "/root/coche_ws/src/pure_pursuit_pkg/racelines/raceline_27_07_super_slow.csv"
     map_frame: "map"
     car_frame: "base_link"
     odom_topic: "/odom"

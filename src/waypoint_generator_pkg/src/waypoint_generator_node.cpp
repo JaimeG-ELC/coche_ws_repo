@@ -29,11 +29,20 @@ WayPointGenerator::WayPointGenerator()
     tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
     tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
 
+    odom0_sub_ = this->create_subscription<nav_msgs::msg::Odometry>(
+        "odometry/local", 10,
+        std::bind(&WayPointGenerator::odom0Callback, this, std::placeholders::_1));
+
     // Create timer for periodic waypoint generation
     timer_ = this->create_wall_timer(
         std::chrono::milliseconds(10),
         std::bind(&WayPointGenerator::timer_callback, this)
     );
+}
+
+void WayPointGenerator::odom0Callback(const nav_msgs::msg::Odometry::SharedPtr msg)
+{
+    v = msg->twist.twist.linear.x;
 }
 
 void WayPointGenerator::timer_callback()
@@ -67,11 +76,11 @@ void WayPointGenerator::timer_callback()
             RCLCPP_ERROR(this->get_logger(), "Failed to open CSV file at path: %s", csv_path.c_str());
             return;
         }
-        csv_odom << x << ", " << y << ", " << 1.0 << "\n";
+        csv_odom << x << ", " << y << ", " << v << "\n";
         prev_x = x;
         prev_y = y;
         csv_odom.close();
-        RCLCPP_INFO(this->get_logger(), "Waypoint generated at: x=%.2f, y=%.2f", x, y);
+        RCLCPP_INFO(this->get_logger(), "Waypoint generated at: x=%.2f, y=%.2f, v=%.2f", x, y, v);
     }
 }
 
