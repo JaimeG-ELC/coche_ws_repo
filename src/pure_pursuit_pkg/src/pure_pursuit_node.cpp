@@ -212,7 +212,8 @@ int PurePursuit::load_pathpoints2memory()
             v = min_speed; // Default to min_speed if v is missing
         } else {
             try {
-                v = std::stod(v_str);
+                // v = std::stod(v_str);
+                v = 0.5;
             } catch (...) {
                 v = min_speed;
             }
@@ -363,7 +364,7 @@ void PurePursuit::steering_angle_calculation()
     }
     
     double distance = std::sqrt(distance_squared);
-    double angle = Kp * (2 * v_local[1]) / (distance * distance);
+    double angle = -Kp * (2 * v_local[1]) / (distance * distance);
     
     steering_angle = std::clamp(angle, -max_steering_angle, max_steering_angle);
     
@@ -397,10 +398,11 @@ void PurePursuit::get_closest_pathpoint()
 void PurePursuit::speed_calculation()
 {
     // Base speed from path
-    double target_speed = pathpoints[closest_pathpoint].v;
+    double target_speed = pathpoints[lookahead_point].v;
+        RCLCPP_INFO(this->get_logger(), "Target Speed: %f:", target_speed);
 
     // Adjust speed based on steering angle magnitude
-    if (std::abs(steering_angle) > 0.05) { // About 2.86 degrees
+    if (std::abs(steering_angle) > 0.1) { // About 2.86 degrees
         // Calculate turn radius using bicycle model: R = L/tan(δ)
         // where L is wheelbase and δ is steering angle
         constexpr double wheelbase = 0.33;  // meters
@@ -409,8 +411,9 @@ void PurePursuit::speed_calculation()
         // Calculate speed limit based on lateral acceleration: v = sqrt(a_lat * R)
         // where a_lat is max lateral acceleration and R is turn radius
         double curve_speed = std::sqrt(max_lateral_acc * radius);
+
         target_speed = std::min(target_speed, curve_speed);
-        RCLCPP_INFO(this->get_logger(), "Target Speed: %f, Max curve speed: %f", target_speed, curve_speed);
+        RCLCPP_INFO(this->get_logger(), "Max curve speed: %f", curve_speed);
     }
     // Clamp to speed limits
     speed = std::clamp(target_speed, min_speed, max_speed);
