@@ -1,0 +1,3 @@
+[console_scripts]
+ver_trayectoria = ver_trayectoria.ver_trayectoria:main
+

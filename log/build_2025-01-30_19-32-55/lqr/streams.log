@@ -1,0 +1,27 @@
+[0.222s] Invoking command in '/home/coche/coche_ws/build/lqr': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/lqr -- -j4 -l4
+[1.537s] Invoked command in '/home/coche/coche_ws/build/lqr' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/lqr -- -j4 -l4
+[1.547s] Invoking command in '/home/coche/coche_ws/build/lqr': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/lqr
+[1.687s] -- Install configuration: ""
+[1.687s] -- Up-to-date: /home/coche/coche_ws/install/lqr/share/lqr/environment/pythonpath.sh
+[1.687s] -- Up-to-date: /home/coche/coche_ws/install/lqr/share/lqr/environment/pythonpath.dsv
+[1.688s] -- Up-to-date: /home/coche/coche_ws/install/lqr/lib/python3.8/site-packages/lqr
+[1.688s] -- Up-to-date: /home/coche/coche_ws/install/lqr/lib/python3.8/site-packages/lqr/__init__.py
+[1.807s] Listing '/home/coche/coche_ws/install/lqr/lib/python3.8/site-packages/lqr'...
+[1.823s] -- Up-to-date: /home/coche/coche_ws/install/lqr/lib/lqr/lqr_node.py
+[1.825s] -- Up-to-date: /home/coche/coche_ws/install/lqr/lib/lqr/utils.py
+[1.828s] -- Up-to-date: /home/coche/coche_ws/install/lqr/share/ament_index/resource_index/package_run_dependencies/lqr
+[1.828s] -- Up-to-date: /home/coche/coche_ws/install/lqr/share/ament_index/resource_index/parent_prefix_path/lqr
+[1.829s] -- Up-to-date: /home/coche/coche_ws/install/lqr/share/lqr/environment/ament_prefix_path.sh
+[1.831s] -- Up-to-date: /home/coche/coche_ws/install/lqr/share/lqr/environment/ament_prefix_path.dsv
+[1.831s] -- Up-to-date: /home/coche/coche_ws/install/lqr/share/lqr/environment/path.sh
+[1.839s] -- Up-to-date: /home/coche/coche_ws/install/lqr/share/lqr/environment/path.dsv
+[1.842s] -- Up-to-date: /home/coche/coche_ws/install/lqr/share/lqr/local_setup.bash
+[1.842s] -- Up-to-date: /home/coche/coche_ws/install/lqr/share/lqr/local_setup.sh
+[1.845s] -- Up-to-date: /home/coche/coche_ws/install/lqr/share/lqr/local_setup.zsh
+[1.847s] -- Up-to-date: /home/coche/coche_ws/install/lqr/share/lqr/local_setup.dsv
+[1.847s] -- Installing: /home/coche/coche_ws/install/lqr/share/lqr/package.dsv
+[1.848s] -- Up-to-date: /home/coche/coche_ws/install/lqr/share/ament_index/resource_index/packages/lqr
+[1.848s] -- Up-to-date: /home/coche/coche_ws/install/lqr/share/lqr/cmake/lqrConfig.cmake
+[1.848s] -- Up-to-date: /home/coche/coche_ws/install/lqr/share/lqr/cmake/lqrConfig-version.cmake
+[1.849s] -- Up-to-date: /home/coche/coche_ws/install/lqr/share/lqr/package.xml
+[1.907s] Invoked command in '/home/coche/coche_ws/build/lqr' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/lqr

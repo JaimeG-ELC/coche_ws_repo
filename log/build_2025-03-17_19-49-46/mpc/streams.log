@@ -1,0 +1,80 @@
+[1.245s] Invoking command in '/home/coche/coche_ws/build/mpc': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake /home/coche/coche_ws/src/f1tenth_system/mpc -DCMAKE_INSTALL_PREFIX=/home/coche/coche_ws/install/mpc
+[1.697s] -- The C compiler identification is GNU 9.4.0
+[2.029s] -- The CXX compiler identification is GNU 9.4.0
+[2.061s] -- Check for working C compiler: /usr/bin/cc
+[2.470s] -- Check for working C compiler: /usr/bin/cc -- works
+[2.474s] -- Detecting C compiler ABI info
+[2.884s] -- Detecting C compiler ABI info - done
+[2.951s] -- Detecting C compile features
+[2.952s] -- Detecting C compile features - done
+[2.980s] -- Check for working CXX compiler: /usr/bin/c++
+[3.447s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[3.452s] -- Detecting CXX compiler ABI info
+[3.977s] -- Detecting CXX compiler ABI info - done
+[4.046s] -- Detecting CXX compile features
+[4.051s] -- Detecting CXX compile features - done
+[4.085s] -- Found ament_cmake: 0.9.12 (/opt/ros/foxy/share/ament_cmake/cmake)
+[4.263s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[4.263s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[5.634s] -- Found rclcpp: 2.4.3 (/opt/ros/foxy/share/rclcpp/cmake)
+[6.014s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[6.090s] -- Found rosidl_adapter: 1.3.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)
+[6.692s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "1.1.1f")  
+[6.923s] -- Found FastRTPS: /opt/ros/foxy/include  
+[7.438s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[7.882s] -- Found rmw_implementation_cmake: 1.0.4 (/opt/ros/foxy/share/rmw_implementation_cmake/cmake)
+[7.893s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[7.897s] -- Looking for pthread.h
+[8.328s] -- Looking for pthread.h - found
+[8.329s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[8.733s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+[8.734s] -- Looking for pthread_create in pthreads
+[9.097s] -- Looking for pthread_create in pthreads - not found
+[9.098s] -- Looking for pthread_create in pthread
+[9.480s] -- Looking for pthread_create in pthread - found
+[9.486s] -- Found Threads: TRUE  
+[10.299s] -- Found rclpy: 1.0.13 (/opt/ros/foxy/share/rclpy/cmake)
+[10.319s] -- Found geometry_msgs: 2.0.5 (/opt/ros/foxy/share/geometry_msgs/cmake)
+[10.499s] -- Found nav_msgs: 2.0.5 (/opt/ros/foxy/share/nav_msgs/cmake)
+[10.803s] -- Found ackermann_msgs: 2.0.2 (/opt/ros/foxy/share/ackermann_msgs/cmake)
+[10.949s] -- Found sensor_msgs: 2.0.5 (/opt/ros/foxy/share/sensor_msgs/cmake)
+[11.221s] -- Found visualization_msgs: 2.0.5 (/opt/ros/foxy/share/visualization_msgs/cmake)
+[11.541s] -- Found tf2_ros: 0.13.14 (/opt/ros/foxy/share/tf2_ros/cmake)
+[13.013s] -- Found ament_lint_auto: 0.9.8 (/opt/ros/foxy/share/ament_lint_auto/cmake)
+[13.458s] -- Added test 'copyright' to check source files copyright and LICENSE
+[13.471s] -- Added test 'flake8' to check Python code syntax and style conventions
+[13.475s] -- Added test 'lint_cmake' to check CMake code style
+[13.479s] -- Added test 'pep257' to check Python code against some of the style conventions in PEP 257
+[13.487s] -- Added test 'xmllint' to check XML markup files
+[13.517s] -- Configuring done
+[13.531s] -- Generating done
+[13.542s] -- Build files have been written to: /home/coche/coche_ws/build/mpc
+[13.582s] Invoked command in '/home/coche/coche_ws/build/mpc' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake /home/coche/coche_ws/src/f1tenth_system/mpc -DCMAKE_INSTALL_PREFIX=/home/coche/coche_ws/install/mpc
+[13.588s] Invoking command in '/home/coche/coche_ws/build/mpc': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/mpc -- -j4 -l4
+[13.796s] Invoked command in '/home/coche/coche_ws/build/mpc' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/mpc -- -j4 -l4
+[13.813s] Invoking command in '/home/coche/coche_ws/build/mpc': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/mpc
+[13.849s] -- Install configuration: ""
+[13.850s] -- Installing: /home/coche/coche_ws/install/mpc/share/mpc/environment/pythonpath.sh
+[13.851s] -- Installing: /home/coche/coche_ws/install/mpc/share/mpc/environment/pythonpath.dsv
+[13.852s] -- Installing: /home/coche/coche_ws/install/mpc/lib/python3.8/site-packages/mpc
+[13.853s] -- Installing: /home/coche/coche_ws/install/mpc/lib/python3.8/site-packages/mpc/__init__.py
+[14.006s] Listing '/home/coche/coche_ws/install/mpc/lib/python3.8/site-packages/mpc'...
+[14.006s] Compiling '/home/coche/coche_ws/install/mpc/lib/python3.8/site-packages/mpc/__init__.py'...
+[14.020s] -- Installing: /home/coche/coche_ws/install/mpc/lib/mpc/mpc_node.py
+[14.021s] -- Installing: /home/coche/coche_ws/install/mpc/lib/mpc/mpc_reactive.py
+[14.023s] -- Installing: /home/coche/coche_ws/install/mpc/share/ament_index/resource_index/package_run_dependencies/mpc
+[14.024s] -- Installing: /home/coche/coche_ws/install/mpc/share/ament_index/resource_index/parent_prefix_path/mpc
+[14.025s] -- Installing: /home/coche/coche_ws/install/mpc/share/mpc/environment/ament_prefix_path.sh
+[14.026s] -- Installing: /home/coche/coche_ws/install/mpc/share/mpc/environment/ament_prefix_path.dsv
+[14.026s] -- Installing: /home/coche/coche_ws/install/mpc/share/mpc/environment/path.sh
+[14.027s] -- Installing: /home/coche/coche_ws/install/mpc/share/mpc/environment/path.dsv
+[14.028s] -- Installing: /home/coche/coche_ws/install/mpc/share/mpc/local_setup.bash
+[14.029s] -- Installing: /home/coche/coche_ws/install/mpc/share/mpc/local_setup.sh
+[14.031s] -- Installing: /home/coche/coche_ws/install/mpc/share/mpc/local_setup.zsh
+[14.032s] -- Installing: /home/coche/coche_ws/install/mpc/share/mpc/local_setup.dsv
+[14.032s] -- Installing: /home/coche/coche_ws/install/mpc/share/mpc/package.dsv
+[14.035s] -- Installing: /home/coche/coche_ws/install/mpc/share/ament_index/resource_index/packages/mpc
+[14.035s] -- Installing: /home/coche/coche_ws/install/mpc/share/mpc/cmake/mpcConfig.cmake
+[14.036s] -- Installing: /home/coche/coche_ws/install/mpc/share/mpc/cmake/mpcConfig-version.cmake
+[14.037s] -- Installing: /home/coche/coche_ws/install/mpc/share/mpc/package.xml
+[14.051s] Invoked command in '/home/coche/coche_ws/build/mpc' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/mpc

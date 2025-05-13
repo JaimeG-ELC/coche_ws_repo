@@ -1,0 +1,46 @@
+[4.299s] Invoking command in '/home/coche/coche_ws/src/f1tenth_system/stanley_avoidance': PYTHONPATH=/home/coche/coche_ws/build/stanley_avoidance/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/coche/coche_ws/install/stanley_avoidance/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/stanley_avoidance build --build-base /home/coche/coche_ws/build/stanley_avoidance/build install --record /home/coche/coche_ws/build/stanley_avoidance/install.log --install-scripts $base/lib/stanley_avoidance --single-version-externally-managed install_data
+[5.700s] running egg_info
+[5.701s] creating ../../../build/stanley_avoidance/stanley_avoidance.egg-info
+[5.701s] writing ../../../build/stanley_avoidance/stanley_avoidance.egg-info/PKG-INFO
+[5.702s] writing dependency_links to ../../../build/stanley_avoidance/stanley_avoidance.egg-info/dependency_links.txt
+[5.702s] writing entry points to ../../../build/stanley_avoidance/stanley_avoidance.egg-info/entry_points.txt
+[5.702s] writing requirements to ../../../build/stanley_avoidance/stanley_avoidance.egg-info/requires.txt
+[5.702s] writing top-level names to ../../../build/stanley_avoidance/stanley_avoidance.egg-info/top_level.txt
+[5.705s] writing manifest file '../../../build/stanley_avoidance/stanley_avoidance.egg-info/SOURCES.txt'
+[5.846s] reading manifest file '../../../build/stanley_avoidance/stanley_avoidance.egg-info/SOURCES.txt'
+[5.850s] writing manifest file '../../../build/stanley_avoidance/stanley_avoidance.egg-info/SOURCES.txt'
+[5.852s] running build
+[5.852s] running build_py
+[5.853s] creating /home/coche/coche_ws/build/stanley_avoidance/build
+[5.853s] creating /home/coche/coche_ws/build/stanley_avoidance/build/lib
+[5.853s] creating /home/coche/coche_ws/build/stanley_avoidance/build/lib/stanley_avoidance
+[5.854s] copying stanley_avoidance/__init__.py -> /home/coche/coche_ws/build/stanley_avoidance/build/lib/stanley_avoidance
+[5.854s] copying stanley_avoidance/stanley_avoidance.py -> /home/coche/coche_ws/build/stanley_avoidance/build/lib/stanley_avoidance
+[5.854s] running install
+[5.859s] running install_lib
+[5.863s] creating /home/coche/coche_ws/install/stanley_avoidance/lib/python3.8/site-packages/stanley_avoidance
+[5.864s] copying /home/coche/coche_ws/build/stanley_avoidance/build/lib/stanley_avoidance/__init__.py -> /home/coche/coche_ws/install/stanley_avoidance/lib/python3.8/site-packages/stanley_avoidance
+[5.864s] copying /home/coche/coche_ws/build/stanley_avoidance/build/lib/stanley_avoidance/stanley_avoidance.py -> /home/coche/coche_ws/install/stanley_avoidance/lib/python3.8/site-packages/stanley_avoidance
+[5.870s] byte-compiling /home/coche/coche_ws/install/stanley_avoidance/lib/python3.8/site-packages/stanley_avoidance/__init__.py to __init__.cpython-38.pyc
+[5.874s] byte-compiling /home/coche/coche_ws/install/stanley_avoidance/lib/python3.8/site-packages/stanley_avoidance/stanley_avoidance.py to stanley_avoidance.cpython-38.pyc
+[5.897s] running install_data
+[5.898s] creating /home/coche/coche_ws/install/stanley_avoidance/share/ament_index
+[5.899s] creating /home/coche/coche_ws/install/stanley_avoidance/share/ament_index/resource_index
+[5.899s] creating /home/coche/coche_ws/install/stanley_avoidance/share/ament_index/resource_index/packages
+[5.900s] copying resource/stanley_avoidance -> /home/coche/coche_ws/install/stanley_avoidance/share/ament_index/resource_index/packages
+[5.900s] copying package.xml -> /home/coche/coche_ws/install/stanley_avoidance/share/stanley_avoidance
+[5.900s] creating /home/coche/coche_ws/install/stanley_avoidance/share/stanley_avoidance/racelines
+[5.901s] creating /home/coche/coche_ws/install/stanley_avoidance/share/stanley_avoidance/launch
+[5.901s] copying launch/stanley_avoidance_launch.py -> /home/coche/coche_ws/install/stanley_avoidance/share/stanley_avoidance/launch
+[5.902s] copying launch/sim_multi_agent_stanley_avoidance_launch.py -> /home/coche/coche_ws/install/stanley_avoidance/share/stanley_avoidance/launch
+[5.902s] copying launch/sim_stanley_avoidance_launch.py -> /home/coche/coche_ws/install/stanley_avoidance/share/stanley_avoidance/launch
+[5.903s] copying launch/stanley_avoidance.rviz -> /home/coche/coche_ws/install/stanley_avoidance/share/stanley_avoidance/launch
+[5.903s] creating /home/coche/coche_ws/install/stanley_avoidance/share/stanley_avoidance/config
+[5.904s] copying config/sim_config.yaml -> /home/coche/coche_ws/install/stanley_avoidance/share/stanley_avoidance/config
+[5.904s] copying config/config.yaml -> /home/coche/coche_ws/install/stanley_avoidance/share/stanley_avoidance/config
+[5.905s] running install_egg_info
+[5.912s] Copying ../../../build/stanley_avoidance/stanley_avoidance.egg-info to /home/coche/coche_ws/install/stanley_avoidance/lib/python3.8/site-packages/stanley_avoidance-0.0.0-py3.8.egg-info
+[5.917s] running install_scripts
+[5.993s] Installing stanley_avoidance script to /home/coche/coche_ws/install/stanley_avoidance/lib/stanley_avoidance
+[5.995s] writing list of installed files to '/home/coche/coche_ws/build/stanley_avoidance/install.log'
+[6.225s] Invoked command in '/home/coche/coche_ws/src/f1tenth_system/stanley_avoidance' returned '0': PYTHONPATH=/home/coche/coche_ws/build/stanley_avoidance/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/coche/coche_ws/install/stanley_avoidance/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/stanley_avoidance build --build-base /home/coche/coche_ws/build/stanley_avoidance/build install --record /home/coche/coche_ws/build/stanley_avoidance/install.log --install-scripts $base/lib/stanley_avoidance --single-version-externally-managed install_data

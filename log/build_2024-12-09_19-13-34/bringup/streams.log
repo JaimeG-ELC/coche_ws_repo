@@ -1,0 +1,11 @@
+[0.086s] Invoking command in '/home/coche/coche_ws/build/bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/bringup -- -j4 -l4
+[0.375s] Invoked command in '/home/coche/coche_ws/build/bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/bringup -- -j4 -l4
+[0.381s] Invoking command in '/home/coche/coche_ws/build/bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/bringup
+[0.483s] -- Install configuration: ""
+[0.484s] CMake Error at cmake_install.cmake:41 (file):
+[0.485s]   file INSTALL cannot find
+[0.485s]   "/home/coche/coche_ws/src/f1tenth_system/bringup/launch/final_race_sim_launch.py":
+[0.485s]   No such file or directory.
+[0.486s] 
+[0.486s] 
+[0.499s] Invoked command in '/home/coche/coche_ws/build/bringup' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/bringup

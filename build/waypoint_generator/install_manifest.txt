@@ -1,0 +1,16 @@
+/home/coche/coche_ws/install/waypoint_generator/lib/waypoint_generator/waypoint_generator
+/home/coche/coche_ws/install/waypoint_generator/share/ament_index/resource_index/package_run_dependencies/waypoint_generator
+/home/coche/coche_ws/install/waypoint_generator/share/ament_index/resource_index/parent_prefix_path/waypoint_generator
+/home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/environment/ament_prefix_path.sh
+/home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/environment/ament_prefix_path.dsv
+/home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/environment/path.sh
+/home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/environment/path.dsv
+/home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/local_setup.bash
+/home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/local_setup.sh
+/home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/local_setup.zsh
+/home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/local_setup.dsv
+/home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/package.dsv
+/home/coche/coche_ws/install/waypoint_generator/share/ament_index/resource_index/packages/waypoint_generator
+/home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/cmake/waypoint_generatorConfig.cmake
+/home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/cmake/waypoint_generatorConfig-version.cmake
+/home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/package.xml

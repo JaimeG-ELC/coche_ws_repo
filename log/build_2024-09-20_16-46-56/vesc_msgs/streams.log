@@ -1,0 +1,298 @@
+[0.204s] Invoking command in '/home/coche/coche_ws/build/vesc_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake /home/coche/coche_ws/src/f1tenth_system/vesc/vesc_msgs -DCMAKE_INSTALL_PREFIX=/home/coche/coche_ws/install/vesc_msgs
+[0.787s] -- The C compiler identification is GNU 9.4.0
+[1.206s] -- The CXX compiler identification is GNU 9.4.0
+[1.237s] -- Check for working C compiler: /usr/bin/cc
+[1.629s] -- Check for working C compiler: /usr/bin/cc -- works
+[1.639s] -- Detecting C compiler ABI info
+[2.171s] -- Detecting C compiler ABI info - done
+[2.242s] -- Detecting C compile features
+[2.245s] -- Detecting C compile features - done
+[2.266s] -- Check for working CXX compiler: /usr/bin/c++
+[2.882s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[2.889s] -- Detecting CXX compiler ABI info
+[3.338s] -- Detecting CXX compiler ABI info - done
+[3.416s] -- Detecting CXX compile features
+[3.416s] -- Detecting CXX compile features - done
+[3.433s] -- Found ament_cmake_auto: 0.9.12 (/opt/ros/foxy/share/ament_cmake_auto/cmake)
+[3.684s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[3.684s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[5.117s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[5.154s] -- Found rosidl_adapter: 1.3.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)
+[5.752s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "1.1.1f")  
+[5.894s] -- Found FastRTPS: /opt/ros/foxy/include  
+[6.302s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[7.065s] -- Found PythonInterp: /usr/bin/python3 (found version "3.8.10") 
+[7.930s] -- Found ament_cmake_ros: 0.9.2 (/opt/ros/foxy/share/ament_cmake_ros/cmake)
+[9.513s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[10.372s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[10.513s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3.5") 
+[10.521s] -- Found python_cmake_module: 0.8.1 (/opt/ros/foxy/share/python_cmake_module/cmake)
+[10.673s] -- Found PythonLibs: /usr/lib/aarch64-linux-gnu/libpython3.8.so (found suitable version "3.8.10", minimum required is "3.5") 
+[10.674s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[10.675s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.8
+[10.675s] -- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.8.so
+[10.784s] -- Found PythonExtra: .so  
+[11.316s] -- Found ament_lint_auto: 0.9.8 (/opt/ros/foxy/share/ament_lint_auto/cmake)
+[11.423s] -- Added test 'copyright' to check source files copyright and LICENSE
+[11.434s] -- Added test 'lint_cmake' to check CMake code style
+[11.442s] -- Added test 'xmllint' to check XML markup files
+[11.479s] -- Configuring done
+[11.966s] -- Generating done
+[11.998s] -- Build files have been written to: /home/coche/coche_ws/build/vesc_msgs
+[12.100s] Invoked command in '/home/coche/coche_ws/build/vesc_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake /home/coche/coche_ws/src/f1tenth_system/vesc/vesc_msgs -DCMAKE_INSTALL_PREFIX=/home/coche/coche_ws/install/vesc_msgs
+[12.104s] Invoking command in '/home/coche/coche_ws/build/vesc_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/vesc_msgs -- -j4 -l4
+[12.385s] [35m[1mScanning dependencies of target vesc_msgs__cpp[0m
+[12.439s] [  1%] [34m[1mGenerating C code for ROS interfaces[0m
+[12.576s] [  3%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[18.695s] [35m[1mScanning dependencies of target vesc_msgs__rosidl_generator_c[0m
+[18.928s] [  5%] [32mBuilding C object CMakeFiles/vesc_msgs__rosidl_generator_c.dir/rosidl_generator_c/vesc_msgs/msg/detail/vesc_state__functions.c.o[0m
+[18.965s] [  7%] [32mBuilding C object CMakeFiles/vesc_msgs__rosidl_generator_c.dir/rosidl_generator_c/vesc_msgs/msg/detail/vesc_state_stamped__functions.c.o[0m
+[18.992s] [  9%] [32mBuilding C object CMakeFiles/vesc_msgs__rosidl_generator_c.dir/rosidl_generator_c/vesc_msgs/msg/detail/vesc_imu__functions.c.o[0m
+[18.993s] [  9%] Built target vesc_msgs__cpp
+[19.153s] [ 10%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[19.728s] [ 12%] [32mBuilding C object CMakeFiles/vesc_msgs__rosidl_generator_c.dir/rosidl_generator_c/vesc_msgs/msg/detail/vesc_imu_stamped__functions.c.o[0m
+[19.867s] [ 14%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[19.876s] [ 16%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[20.527s] [ 18%] [32m[1mLinking C shared library libvesc_msgs__rosidl_generator_c.so[0m
+[21.166s] [ 18%] Built target vesc_msgs__rosidl_generator_c
+[21.300s] [ 20%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[24.064s] [35m[1mScanning dependencies of target vesc_msgs__rosidl_typesupport_cpp[0m
+[24.289s] [ 21%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vesc_msgs/msg/vesc_state__type_support.cpp.o[0m
+[24.908s] [35m[1mScanning dependencies of target vesc_msgs__rosidl_typesupport_introspection_cpp[0m
+[25.101s] [ 23%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/vesc_msgs/msg/detail/vesc_state__type_support.cpp.o[0m
+[25.389s] [35m[1mScanning dependencies of target vesc_msgs__rosidl_typesupport_c[0m
+[25.562s] [ 25%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/vesc_msgs/msg/vesc_state__type_support.cpp.o[0m
+[25.733s] [35m[1mScanning dependencies of target vesc_msgs__rosidl_typesupport_fastrtps_cpp[0m
+[25.937s] [ 27%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/vesc_msgs/msg/vesc_state_stamped__type_support.cpp.o[0m
+[25.964s] [ 29%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/vesc_msgs/msg/detail/dds_fastrtps/vesc_state__type_support.cpp.o[0m
+[26.299s] [ 30%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/vesc_msgs/msg/vesc_imu__type_support.cpp.o[0m
+[26.821s] [ 32%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/vesc_msgs/msg/vesc_imu_stamped__type_support.cpp.o[0m
+[27.246s] [ 34%] [32m[1mLinking CXX shared library libvesc_msgs__rosidl_typesupport_c.so[0m
+[27.652s] [ 34%] Built target vesc_msgs__rosidl_typesupport_c
+[27.728s] [ 36%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vesc_msgs/msg/vesc_state_stamped__type_support.cpp.o[0m
+[28.241s] [ 38%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/vesc_msgs/msg/detail/vesc_state_stamped__type_support.cpp.o[0m
+[30.098s] [ 40%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/vesc_msgs/msg/detail/dds_fastrtps/vesc_state_stamped__type_support.cpp.o[0m
+[30.642s] [ 41%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vesc_msgs/msg/vesc_imu__type_support.cpp.o[0m
+[30.792s] [ 43%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/vesc_msgs/msg/detail/vesc_imu__type_support.cpp.o[0m
+[32.938s] [ 45%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/vesc_msgs/msg/vesc_imu_stamped__type_support.cpp.o[0m
+[33.203s] [ 47%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/vesc_msgs/msg/detail/vesc_imu_stamped__type_support.cpp.o[0m
+[33.747s] [ 49%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/vesc_msgs/msg/detail/dds_fastrtps/vesc_imu__type_support.cpp.o[0m
+[35.741s] [ 50%] [32m[1mLinking CXX shared library libvesc_msgs__rosidl_typesupport_cpp.so[0m
+[35.961s] [ 52%] [32m[1mLinking CXX shared library libvesc_msgs__rosidl_typesupport_introspection_cpp.so[0m
+[36.101s] [ 52%] Built target vesc_msgs__rosidl_typesupport_cpp
+[36.521s] [ 52%] Built target vesc_msgs__rosidl_typesupport_introspection_cpp
+[36.885s] [ 54%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/vesc_msgs/msg/detail/dds_fastrtps/vesc_imu_stamped__type_support.cpp.o[0m
+[38.990s] [ 56%] [32m[1mLinking CXX shared library libvesc_msgs__rosidl_typesupport_fastrtps_cpp.so[0m
+[39.521s] [ 56%] Built target vesc_msgs__rosidl_typesupport_fastrtps_cpp
+[39.599s] [ 58%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[42.619s] [35m[1mScanning dependencies of target vesc_msgs__rosidl_typesupport_introspection_c[0m
+[42.721s] [ 60%] [32mBuilding C object CMakeFiles/vesc_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/vesc_msgs/msg/detail/vesc_state__type_support.c.o[0m
+[42.926s] [ 61%] [32mBuilding C object CMakeFiles/vesc_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/vesc_msgs/msg/detail/vesc_imu__type_support.c.o[0m
+[43.155s] [ 63%] [32mBuilding C object CMakeFiles/vesc_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/vesc_msgs/msg/detail/vesc_imu_stamped__type_support.c.o[0m
+[43.441s] [ 65%] [32mBuilding C object CMakeFiles/vesc_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/vesc_msgs/msg/detail/vesc_state_stamped__type_support.c.o[0m
+[43.702s] [ 67%] [32m[1mLinking C shared library libvesc_msgs__rosidl_typesupport_introspection_c.so[0m
+[43.920s] [ 67%] Built target vesc_msgs__rosidl_typesupport_introspection_c
+[43.972s] [ 69%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[46.665s] [35m[1mScanning dependencies of target vesc_msgs__rosidl_typesupport_fastrtps_c[0m
+[46.807s] [ 70%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/vesc_msgs/msg/detail/vesc_state__type_support_c.cpp.o[0m
+[48.904s] [ 72%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/vesc_msgs/msg/detail/vesc_imu_stamped__type_support_c.cpp.o[0m
+[51.080s] [ 74%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/vesc_msgs/msg/detail/vesc_imu__type_support_c.cpp.o[0m
+[52.924s] [ 76%] [32mBuilding CXX object CMakeFiles/vesc_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/vesc_msgs/msg/detail/vesc_state_stamped__type_support_c.cpp.o[0m
+[54.667s] [ 78%] [32m[1mLinking CXX shared library libvesc_msgs__rosidl_typesupport_fastrtps_c.so[0m
+[55.134s] [ 78%] Built target vesc_msgs__rosidl_typesupport_fastrtps_c
+[55.181s] [35m[1mScanning dependencies of target vesc_msgs[0m
+[55.231s] [ 78%] Built target vesc_msgs
+[55.283s] [35m[1mScanning dependencies of target vesc_msgs__py[0m
+[55.339s] [ 80%] [34m[1mGenerating Python code for ROS interfaces[0m
+[59.710s] [ 80%] Built target vesc_msgs__py
+[59.756s] [35m[1mScanning dependencies of target vesc_msgs__python[0m
+[59.905s] [ 81%] [32mBuilding C object CMakeFiles/vesc_msgs__python.dir/rosidl_generator_py/vesc_msgs/msg/_vesc_state_s.c.o[0m
+[60.562s] [ 83%] [32mBuilding C object CMakeFiles/vesc_msgs__python.dir/rosidl_generator_py/vesc_msgs/msg/_vesc_imu_stamped_s.c.o[0m
+[61.121s] [ 85%] [32mBuilding C object CMakeFiles/vesc_msgs__python.dir/rosidl_generator_py/vesc_msgs/msg/_vesc_imu_s.c.o[0m
+[61.657s] [ 87%] [32mBuilding C object CMakeFiles/vesc_msgs__python.dir/rosidl_generator_py/vesc_msgs/msg/_vesc_state_stamped_s.c.o[0m
+[62.140s] [ 89%] [32m[1mLinking C shared library rosidl_generator_py/vesc_msgs/libvesc_msgs__python.so[0m
+[62.371s] [ 89%] Built target vesc_msgs__python
+[62.419s] [35m[1mScanning dependencies of target vesc_msgs__rosidl_typesupport_c__pyext[0m
+[62.516s] [ 90%] [32mBuilding C object CMakeFiles/vesc_msgs__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/vesc_msgs/_vesc_msgs_s.ep.rosidl_typesupport_c.c.o[0m
+[62.976s] [ 92%] [32m[1mLinking C shared library rosidl_generator_py/vesc_msgs/vesc_msgs_s__rosidl_typesupport_c.cpython-38-aarch64-linux-gnu.so[0m
+[63.176s] [ 92%] Built target vesc_msgs__rosidl_typesupport_c__pyext
+[63.230s] [35m[1mScanning dependencies of target vesc_msgs__rosidl_typesupport_fastrtps_c__pyext[0m
+[63.344s] [ 94%] [32mBuilding C object CMakeFiles/vesc_msgs__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/vesc_msgs/_vesc_msgs_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[63.842s] [ 96%] [32m[1mLinking CXX shared library rosidl_generator_py/vesc_msgs/vesc_msgs_s__rosidl_typesupport_fastrtps_c.cpython-38-aarch64-linux-gnu.so[0m
+[64.152s] [ 96%] Built target vesc_msgs__rosidl_typesupport_fastrtps_c__pyext
+[64.201s] [35m[1mScanning dependencies of target vesc_msgs__rosidl_typesupport_introspection_c__pyext[0m
+[64.319s] [ 98%] [32mBuilding C object CMakeFiles/vesc_msgs__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/vesc_msgs/_vesc_msgs_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[64.787s] [100%] [32m[1mLinking C shared library rosidl_generator_py/vesc_msgs/vesc_msgs_s__rosidl_typesupport_introspection_c.cpython-38-aarch64-linux-gnu.so[0m
+[64.982s] [100%] Built target vesc_msgs__rosidl_typesupport_introspection_c__pyext
+[65.051s] Invoked command in '/home/coche/coche_ws/build/vesc_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/vesc_msgs -- -j4 -l4
+[65.666s] Invoking command in '/home/coche/coche_ws/build/vesc_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/vesc_msgs
+[65.712s] -- Install configuration: ""
+[65.713s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/ament_index/resource_index/rosidl_interfaces/vesc_msgs
+[65.717s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs
+[65.720s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg
+[65.721s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/vesc_state_stamped.h
+[65.722s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/rosidl_generator_c__visibility_control.h
+[65.722s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail
+[65.723s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state__functions.c
+[65.724s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu__struct.h
+[65.724s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state_stamped__type_support.h
+[65.724s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu__functions.c
+[65.725s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state_stamped__struct.h
+[65.725s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu_stamped__functions.c
+[65.726s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu_stamped__struct.h
+[65.727s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state__struct.h
+[65.727s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state_stamped__functions.c
+[65.728s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu__type_support.h
+[65.733s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state__type_support.h
+[65.733s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu_stamped__functions.h
+[65.734s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu_stamped__type_support.h
+[65.735s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state__functions.h
+[65.736s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu__functions.h
+[65.736s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state_stamped__functions.h
+[65.737s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/vesc_imu.h
+[65.738s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/vesc_state.h
+[65.738s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/vesc_imu_stamped.h
+[65.739s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/environment/library_path.sh
+[65.740s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/environment/library_path.dsv
+[65.740s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/libvesc_msgs__rosidl_generator_c.so
+[65.740s] -- Set runtime path of "/home/coche/coche_ws/install/vesc_msgs/lib/libvesc_msgs__rosidl_generator_c.so" to ""
+[65.741s] -- Up-to-date: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs
+[65.742s] -- Up-to-date: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg
+[65.742s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[65.743s] -- Up-to-date: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail
+[65.743s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state_stamped__rosidl_typesupport_fastrtps_c.h
+[65.744s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu__rosidl_typesupport_fastrtps_c.h
+[65.751s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state__rosidl_typesupport_fastrtps_c.h
+[65.752s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu_stamped__rosidl_typesupport_fastrtps_c.h
+[65.753s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/libvesc_msgs__rosidl_typesupport_fastrtps_c.so
+[65.753s] -- Set runtime path of "/home/coche/coche_ws/install/vesc_msgs/lib/libvesc_msgs__rosidl_typesupport_fastrtps_c.so" to ""
+[65.754s] -- Up-to-date: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs
+[65.754s] -- Up-to-date: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg
+[65.755s] -- Up-to-date: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail
+[65.756s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state_stamped__rosidl_typesupport_fastrtps_cpp.hpp
+[65.757s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu__rosidl_typesupport_fastrtps_cpp.hpp
+[65.757s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu_stamped__rosidl_typesupport_fastrtps_cpp.hpp
+[65.758s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state__rosidl_typesupport_fastrtps_cpp.hpp
+[65.758s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/dds_fastrtps
+[65.759s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[65.759s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/libvesc_msgs__rosidl_typesupport_fastrtps_cpp.so
+[65.760s] -- Set runtime path of "/home/coche/coche_ws/install/vesc_msgs/lib/libvesc_msgs__rosidl_typesupport_fastrtps_cpp.so" to ""
+[65.762s] -- Up-to-date: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs
+[65.765s] -- Up-to-date: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg
+[65.767s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[65.768s] -- Up-to-date: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail
+[65.769s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu__type_support.c
+[65.771s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu_stamped__rosidl_typesupport_introspection_c.h
+[65.772s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu__rosidl_typesupport_introspection_c.h
+[65.772s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state_stamped__rosidl_typesupport_introspection_c.h
+[65.772s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu_stamped__type_support.c
+[65.772s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state__rosidl_typesupport_introspection_c.h
+[65.773s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state__type_support.c
+[65.773s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state_stamped__type_support.c
+[65.774s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/libvesc_msgs__rosidl_typesupport_introspection_c.so
+[65.774s] -- Set runtime path of "/home/coche/coche_ws/install/vesc_msgs/lib/libvesc_msgs__rosidl_typesupport_introspection_c.so" to ""
+[65.775s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/libvesc_msgs__rosidl_typesupport_c.so
+[65.777s] -- Set runtime path of "/home/coche/coche_ws/install/vesc_msgs/lib/libvesc_msgs__rosidl_typesupport_c.so" to ""
+[65.786s] -- Up-to-date: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs
+[65.786s] -- Up-to-date: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg
+[65.787s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/vesc_imu.hpp
+[65.787s] -- Up-to-date: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail
+[65.788s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu_stamped__builder.hpp
+[65.788s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu__type_support.hpp
+[65.789s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu__struct.hpp
+[65.789s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu_stamped__traits.hpp
+[65.789s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state_stamped__struct.hpp
+[65.790s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state__type_support.hpp
+[65.790s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state_stamped__builder.hpp
+[65.790s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state__traits.hpp
+[65.791s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state__builder.hpp
+[65.791s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state_stamped__type_support.hpp
+[65.792s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state_stamped__traits.hpp
+[65.792s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu__traits.hpp
+[65.793s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu_stamped__type_support.hpp
+[65.793s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu_stamped__struct.hpp
+[65.793s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu__builder.hpp
+[65.794s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state__struct.hpp
+[65.794s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/rosidl_generator_cpp__visibility_control.hpp
+[65.794s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/vesc_state.hpp
+[65.795s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/vesc_state_stamped.hpp
+[65.795s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/vesc_imu_stamped.hpp
+[65.796s] -- Up-to-date: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs
+[65.796s] -- Up-to-date: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg
+[65.797s] -- Up-to-date: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail
+[65.798s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state__type_support.cpp
+[65.798s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu__rosidl_typesupport_introspection_cpp.hpp
+[65.799s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu__type_support.cpp
+[65.799s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state_stamped__rosidl_typesupport_introspection_cpp.hpp
+[65.800s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state__rosidl_typesupport_introspection_cpp.hpp
+[65.800s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu_stamped__type_support.cpp
+[65.801s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_state_stamped__type_support.cpp
+[65.801s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/include/vesc_msgs/msg/detail/vesc_imu_stamped__rosidl_typesupport_introspection_cpp.hpp
+[65.801s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/libvesc_msgs__rosidl_typesupport_introspection_cpp.so
+[65.804s] -- Set runtime path of "/home/coche/coche_ws/install/vesc_msgs/lib/libvesc_msgs__rosidl_typesupport_introspection_cpp.so" to ""
+[65.804s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/libvesc_msgs__rosidl_typesupport_cpp.so
+[65.807s] -- Set runtime path of "/home/coche/coche_ws/install/vesc_msgs/lib/libvesc_msgs__rosidl_typesupport_cpp.so" to ""
+[65.807s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/environment/pythonpath.sh
+[65.808s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/environment/pythonpath.dsv
+[65.809s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/__init__.py
+[65.942s] Compiling '/home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/__init__.py'...
+[65.957s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/msg
+[65.958s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/msg/_vesc_state_stamped_s.c
+[65.959s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/msg/_vesc_imu_stamped_s.c
+[65.960s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/msg/_vesc_imu.py
+[65.961s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/msg/_vesc_state_stamped.py
+[65.961s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/msg/__init__.py
+[65.962s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/msg/_vesc_imu_stamped.py
+[65.963s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/msg/_vesc_imu_s.c
+[65.963s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/msg/_vesc_state_s.c
+[65.964s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/msg/_vesc_state.py
+[65.966s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/vesc_msgs_s__rosidl_typesupport_fastrtps_c.cpython-38-aarch64-linux-gnu.so
+[65.969s] -- Set runtime path of "/home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/vesc_msgs_s__rosidl_typesupport_fastrtps_c.cpython-38-aarch64-linux-gnu.so" to ""
+[65.970s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/vesc_msgs_s__rosidl_typesupport_introspection_c.cpython-38-aarch64-linux-gnu.so
+[65.973s] -- Set runtime path of "/home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/vesc_msgs_s__rosidl_typesupport_introspection_c.cpython-38-aarch64-linux-gnu.so" to ""
+[65.973s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/vesc_msgs_s__rosidl_typesupport_c.cpython-38-aarch64-linux-gnu.so
+[65.977s] -- Set runtime path of "/home/coche/coche_ws/install/vesc_msgs/lib/python3.8/site-packages/vesc_msgs/vesc_msgs_s__rosidl_typesupport_c.cpython-38-aarch64-linux-gnu.so" to ""
+[65.977s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/lib/libvesc_msgs__python.so
+[65.980s] -- Set runtime path of "/home/coche/coche_ws/install/vesc_msgs/lib/libvesc_msgs__python.so" to ""
+[65.980s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/msg/VescState.idl
+[65.981s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/msg/VescStateStamped.idl
+[65.982s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/msg/VescImu.idl
+[65.983s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/msg/VescImuStamped.idl
+[65.984s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/msg/VescState.msg
+[65.985s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/msg/VescStateStamped.msg
+[65.986s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/msg/VescImu.msg
+[65.986s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/msg/VescImuStamped.msg
+[65.988s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/ament_index/resource_index/package_run_dependencies/vesc_msgs
+[65.989s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/ament_index/resource_index/parent_prefix_path/vesc_msgs
+[65.989s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/environment/ament_prefix_path.sh
+[65.990s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/environment/ament_prefix_path.dsv
+[65.991s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/environment/path.sh
+[65.992s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/environment/path.dsv
+[65.993s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/local_setup.bash
+[65.994s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/local_setup.sh
+[65.994s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/local_setup.zsh
+[65.995s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/local_setup.dsv
+[65.996s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/package.dsv
+[65.997s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/ament_index/resource_index/packages/vesc_msgs
+[65.998s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/vesc_msgs__rosidl_generator_cExport.cmake
+[65.999s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/vesc_msgs__rosidl_generator_cExport-noconfig.cmake
+[66.001s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/vesc_msgs__rosidl_typesupport_introspection_cExport.cmake
+[66.001s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/vesc_msgs__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[66.003s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/vesc_msgs__rosidl_typesupport_cExport.cmake
+[66.003s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/vesc_msgs__rosidl_typesupport_cExport-noconfig.cmake
+[66.004s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/vesc_msgs__rosidl_generator_cppExport.cmake
+[66.005s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/vesc_msgs__rosidl_typesupport_introspection_cppExport.cmake
+[66.006s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/vesc_msgs__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[66.007s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/vesc_msgs__rosidl_typesupport_cppExport.cmake
+[66.008s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/vesc_msgs__rosidl_typesupport_cppExport-noconfig.cmake
+[66.009s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/rosidl_cmake-extras.cmake
+[66.011s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/ament_cmake_export_dependencies-extras.cmake
+[66.011s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/ament_cmake_export_libraries-extras.cmake
+[66.012s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/ament_cmake_export_targets-extras.cmake
+[66.012s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/ament_cmake_export_include_directories-extras.cmake
+[66.013s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[66.014s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[66.015s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/vesc_msgsConfig.cmake
+[66.016s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/cmake/vesc_msgsConfig-version.cmake
+[66.017s] -- Installing: /home/coche/coche_ws/install/vesc_msgs/share/vesc_msgs/package.xml
+[66.030s] Invoked command in '/home/coche/coche_ws/build/vesc_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/vesc_msgs

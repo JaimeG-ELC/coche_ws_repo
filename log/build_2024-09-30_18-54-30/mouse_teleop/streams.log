@@ -1,0 +1,21 @@
+[3.884s] Invoking command in '/home/coche/coche_ws/src/f1tenth_system/teleop_tools/mouse_teleop': PYTHONPATH=/home/coche/coche_ws/build/mouse_teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/coche/coche_ws/install/mouse_teleop/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../../../build/mouse_teleop build --build-base /home/coche/coche_ws/build/mouse_teleop/build install --record /home/coche/coche_ws/build/mouse_teleop/install.log --install-scripts $base/lib/mouse_teleop --single-version-externally-managed install_data
+[5.403s] running egg_info
+[5.409s] writing ../../../../build/mouse_teleop/mouse_teleop.egg-info/PKG-INFO
+[5.412s] writing dependency_links to ../../../../build/mouse_teleop/mouse_teleop.egg-info/dependency_links.txt
+[5.412s] writing entry points to ../../../../build/mouse_teleop/mouse_teleop.egg-info/entry_points.txt
+[5.413s] writing requirements to ../../../../build/mouse_teleop/mouse_teleop.egg-info/requires.txt
+[5.414s] writing top-level names to ../../../../build/mouse_teleop/mouse_teleop.egg-info/top_level.txt
+[5.570s] reading manifest file '../../../../build/mouse_teleop/mouse_teleop.egg-info/SOURCES.txt'
+[5.575s] writing manifest file '../../../../build/mouse_teleop/mouse_teleop.egg-info/SOURCES.txt'
+[5.576s] running build
+[5.576s] running build_py
+[5.578s] running install
+[5.582s] running install_lib
+[5.589s] running install_data
+[5.589s] running install_egg_info
+[5.597s] removing '/home/coche/coche_ws/install/mouse_teleop/lib/python3.8/site-packages/mouse_teleop-0.3.0-py3.8.egg-info' (and everything under it)
+[5.599s] Copying ../../../../build/mouse_teleop/mouse_teleop.egg-info to /home/coche/coche_ws/install/mouse_teleop/lib/python3.8/site-packages/mouse_teleop-0.3.0-py3.8.egg-info
+[5.607s] running install_scripts
+[5.702s] Installing mouse_teleop script to /home/coche/coche_ws/install/mouse_teleop/lib/mouse_teleop
+[5.704s] writing list of installed files to '/home/coche/coche_ws/build/mouse_teleop/install.log'
+[6.262s] Invoked command in '/home/coche/coche_ws/src/f1tenth_system/teleop_tools/mouse_teleop' returned '0': PYTHONPATH=/home/coche/coche_ws/build/mouse_teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/coche/coche_ws/install/mouse_teleop/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../../../build/mouse_teleop build --build-base /home/coche/coche_ws/build/mouse_teleop/build install --record /home/coche/coche_ws/build/mouse_teleop/install.log --install-scripts $base/lib/mouse_teleop --single-version-externally-managed install_data

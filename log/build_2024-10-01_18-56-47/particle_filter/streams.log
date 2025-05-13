@@ -1,0 +1,22 @@
+[3.717s] Invoking command in '/home/coche/coche_ws/src/f1tenth_system/particle filter': PYTHONPATH=/home/coche/coche_ws/build/particle_filter/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/coche/coche_ws/install/particle_filter/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../../build/particle_filter build --build-base /home/coche/coche_ws/build/particle_filter/build install --record /home/coche/coche_ws/build/particle_filter/install.log --install-scripts $base/lib/particle_filter --single-version-externally-managed install_data
+[4.666s] running egg_info
+[4.669s] writing ../../../build/particle_filter/particle_filter.egg-info/PKG-INFO
+[4.671s] writing dependency_links to ../../../build/particle_filter/particle_filter.egg-info/dependency_links.txt
+[4.672s] writing entry points to ../../../build/particle_filter/particle_filter.egg-info/entry_points.txt
+[4.672s] writing requirements to ../../../build/particle_filter/particle_filter.egg-info/requires.txt
+[4.673s] writing top-level names to ../../../build/particle_filter/particle_filter.egg-info/top_level.txt
+[4.809s] reading manifest file '../../../build/particle_filter/particle_filter.egg-info/SOURCES.txt'
+[4.814s] writing manifest file '../../../build/particle_filter/particle_filter.egg-info/SOURCES.txt'
+[4.814s] running build
+[4.815s] running build_py
+[4.816s] running install
+[4.819s] running install_lib
+[4.825s] running install_data
+[4.829s] copying config/localize.yaml -> /home/coche/coche_ws/install/particle_filter/share/particle_filter/config
+[4.829s] running install_egg_info
+[4.837s] removing '/home/coche/coche_ws/install/particle_filter/lib/python3.8/site-packages/particle_filter-0.2.0-py3.8.egg-info' (and everything under it)
+[4.838s] Copying ../../../build/particle_filter/particle_filter.egg-info to /home/coche/coche_ws/install/particle_filter/lib/python3.8/site-packages/particle_filter-0.2.0-py3.8.egg-info
+[4.843s] running install_scripts
+[4.909s] Installing particle_filter script to /home/coche/coche_ws/install/particle_filter/lib/particle_filter
+[4.911s] writing list of installed files to '/home/coche/coche_ws/build/particle_filter/install.log'
+[5.000s] Invoked command in '/home/coche/coche_ws/src/f1tenth_system/particle filter' returned '0': PYTHONPATH=/home/coche/coche_ws/build/particle_filter/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/coche/coche_ws/install/particle_filter/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../../build/particle_filter build --build-base /home/coche/coche_ws/build/particle_filter/build install --record /home/coche/coche_ws/build/particle_filter/install.log --install-scripts $base/lib/particle_filter --single-version-externally-managed install_data

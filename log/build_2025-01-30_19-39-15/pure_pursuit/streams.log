@@ -1,0 +1,27 @@
+[0.102s] Invoking command in '/home/coche/coche_ws/build/pure_pursuit': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/pure_pursuit -- -j4 -l4
+[0.395s] Invoked command in '/home/coche/coche_ws/build/pure_pursuit' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/pure_pursuit -- -j4 -l4
+[0.413s] Invoking command in '/home/coche/coche_ws/build/pure_pursuit': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/pure_pursuit
+[0.465s] -- Install configuration: ""
+[0.466s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/share/pure_pursuit/environment/pythonpath.sh
+[0.466s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/share/pure_pursuit/environment/pythonpath.dsv
+[0.467s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/lib/python3.8/site-packages/pure_pursuit
+[0.467s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/lib/python3.8/site-packages/pure_pursuit/__init__.py
+[0.690s] Listing '/home/coche/coche_ws/install/pure_pursuit/lib/python3.8/site-packages/pure_pursuit'...
+[0.718s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/lib/pure_pursuit/pure_pursuit_node.py
+[0.719s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/lib/pure_pursuit/final_race_pure_pursuit_node.py
+[0.719s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/share/ament_index/resource_index/package_run_dependencies/pure_pursuit
+[0.719s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/share/ament_index/resource_index/parent_prefix_path/pure_pursuit
+[0.720s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/share/pure_pursuit/environment/ament_prefix_path.sh
+[0.720s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/share/pure_pursuit/environment/ament_prefix_path.dsv
+[0.720s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/share/pure_pursuit/environment/path.sh
+[0.721s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/share/pure_pursuit/environment/path.dsv
+[0.722s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/share/pure_pursuit/local_setup.bash
+[0.723s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/share/pure_pursuit/local_setup.sh
+[0.723s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/share/pure_pursuit/local_setup.zsh
+[0.724s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/share/pure_pursuit/local_setup.dsv
+[0.724s] -- Installing: /home/coche/coche_ws/install/pure_pursuit/share/pure_pursuit/package.dsv
+[0.725s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/share/ament_index/resource_index/packages/pure_pursuit
+[0.726s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/share/pure_pursuit/cmake/pure_pursuitConfig.cmake
+[0.726s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/share/pure_pursuit/cmake/pure_pursuitConfig-version.cmake
+[0.727s] -- Up-to-date: /home/coche/coche_ws/install/pure_pursuit/share/pure_pursuit/package.xml
+[0.737s] Invoked command in '/home/coche/coche_ws/build/pure_pursuit' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/pure_pursuit

@@ -1,0 +1,85 @@
+[0.094s] Invoking command in '/home/coche/coche_ws/build/gap_follow': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake /home/coche/coche_ws/src/f1tenth_system/gap_follow -DCMAKE_INSTALL_PREFIX=/home/coche/coche_ws/install/gap_follow
+[0.462s] -- The C compiler identification is GNU 9.4.0
+[0.808s] -- The CXX compiler identification is GNU 9.4.0
+[0.844s] -- Check for working C compiler: /usr/bin/cc
+[1.322s] -- Check for working C compiler: /usr/bin/cc -- works
+[1.328s] -- Detecting C compiler ABI info
+[1.846s] -- Detecting C compiler ABI info - done
+[1.943s] -- Detecting C compile features
+[1.944s] -- Detecting C compile features - done
+[1.964s] -- Check for working CXX compiler: /usr/bin/c++
+[2.457s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[2.462s] -- Detecting CXX compiler ABI info
+[2.923s] -- Detecting CXX compiler ABI info - done
+[2.993s] -- Detecting CXX compile features
+[2.997s] -- Detecting CXX compile features - done
+[3.018s] -- Found ament_cmake: 0.9.12 (/opt/ros/foxy/share/ament_cmake/cmake)
+[3.170s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[3.170s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[4.299s] -- Found rclcpp: 2.4.3 (/opt/ros/foxy/share/rclcpp/cmake)
+[4.626s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[4.680s] -- Found rosidl_adapter: 1.3.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)
+[5.303s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "1.1.1f")  
+[5.454s] -- Found FastRTPS: /opt/ros/foxy/include  
+[5.935s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[6.280s] -- Found rmw_implementation_cmake: 1.0.4 (/opt/ros/foxy/share/rmw_implementation_cmake/cmake)
+[6.292s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[6.295s] -- Looking for pthread.h
+[6.773s] -- Looking for pthread.h - found
+[6.782s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[7.301s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+[7.302s] -- Looking for pthread_create in pthreads
+[7.723s] -- Looking for pthread_create in pthreads - not found
+[7.724s] -- Looking for pthread_create in pthread
+[8.120s] -- Looking for pthread_create in pthread - found
+[8.134s] -- Found Threads: TRUE  
+[9.136s] -- Found rclpy: 1.0.13 (/opt/ros/foxy/share/rclpy/cmake)
+[9.150s] -- Found geometry_msgs: 2.0.5 (/opt/ros/foxy/share/geometry_msgs/cmake)
+[9.350s] -- Found nav_msgs: 2.0.5 (/opt/ros/foxy/share/nav_msgs/cmake)
+[9.725s] -- Found ackermann_msgs: 2.0.2 (/opt/ros/foxy/share/ackermann_msgs/cmake)
+[9.917s] -- Found sensor_msgs: 2.0.5 (/opt/ros/foxy/share/sensor_msgs/cmake)
+[10.394s] -- Found ament_lint_auto: 0.9.8 (/opt/ros/foxy/share/ament_lint_auto/cmake)
+[10.842s] -- Added test 'copyright' to check source files copyright and LICENSE
+[10.853s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[10.854s] -- Configured cppcheck include dirs: 
+[10.855s] -- Configured cppcheck exclude dirs and/or files: 
+[10.865s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[10.866s] -- Configured cpplint exclude dirs and/or files: 
+[10.872s] -- Added test 'flake8' to check Python code syntax and style conventions
+[10.880s] -- Added test 'lint_cmake' to check CMake code style
+[10.885s] -- Added test 'pep257' to check Python code against some of the style conventions in PEP 257
+[10.894s] -- Added test 'uncrustify' to check C / C++ code style
+[10.894s] -- Configured uncrustify additional arguments: 
+[10.899s] -- Added test 'xmllint' to check XML markup files
+[10.926s] -- Configuring done
+[10.941s] -- Generating done
+[10.955s] -- Build files have been written to: /home/coche/coche_ws/build/gap_follow
+[11.022s] Invoked command in '/home/coche/coche_ws/build/gap_follow' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake /home/coche/coche_ws/src/f1tenth_system/gap_follow -DCMAKE_INSTALL_PREFIX=/home/coche/coche_ws/install/gap_follow
+[11.028s] Invoking command in '/home/coche/coche_ws/build/gap_follow': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/gap_follow -- -j4 -l4
+[11.295s] Invoked command in '/home/coche/coche_ws/build/gap_follow' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/gap_follow -- -j4 -l4
+[11.297s] Invoking command in '/home/coche/coche_ws/build/gap_follow': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/gap_follow
+[11.358s] -- Install configuration: ""
+[11.362s] -- Installing: /home/coche/coche_ws/install/gap_follow/share/gap_follow/environment/pythonpath.sh
+[11.364s] -- Installing: /home/coche/coche_ws/install/gap_follow/share/gap_follow/environment/pythonpath.dsv
+[11.366s] -- Installing: /home/coche/coche_ws/install/gap_follow/lib/python3.8/site-packages/gap_follow
+[11.367s] -- Installing: /home/coche/coche_ws/install/gap_follow/lib/python3.8/site-packages/gap_follow/__init__.py
+[11.529s] Listing '/home/coche/coche_ws/install/gap_follow/lib/python3.8/site-packages/gap_follow'...
+[11.529s] Compiling '/home/coche/coche_ws/install/gap_follow/lib/python3.8/site-packages/gap_follow/__init__.py'...
+[11.551s] -- Installing: /home/coche/coche_ws/install/gap_follow/lib/gap_follow/reactive_node.py
+[11.551s] -- Installing: /home/coche/coche_ws/install/gap_follow/lib/gap_follow/final_race_reactive_node.py
+[11.552s] -- Installing: /home/coche/coche_ws/install/gap_follow/share/ament_index/resource_index/package_run_dependencies/gap_follow
+[11.553s] -- Installing: /home/coche/coche_ws/install/gap_follow/share/ament_index/resource_index/parent_prefix_path/gap_follow
+[11.554s] -- Installing: /home/coche/coche_ws/install/gap_follow/share/gap_follow/environment/ament_prefix_path.sh
+[11.555s] -- Installing: /home/coche/coche_ws/install/gap_follow/share/gap_follow/environment/ament_prefix_path.dsv
+[11.556s] -- Installing: /home/coche/coche_ws/install/gap_follow/share/gap_follow/environment/path.sh
+[11.559s] -- Installing: /home/coche/coche_ws/install/gap_follow/share/gap_follow/environment/path.dsv
+[11.560s] -- Installing: /home/coche/coche_ws/install/gap_follow/share/gap_follow/local_setup.bash
+[11.561s] -- Installing: /home/coche/coche_ws/install/gap_follow/share/gap_follow/local_setup.sh
+[11.564s] -- Installing: /home/coche/coche_ws/install/gap_follow/share/gap_follow/local_setup.zsh
+[11.565s] -- Installing: /home/coche/coche_ws/install/gap_follow/share/gap_follow/local_setup.dsv
+[11.567s] -- Installing: /home/coche/coche_ws/install/gap_follow/share/gap_follow/package.dsv
+[11.568s] -- Installing: /home/coche/coche_ws/install/gap_follow/share/ament_index/resource_index/packages/gap_follow
+[11.569s] -- Installing: /home/coche/coche_ws/install/gap_follow/share/gap_follow/cmake/gap_followConfig.cmake
+[11.570s] -- Installing: /home/coche/coche_ws/install/gap_follow/share/gap_follow/cmake/gap_followConfig-version.cmake
+[11.571s] -- Installing: /home/coche/coche_ws/install/gap_follow/share/gap_follow/package.xml
+[11.588s] Invoked command in '/home/coche/coche_ws/build/gap_follow' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/gap_follow

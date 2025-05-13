@@ -1,0 +1,72 @@
+[0.157s] Invoking command in '/home/coche/coche_ws/build/waypoint_generator': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake /home/coche/coche_ws/src/f1tenth_system/waypoint_generator -DCMAKE_INSTALL_PREFIX=/home/coche/coche_ws/install/waypoint_generator
+[0.646s] -- The C compiler identification is GNU 9.4.0
+[1.142s] -- The CXX compiler identification is GNU 9.4.0
+[1.181s] -- Check for working C compiler: /usr/bin/cc
+[1.674s] -- Check for working C compiler: /usr/bin/cc -- works
+[1.683s] -- Detecting C compiler ABI info
+[2.148s] -- Detecting C compiler ABI info - done
+[2.214s] -- Detecting C compile features
+[2.218s] -- Detecting C compile features - done
+[2.233s] -- Check for working CXX compiler: /usr/bin/c++
+[2.652s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[2.657s] -- Detecting CXX compiler ABI info
+[3.122s] -- Detecting CXX compiler ABI info - done
+[3.192s] -- Detecting CXX compile features
+[3.194s] -- Detecting CXX compile features - done
+[3.217s] -- Found ament_cmake: 0.9.12 (/opt/ros/foxy/share/ament_cmake/cmake)
+[3.403s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[3.404s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[4.496s] -- Found rclcpp: 2.4.3 (/opt/ros/foxy/share/rclcpp/cmake)
+[4.817s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[4.878s] -- Found rosidl_adapter: 1.3.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)
+[5.375s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "1.1.1f")  
+[5.513s] -- Found FastRTPS: /opt/ros/foxy/include  
+[5.929s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[6.255s] -- Found rmw_implementation_cmake: 1.0.4 (/opt/ros/foxy/share/rmw_implementation_cmake/cmake)
+[6.265s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[6.269s] -- Looking for pthread.h
+[6.658s] -- Looking for pthread.h - found
+[6.660s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[7.052s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+[7.053s] -- Looking for pthread_create in pthreads
+[7.361s] -- Looking for pthread_create in pthreads - not found
+[7.363s] -- Looking for pthread_create in pthread
+[7.715s] -- Looking for pthread_create in pthread - found
+[7.724s] -- Found Threads: TRUE  
+[8.380s] -- Found rclpy: 1.0.13 (/opt/ros/foxy/share/rclpy/cmake)
+[8.393s] -- Found geometry_msgs: 2.0.5 (/opt/ros/foxy/share/geometry_msgs/cmake)
+[8.527s] -- Found nav_msgs: 2.0.5 (/opt/ros/foxy/share/nav_msgs/cmake)
+[8.776s] -- Found ackermann_msgs: 2.0.2 (/opt/ros/foxy/share/ackermann_msgs/cmake)
+[8.910s] -- Found sensor_msgs: 2.0.5 (/opt/ros/foxy/share/sensor_msgs/cmake)
+[9.156s] -- Found visualization_msgs: 2.0.5 (/opt/ros/foxy/share/visualization_msgs/cmake)
+[9.417s] -- Found tf2_ros: 0.13.14 (/opt/ros/foxy/share/tf2_ros/cmake)
+[10.917s] -- Configuring done
+[10.991s] -- Generating done
+[11.023s] -- Build files have been written to: /home/coche/coche_ws/build/waypoint_generator
+[11.061s] Invoked command in '/home/coche/coche_ws/build/waypoint_generator' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake /home/coche/coche_ws/src/f1tenth_system/waypoint_generator -DCMAKE_INSTALL_PREFIX=/home/coche/coche_ws/install/waypoint_generator
+[11.070s] Invoking command in '/home/coche/coche_ws/build/waypoint_generator': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/waypoint_generator -- -j4 -l4
+[11.274s] [35m[1mScanning dependencies of target waypoint_generator[0m
+[11.553s] [ 50%] [32mBuilding CXX object CMakeFiles/waypoint_generator.dir/src/waypoint_generator.cpp.o[0m
+[30.966s] [100%] [32m[1mLinking CXX executable waypoint_generator[0m
+[32.157s] [100%] Built target waypoint_generator
+[32.212s] Invoked command in '/home/coche/coche_ws/build/waypoint_generator' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/waypoint_generator -- -j4 -l4
+[32.226s] Invoking command in '/home/coche/coche_ws/build/waypoint_generator': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/waypoint_generator
+[32.266s] -- Install configuration: ""
+[32.266s] -- Installing: /home/coche/coche_ws/install/waypoint_generator/lib/waypoint_generator/waypoint_generator
+[32.282s] -- Set runtime path of "/home/coche/coche_ws/install/waypoint_generator/lib/waypoint_generator/waypoint_generator" to ""
+[32.283s] -- Installing: /home/coche/coche_ws/install/waypoint_generator/share/ament_index/resource_index/package_run_dependencies/waypoint_generator
+[32.284s] -- Installing: /home/coche/coche_ws/install/waypoint_generator/share/ament_index/resource_index/parent_prefix_path/waypoint_generator
+[32.285s] -- Installing: /home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/environment/ament_prefix_path.sh
+[32.286s] -- Installing: /home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/environment/ament_prefix_path.dsv
+[32.287s] -- Installing: /home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/environment/path.sh
+[32.288s] -- Installing: /home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/environment/path.dsv
+[32.289s] -- Installing: /home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/local_setup.bash
+[32.290s] -- Installing: /home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/local_setup.sh
+[32.292s] -- Installing: /home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/local_setup.zsh
+[32.293s] -- Installing: /home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/local_setup.dsv
+[32.293s] -- Installing: /home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/package.dsv
+[32.295s] -- Installing: /home/coche/coche_ws/install/waypoint_generator/share/ament_index/resource_index/packages/waypoint_generator
+[32.296s] -- Installing: /home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/cmake/waypoint_generatorConfig.cmake
+[32.297s] -- Installing: /home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/cmake/waypoint_generatorConfig-version.cmake
+[32.298s] -- Installing: /home/coche/coche_ws/install/waypoint_generator/share/waypoint_generator/package.xml
+[32.312s] Invoked command in '/home/coche/coche_ws/build/waypoint_generator' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/waypoint_generator

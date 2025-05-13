@@ -1,0 +1,84 @@
+[0.185s] Invoking command in '/home/coche/coche_ws/build/wall_follow': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake /home/coche/coche_ws/src/f1tenth_system/wall_follow -DCMAKE_INSTALL_PREFIX=/home/coche/coche_ws/install/wall_follow
+[0.553s] -- The C compiler identification is GNU 9.4.0
+[0.882s] -- The CXX compiler identification is GNU 9.4.0
+[0.908s] -- Check for working C compiler: /usr/bin/cc
+[1.321s] -- Check for working C compiler: /usr/bin/cc -- works
+[1.327s] -- Detecting C compiler ABI info
+[1.749s] -- Detecting C compiler ABI info - done
+[1.821s] -- Detecting C compile features
+[1.822s] -- Detecting C compile features - done
+[1.835s] -- Check for working CXX compiler: /usr/bin/c++
+[2.317s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[2.322s] -- Detecting CXX compiler ABI info
+[2.805s] -- Detecting CXX compiler ABI info - done
+[2.873s] -- Detecting CXX compile features
+[2.877s] -- Detecting CXX compile features - done
+[2.897s] -- Found ament_cmake: 0.9.12 (/opt/ros/foxy/share/ament_cmake/cmake)
+[3.072s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[3.074s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[4.142s] -- Found rclcpp: 2.4.3 (/opt/ros/foxy/share/rclcpp/cmake)
+[4.421s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[4.482s] -- Found rosidl_adapter: 1.3.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)
+[5.003s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "1.1.1f")  
+[5.155s] -- Found FastRTPS: /opt/ros/foxy/include  
+[5.528s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[5.798s] -- Found rmw_implementation_cmake: 1.0.4 (/opt/ros/foxy/share/rmw_implementation_cmake/cmake)
+[5.807s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[5.811s] -- Looking for pthread.h
+[6.181s] -- Looking for pthread.h - found
+[6.184s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[6.566s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+[6.568s] -- Looking for pthread_create in pthreads
+[6.887s] -- Looking for pthread_create in pthreads - not found
+[6.889s] -- Looking for pthread_create in pthread
+[7.231s] -- Looking for pthread_create in pthread - found
+[7.240s] -- Found Threads: TRUE  
+[7.846s] -- Found rclpy: 1.0.13 (/opt/ros/foxy/share/rclpy/cmake)
+[7.857s] -- Found geometry_msgs: 2.0.5 (/opt/ros/foxy/share/geometry_msgs/cmake)
+[7.986s] -- Found nav_msgs: 2.0.5 (/opt/ros/foxy/share/nav_msgs/cmake)
+[8.236s] -- Found ackermann_msgs: 2.0.2 (/opt/ros/foxy/share/ackermann_msgs/cmake)
+[8.364s] -- Found sensor_msgs: 2.0.5 (/opt/ros/foxy/share/sensor_msgs/cmake)
+[8.729s] -- Found ament_lint_auto: 0.9.8 (/opt/ros/foxy/share/ament_lint_auto/cmake)
+[9.095s] -- Added test 'copyright' to check source files copyright and LICENSE
+[9.102s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[9.102s] -- Configured cppcheck include dirs: /home/coche/coche_ws/src/f1tenth_system/wall_follow/include
+[9.103s] -- Configured cppcheck exclude dirs and/or files: 
+[9.108s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[9.109s] -- Configured cpplint exclude dirs and/or files: 
+[9.111s] -- Added test 'flake8' to check Python code syntax and style conventions
+[9.115s] -- Added test 'lint_cmake' to check CMake code style
+[9.118s] -- Added test 'pep257' to check Python code against some of the style conventions in PEP 257
+[9.124s] -- Added test 'uncrustify' to check C / C++ code style
+[9.124s] -- Configured uncrustify additional arguments: 
+[9.127s] -- Added test 'xmllint' to check XML markup files
+[9.150s] -- Configuring done
+[9.161s] -- Generating done
+[9.171s] -- Build files have been written to: /home/coche/coche_ws/build/wall_follow
+[9.209s] Invoked command in '/home/coche/coche_ws/build/wall_follow' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake /home/coche/coche_ws/src/f1tenth_system/wall_follow -DCMAKE_INSTALL_PREFIX=/home/coche/coche_ws/install/wall_follow
+[9.224s] Invoking command in '/home/coche/coche_ws/build/wall_follow': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/wall_follow -- -j4 -l4
+[9.405s] Invoked command in '/home/coche/coche_ws/build/wall_follow' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/wall_follow -- -j4 -l4
+[9.424s] Invoking command in '/home/coche/coche_ws/build/wall_follow': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/wall_follow
+[9.459s] -- Install configuration: ""
+[9.460s] -- Installing: /home/coche/coche_ws/install/wall_follow/share/wall_follow/environment/pythonpath.sh
+[9.460s] -- Installing: /home/coche/coche_ws/install/wall_follow/share/wall_follow/environment/pythonpath.dsv
+[9.461s] -- Installing: /home/coche/coche_ws/install/wall_follow/lib/python3.8/site-packages/wall_follow
+[9.462s] -- Installing: /home/coche/coche_ws/install/wall_follow/lib/python3.8/site-packages/wall_follow/__init__.py
+[9.602s] Listing '/home/coche/coche_ws/install/wall_follow/lib/python3.8/site-packages/wall_follow'...
+[9.602s] Compiling '/home/coche/coche_ws/install/wall_follow/lib/python3.8/site-packages/wall_follow/__init__.py'...
+[9.619s] -- Installing: /home/coche/coche_ws/install/wall_follow/lib/wall_follow/wall_follow_node.py
+[9.619s] -- Installing: /home/coche/coche_ws/install/wall_follow/share/ament_index/resource_index/package_run_dependencies/wall_follow
+[9.620s] -- Installing: /home/coche/coche_ws/install/wall_follow/share/ament_index/resource_index/parent_prefix_path/wall_follow
+[9.621s] -- Installing: /home/coche/coche_ws/install/wall_follow/share/wall_follow/environment/ament_prefix_path.sh
+[9.622s] -- Installing: /home/coche/coche_ws/install/wall_follow/share/wall_follow/environment/ament_prefix_path.dsv
+[9.623s] -- Installing: /home/coche/coche_ws/install/wall_follow/share/wall_follow/environment/path.sh
+[9.624s] -- Installing: /home/coche/coche_ws/install/wall_follow/share/wall_follow/environment/path.dsv
+[9.630s] -- Installing: /home/coche/coche_ws/install/wall_follow/share/wall_follow/local_setup.bash
+[9.631s] -- Installing: /home/coche/coche_ws/install/wall_follow/share/wall_follow/local_setup.sh
+[9.631s] -- Installing: /home/coche/coche_ws/install/wall_follow/share/wall_follow/local_setup.zsh
+[9.631s] -- Installing: /home/coche/coche_ws/install/wall_follow/share/wall_follow/local_setup.dsv
+[9.632s] -- Installing: /home/coche/coche_ws/install/wall_follow/share/wall_follow/package.dsv
+[9.636s] -- Installing: /home/coche/coche_ws/install/wall_follow/share/ament_index/resource_index/packages/wall_follow
+[9.636s] -- Installing: /home/coche/coche_ws/install/wall_follow/share/wall_follow/cmake/wall_followConfig.cmake
+[9.637s] -- Installing: /home/coche/coche_ws/install/wall_follow/share/wall_follow/cmake/wall_followConfig-version.cmake
+[9.639s] -- Installing: /home/coche/coche_ws/install/wall_follow/share/wall_follow/package.xml
+[9.653s] Invoked command in '/home/coche/coche_ws/build/wall_follow' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/wall_follow

@@ -1,0 +1,39 @@
+[3.841s] Invoking command in '/home/coche/coche_ws/src/f1tenth_system/teleop_tools/key_teleop': PYTHONPATH=/home/coche/coche_ws/build/key_teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/coche/coche_ws/install/key_teleop/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../../../build/key_teleop build --build-base /home/coche/coche_ws/build/key_teleop/build install --record /home/coche/coche_ws/build/key_teleop/install.log --install-scripts $base/lib/key_teleop --single-version-externally-managed install_data
+[5.040s] running egg_info
+[5.044s] creating ../../../../build/key_teleop/key_teleop.egg-info
+[5.045s] writing ../../../../build/key_teleop/key_teleop.egg-info/PKG-INFO
+[5.047s] writing dependency_links to ../../../../build/key_teleop/key_teleop.egg-info/dependency_links.txt
+[5.047s] writing entry points to ../../../../build/key_teleop/key_teleop.egg-info/entry_points.txt
+[5.054s] writing requirements to ../../../../build/key_teleop/key_teleop.egg-info/requires.txt
+[5.054s] writing top-level names to ../../../../build/key_teleop/key_teleop.egg-info/top_level.txt
+[5.062s] writing manifest file '../../../../build/key_teleop/key_teleop.egg-info/SOURCES.txt'
+[5.217s] reading manifest file '../../../../build/key_teleop/key_teleop.egg-info/SOURCES.txt'
+[5.218s] writing manifest file '../../../../build/key_teleop/key_teleop.egg-info/SOURCES.txt'
+[5.218s] running build
+[5.219s] running build_py
+[5.219s] creating /home/coche/coche_ws/build/key_teleop/build
+[5.220s] creating /home/coche/coche_ws/build/key_teleop/build/lib
+[5.220s] creating /home/coche/coche_ws/build/key_teleop/build/lib/key_teleop
+[5.221s] copying key_teleop/__init__.py -> /home/coche/coche_ws/build/key_teleop/build/lib/key_teleop
+[5.221s] copying key_teleop/key_teleop.py -> /home/coche/coche_ws/build/key_teleop/build/lib/key_teleop
+[5.222s] running install
+[5.227s] running install_lib
+[5.231s] creating /home/coche/coche_ws/install/key_teleop/lib/python3.8/site-packages/key_teleop
+[5.232s] copying /home/coche/coche_ws/build/key_teleop/build/lib/key_teleop/__init__.py -> /home/coche/coche_ws/install/key_teleop/lib/python3.8/site-packages/key_teleop
+[5.232s] copying /home/coche/coche_ws/build/key_teleop/build/lib/key_teleop/key_teleop.py -> /home/coche/coche_ws/install/key_teleop/lib/python3.8/site-packages/key_teleop
+[5.235s] byte-compiling /home/coche/coche_ws/install/key_teleop/lib/python3.8/site-packages/key_teleop/__init__.py to __init__.cpython-38.pyc
+[5.239s] byte-compiling /home/coche/coche_ws/install/key_teleop/lib/python3.8/site-packages/key_teleop/key_teleop.py to key_teleop.cpython-38.pyc
+[5.247s] running install_data
+[5.252s] copying package.xml -> /home/coche/coche_ws/install/key_teleop/share/key_teleop
+[5.253s] creating /home/coche/coche_ws/install/key_teleop/share/key_teleop/config
+[5.253s] copying config/key_teleop.yaml -> /home/coche/coche_ws/install/key_teleop/share/key_teleop/config
+[5.255s] creating /home/coche/coche_ws/install/key_teleop/share/ament_index
+[5.255s] creating /home/coche/coche_ws/install/key_teleop/share/ament_index/resource_index
+[5.256s] creating /home/coche/coche_ws/install/key_teleop/share/ament_index/resource_index/packages
+[5.256s] copying resource/key_teleop -> /home/coche/coche_ws/install/key_teleop/share/ament_index/resource_index/packages
+[5.258s] running install_egg_info
+[5.263s] Copying ../../../../build/key_teleop/key_teleop.egg-info to /home/coche/coche_ws/install/key_teleop/lib/python3.8/site-packages/key_teleop-0.3.0-py3.8.egg-info
+[5.269s] running install_scripts
+[5.343s] Installing key_teleop script to /home/coche/coche_ws/install/key_teleop/lib/key_teleop
+[5.345s] writing list of installed files to '/home/coche/coche_ws/build/key_teleop/install.log'
+[5.446s] Invoked command in '/home/coche/coche_ws/src/f1tenth_system/teleop_tools/key_teleop' returned '0': PYTHONPATH=/home/coche/coche_ws/build/key_teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/coche/coche_ws/install/key_teleop/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../../../build/key_teleop build --build-base /home/coche/coche_ws/build/key_teleop/build install --record /home/coche/coche_ws/build/key_teleop/install.log --install-scripts $base/lib/key_teleop --single-version-externally-managed install_data

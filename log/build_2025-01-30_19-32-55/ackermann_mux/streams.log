@@ -1,0 +1,38 @@
+[0.227s] Invoking command in '/home/coche/coche_ws/build/ackermann_mux': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/ackermann_mux -- -j4 -l4
+[2.155s] [100%] Built target ackermann_mux
+[2.211s] Invoked command in '/home/coche/coche_ws/build/ackermann_mux' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/ackermann_mux -- -j4 -l4
+[2.606s] Invoking command in '/home/coche/coche_ws/build/ackermann_mux': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/ackermann_mux
+[2.668s] -- Install configuration: ""
+[2.670s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/lib/ackermann_mux/ackermann_mux
+[2.673s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/launch
+[2.675s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/launch/ackermann_mux_launch.py
+[2.676s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/config
+[2.677s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/config/ackermann_mux_topics.yaml
+[2.678s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/config/joystick.yaml
+[2.679s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/config/ackermann_mux_locks.yaml
+[2.682s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/include
+[2.685s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/include/ackermann_mux
+[2.687s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/include/ackermann_mux/ackermann_mux_diagnostics_status.hpp
+[2.688s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/include/ackermann_mux/ackermann_mux.hpp
+[2.688s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/include/ackermann_mux/topic_handle.hpp
+[2.689s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/include/ackermann_mux/params_helpers.hpp
+[2.689s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/include/ackermann_mux/ackermann_mux_diagnostics.hpp
+[2.690s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/include/ackermann_mux/utils.hpp
+[2.690s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ament_index/resource_index/package_run_dependencies/ackermann_mux
+[2.690s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ament_index/resource_index/parent_prefix_path/ackermann_mux
+[2.690s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/environment/ament_prefix_path.sh
+[2.691s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/environment/ament_prefix_path.dsv
+[2.691s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/environment/path.sh
+[2.691s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/environment/path.dsv
+[2.692s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/local_setup.bash
+[2.692s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/local_setup.sh
+[2.692s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/local_setup.zsh
+[2.692s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/local_setup.dsv
+[2.693s] -- Installing: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/package.dsv
+[2.693s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ament_index/resource_index/packages/ackermann_mux
+[2.693s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/cmake/ament_cmake_export_include_directories-extras.cmake
+[2.694s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/cmake/ament_cmake_export_dependencies-extras.cmake
+[2.694s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/cmake/ackermann_muxConfig.cmake
+[2.694s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/cmake/ackermann_muxConfig-version.cmake
+[2.695s] -- Up-to-date: /home/coche/coche_ws/install/ackermann_mux/share/ackermann_mux/package.xml
+[2.706s] Invoked command in '/home/coche/coche_ws/build/ackermann_mux' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/ackermann_mux

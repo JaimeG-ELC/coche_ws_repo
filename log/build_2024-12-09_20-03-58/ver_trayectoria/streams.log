@@ -1,0 +1,21 @@
+[5.996s] Invoking command in '/home/coche/coche_ws/src/f1tenth_system/ver_trayectoria': PYTHONPATH=/home/coche/coche_ws/build/ver_trayectoria/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/coche/coche_ws/install/ver_trayectoria/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/ver_trayectoria build --build-base /home/coche/coche_ws/build/ver_trayectoria/build install --record /home/coche/coche_ws/build/ver_trayectoria/install.log --install-scripts $base/lib/ver_trayectoria --single-version-externally-managed install_data
+[7.818s] running egg_info
+[7.821s] writing ../../../build/ver_trayectoria/ver_trayectoria.egg-info/PKG-INFO
+[7.822s] writing dependency_links to ../../../build/ver_trayectoria/ver_trayectoria.egg-info/dependency_links.txt
+[7.823s] writing entry points to ../../../build/ver_trayectoria/ver_trayectoria.egg-info/entry_points.txt
+[7.823s] writing requirements to ../../../build/ver_trayectoria/ver_trayectoria.egg-info/requires.txt
+[7.824s] writing top-level names to ../../../build/ver_trayectoria/ver_trayectoria.egg-info/top_level.txt
+[8.035s] reading manifest file '../../../build/ver_trayectoria/ver_trayectoria.egg-info/SOURCES.txt'
+[8.051s] writing manifest file '../../../build/ver_trayectoria/ver_trayectoria.egg-info/SOURCES.txt'
+[8.058s] running build
+[8.059s] running build_py
+[8.060s] running install
+[8.063s] running install_lib
+[8.071s] running install_data
+[8.072s] running install_egg_info
+[8.088s] removing '/home/coche/coche_ws/install/ver_trayectoria/lib/python3.8/site-packages/ver_trayectoria-0.0.0-py3.8.egg-info' (and everything under it)
+[8.097s] Copying ../../../build/ver_trayectoria/ver_trayectoria.egg-info to /home/coche/coche_ws/install/ver_trayectoria/lib/python3.8/site-packages/ver_trayectoria-0.0.0-py3.8.egg-info
+[8.126s] running install_scripts
+[8.242s] Installing ver_trayectoria script to /home/coche/coche_ws/install/ver_trayectoria/lib/ver_trayectoria
+[8.245s] writing list of installed files to '/home/coche/coche_ws/build/ver_trayectoria/install.log'
+[8.384s] Invoked command in '/home/coche/coche_ws/src/f1tenth_system/ver_trayectoria' returned '0': PYTHONPATH=/home/coche/coche_ws/build/ver_trayectoria/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/coche/coche_ws/install/ver_trayectoria/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../../build/ver_trayectoria build --build-base /home/coche/coche_ws/build/ver_trayectoria/build install --record /home/coche/coche_ws/build/ver_trayectoria/install.log --install-scripts $base/lib/ver_trayectoria --single-version-externally-managed install_data

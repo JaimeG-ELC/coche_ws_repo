@@ -1,0 +1,120 @@
+[0.183s] Invoking command in '/home/coche/coche_ws/build/teleop_tools_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/teleop_tools_msgs -- -j4 -l4
+[0.486s] [  3%] Built target teleop_tools_msgs__cpp
+[0.638s] [ 12%] Built target teleop_tools_msgs__rosidl_generator_c
+[0.803s] [ 22%] Built target teleop_tools_msgs__rosidl_typesupport_cpp
+[0.824s] [ 32%] Built target teleop_tools_msgs__rosidl_typesupport_introspection_cpp
+[0.837s] [ 41%] Built target teleop_tools_msgs__rosidl_typesupport_fastrtps_cpp
+[0.873s] [ 51%] Built target teleop_tools_msgs__rosidl_typesupport_introspection_c
+[0.988s] [ 61%] Built target teleop_tools_msgs__rosidl_typesupport_c
+[1.020s] [ 70%] Built target teleop_tools_msgs__rosidl_typesupport_fastrtps_c
+[1.116s] [ 70%] Built target teleop_tools_msgs
+[1.213s] [ 74%] Built target teleop_tools_msgs__py
+[1.332s] [ 80%] Built target teleop_tools_msgs__python
+[1.513s] [ 87%] Built target teleop_tools_msgs__rosidl_typesupport_c__pyext
+[1.529s] [ 93%] Built target teleop_tools_msgs__rosidl_typesupport_fastrtps_c__pyext
+[1.555s] [100%] Built target teleop_tools_msgs__rosidl_typesupport_introspection_c__pyext
+[1.686s] Invoked command in '/home/coche/coche_ws/build/teleop_tools_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --build /home/coche/coche_ws/build/teleop_tools_msgs -- -j4 -l4
+[2.024s] Invoking command in '/home/coche/coche_ws/build/teleop_tools_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/teleop_tools_msgs
+[2.063s] -- Install configuration: ""
+[2.063s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/ament_index/resource_index/rosidl_interfaces/teleop_tools_msgs
+[2.064s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs
+[2.064s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action
+[2.065s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail
+[2.066s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail/increment__type_support.h
+[2.066s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail/increment__functions.c
+[2.067s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail/increment__functions.h
+[2.067s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail/increment__struct.h
+[2.067s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/increment.h
+[2.068s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/msg
+[2.068s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/msg/rosidl_generator_c__visibility_control.h
+[2.070s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/environment/library_path.sh
+[2.071s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/environment/library_path.dsv
+[2.074s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/lib/libteleop_tools_msgs__rosidl_generator_c.so
+[2.078s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs
+[2.078s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action
+[2.079s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail
+[2.079s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail/increment__rosidl_typesupport_fastrtps_c.h
+[2.081s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/msg
+[2.081s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[2.082s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/lib/libteleop_tools_msgs__rosidl_typesupport_fastrtps_c.so
+[2.083s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs
+[2.083s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action
+[2.084s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail
+[2.084s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail/dds_fastrtps
+[2.085s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail/increment__rosidl_typesupport_fastrtps_cpp.hpp
+[2.085s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/msg
+[2.095s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[2.096s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/lib/libteleop_tools_msgs__rosidl_typesupport_fastrtps_cpp.so
+[2.097s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs
+[2.099s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action
+[2.101s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail
+[2.101s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail/increment__rosidl_typesupport_introspection_c.h
+[2.101s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail/increment__type_support.c
+[2.102s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/msg
+[2.102s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[2.102s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/lib/libteleop_tools_msgs__rosidl_typesupport_introspection_c.so
+[2.103s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/lib/libteleop_tools_msgs__rosidl_typesupport_c.so
+[2.103s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs
+[2.104s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action
+[2.104s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail
+[2.104s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail/increment__traits.hpp
+[2.105s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail/increment__type_support.hpp
+[2.106s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail/increment__struct.hpp
+[2.106s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail/increment__builder.hpp
+[2.107s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/increment.hpp
+[2.110s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/msg
+[2.111s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/msg/rosidl_generator_cpp__visibility_control.hpp
+[2.111s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs
+[2.111s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action
+[2.111s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail
+[2.112s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail/increment__rosidl_typesupport_introspection_cpp.hpp
+[2.112s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/include/teleop_tools_msgs/action/detail/increment__type_support.cpp
+[2.112s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/lib/libteleop_tools_msgs__rosidl_typesupport_introspection_cpp.so
+[2.113s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/lib/libteleop_tools_msgs__rosidl_typesupport_cpp.so
+[2.113s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/environment/pythonpath.sh
+[2.114s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/environment/pythonpath.dsv
+[2.114s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/lib/python3.8/site-packages/teleop_tools_msgs/__init__.py
+[2.296s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/lib/python3.8/site-packages/teleop_tools_msgs/action
+[2.297s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/lib/python3.8/site-packages/teleop_tools_msgs/action/_increment.py
+[2.298s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/lib/python3.8/site-packages/teleop_tools_msgs/action/__init__.py
+[2.298s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/lib/python3.8/site-packages/teleop_tools_msgs/action/_increment_s.c
+[2.298s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/lib/python3.8/site-packages/teleop_tools_msgs/teleop_tools_msgs_s__rosidl_typesupport_fastrtps_c.cpython-38-aarch64-linux-gnu.so
+[2.308s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/lib/python3.8/site-packages/teleop_tools_msgs/teleop_tools_msgs_s__rosidl_typesupport_introspection_c.cpython-38-aarch64-linux-gnu.so
+[2.310s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/lib/python3.8/site-packages/teleop_tools_msgs/teleop_tools_msgs_s__rosidl_typesupport_c.cpython-38-aarch64-linux-gnu.so
+[2.312s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/lib/libteleop_tools_msgs__python.so
+[2.314s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/action/Increment.idl
+[2.316s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/action/Increment.action
+[2.316s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/ament_index/resource_index/package_run_dependencies/teleop_tools_msgs
+[2.318s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/ament_index/resource_index/parent_prefix_path/teleop_tools_msgs
+[2.319s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/environment/ament_prefix_path.sh
+[2.322s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/environment/ament_prefix_path.dsv
+[2.324s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/environment/path.sh
+[2.325s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/environment/path.dsv
+[2.326s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/local_setup.bash
+[2.328s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/local_setup.sh
+[2.329s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/local_setup.zsh
+[2.330s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/local_setup.dsv
+[2.331s] -- Installing: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/package.dsv
+[2.333s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/ament_index/resource_index/packages/teleop_tools_msgs
+[2.334s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/teleop_tools_msgs__rosidl_generator_cExport.cmake
+[2.334s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/teleop_tools_msgs__rosidl_generator_cExport-noconfig.cmake
+[2.335s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/teleop_tools_msgs__rosidl_typesupport_introspection_cExport.cmake
+[2.341s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/teleop_tools_msgs__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[2.342s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/teleop_tools_msgs__rosidl_typesupport_cExport.cmake
+[2.343s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/teleop_tools_msgs__rosidl_typesupport_cExport-noconfig.cmake
+[2.344s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/teleop_tools_msgs__rosidl_generator_cppExport.cmake
+[2.345s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/teleop_tools_msgs__rosidl_typesupport_introspection_cppExport.cmake
+[2.346s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/teleop_tools_msgs__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[2.347s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/teleop_tools_msgs__rosidl_typesupport_cppExport.cmake
+[2.349s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/teleop_tools_msgs__rosidl_typesupport_cppExport-noconfig.cmake
+[2.353s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/rosidl_cmake-extras.cmake
+[2.353s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/ament_cmake_export_dependencies-extras.cmake
+[2.354s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/ament_cmake_export_libraries-extras.cmake
+[2.354s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/ament_cmake_export_targets-extras.cmake
+[2.355s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/ament_cmake_export_include_directories-extras.cmake
+[2.356s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[2.356s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[2.357s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/teleop_tools_msgsConfig.cmake
+[2.357s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/cmake/teleop_tools_msgsConfig-version.cmake
+[2.358s] -- Up-to-date: /home/coche/coche_ws/install/teleop_tools_msgs/share/teleop_tools_msgs/package.xml
+[2.400s] Invoked command in '/home/coche/coche_ws/build/teleop_tools_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/coche/coche_ws/install/f1tenth_stack:/home/coche/coche_ws/install/ver_trayectoria:/home/coche/coche_ws/install/joy_teleop:/home/coche/coche_ws/install/stanley_avoidance:/home/coche/coche_ws/install/particle_filter:/home/coche/coche_ws/install/mouse_teleop:/home/coche/coche_ws/install/key_teleop:/opt/ros/foxy /usr/bin/cmake --install /home/coche/coche_ws/build/teleop_tools_msgs
