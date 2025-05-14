@@ -1,9 +1,0 @@
-/home/coche/coche_ws/build/lqr/CMakeFiles/install/strip.dir
-/home/coche/coche_ws/build/lqr/CMakeFiles/install/local.dir
-/home/coche/coche_ws/build/lqr/CMakeFiles/install.dir
-/home/coche/coche_ws/build/lqr/CMakeFiles/list_install_components.dir
-/home/coche/coche_ws/build/lqr/CMakeFiles/rebuild_cache.dir
-/home/coche/coche_ws/build/lqr/CMakeFiles/edit_cache.dir
-/home/coche/coche_ws/build/lqr/CMakeFiles/test.dir
-/home/coche/coche_ws/build/lqr/CMakeFiles/lqr_uninstall.dir
-/home/coche/coche_ws/build/lqr/CMakeFiles/uninstall.dir
