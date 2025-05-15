@@ -47,9 +47,10 @@ RUN git clone -b foxy-devel https://github.com/f1tenth/particle_filter.git
 
 WORKDIR /root/coche_ws/src/particle_filter
 RUN sudo pip install cython && \
-    git clone -b foxy-devel https://github.com/f1tenth/range_libc.git && \
-    cd range_libc/pywrappers && \
-    ./compile_with_cuda.sh
+    git clone -b foxy-devel https://github.com/f1tenth/range_libc.git
+
+WORKDIR /root/coche_ws/src/particle_filter/range_libc/pywrapper
+RUN ./compile_with_cuda.sh
 
 WORKDIR /root/coche_ws
 
