@@ -25,15 +25,15 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /root/coche_ws
 
-# Create a workspace directory
-WORKDIR /root/coche_ws/src
-
 # Set source file to install asio dependency later on
 RUN wget https://github.com/chriskohlhoff/asio/archive/asio-1-12-2.tar.gz && \
     tar -xvzf asio-1-12-2.tar.gz && \
     cd asio-asio-1-12-2 && \
     cp -r asio/include/asio /usr/include/ && \
     apt-get update
+
+# Create a workspace directory
+WORKDIR /root/coche_ws/src
 
 # Install VESC Drivers
 RUN git clone https://github.com/ros-drivers/transport_drivers.git && \
