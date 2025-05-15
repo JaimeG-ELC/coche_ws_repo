@@ -15,6 +15,9 @@ RUN apt-get update && apt-get install -y \
     libbullet-dev \
     tmux \
     python3-pip \
+    python3-dev \
+    python3-numpy \
+    cython3 \
     libhidapi-dev \
     libusb-1.0-0-dev \
     dbus \
@@ -46,11 +49,11 @@ RUN git clone  -b foxy-devel https://github.com/f1tenth/ackermann_mux.git
 RUN git clone -b foxy-devel https://github.com/f1tenth/particle_filter.git
 
 WORKDIR /root/coche_ws/src/particle_filter
-RUN sudo pip install cython && \
+RUN pip3 install cython && \
     git clone -b foxy-devel https://github.com/f1tenth/range_libc.git
 
 WORKDIR /root/coche_ws/src/particle_filter/range_libc/pywrapper
-RUN ./compile_with_cuda.sh
+RUN chmod +x compile.sh && ./compile.sh
 
 WORKDIR /root/coche_ws
 
