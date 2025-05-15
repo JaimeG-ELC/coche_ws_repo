@@ -43,11 +43,11 @@ RUN git clone -b foxy-devel https://github.com/ros-teleop/teleop_tools.git
 RUN git clone  -b foxy-devel https://github.com/f1tenth/ackermann_mux.git
 
 #Install Particle Filter repo
-RUN git clone https://github.com/f1tenth/particle_filter.git
+RUN git clone -b foxy-devel https://github.com/f1tenth/particle_filter.git
 
 WORKDIR /root/coche_ws/src/particle_filter
 RUN sudo pip install cython && \
-    git clone -b foxy_devel https://github.com/f1tenth/range_libc.git && \
+    git clone -b foxy-devel https://github.com/f1tenth/range_libc.git && \
     cd range_libc/pywrappers && \
     ./compile_with_cuda.sh
 
