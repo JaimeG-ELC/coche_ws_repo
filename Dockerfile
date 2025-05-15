@@ -40,7 +40,7 @@ RUN git clone https://github.com/ros-drivers/transport_drivers.git && \
 RUN git clone -b foxy-devel https://github.com/ros-teleop/teleop_tools.git
 
 # Install Ackermann mux
-RUN git clone  -b foxy_devel https://github.com/f1tenth/ackermann_mux.git
+RUN git clone  -b foxy-devel https://github.com/f1tenth/ackermann_mux.git
 
 #Install Particle Filter repo
 RUN git clone https://github.com/f1tenth/particle_filter.git
