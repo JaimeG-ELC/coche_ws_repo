@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
     dbus \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /root/f1tenth_ws
+WORKDIR /root/coche_ws
 
 # Create a workspace directory
 WORKDIR /root/coche_ws/src
@@ -45,21 +45,17 @@ RUN git clone  -b foxy-devel https://github.com/f1tenth/ackermann_mux.git
 #Install Particle Filter repo
 RUN git clone https://github.com/f1tenth/particle_filter.git
 
-#For map server
-RUN rosdep install -r --from-paths src --ignore-src --rosdistro kinetic -y && \
-
-#For RangeLibc
+WORKDIR /root/coche_ws/src/particle_filter
 RUN sudo pip install cython && \
-    cd particle_filter && \
-    git clone -b foxy_devel -https://github.com/f1tenth/range_libc.git && \
+    git clone -b foxy_devel https://github.com/f1tenth/range_libc.git && \
     cd range_libc/pywrappers && \
-    ./compile_with_cuda.sh && \
-    cd /root/f1tenth_ws
+    ./compile_with_cuda.sh
 
-WORKDIR /root/f1tenth_ws
+WORKDIR /root/coche_ws
 
 # Install the associated dependencies
-RUN rosdep update --include-eol-distros && rosdep install --from-path src --ignore-src -y
+RUN rosdep update --include-eol-distros && \
+    rosdep install --from-paths src --ignore-src --rosdistro foxy -y
 
 # Install Joy Ros package
 RUN apt-get update && apt-get install -y ros-foxy-joy 
