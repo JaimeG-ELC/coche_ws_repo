@@ -9,7 +9,6 @@ docker run -it --privileged --net=host \
     --volume=./src/f1tenth_stack:/root/coche_ws/src/f1tenth_stack  \
     --volume=./src/trayectoria_pkg:/root/coche_ws/src/trayectoria_pkg \
     --volume=./src/gap_follow_pkg:/root/coche_ws/src/gap_follow_pkg \
-    --volume=./src/pure_persuit_pkg:/root/coche_ws/src/pure_persuit_pkg \
-    --volume=./src/mpc_pkg:/root/coche_ws/src/mpc_pkg \
+    --volume=./src/pure_pursuit_pkg:/root/coche_ws/src/pure_pursuit_pkg \
     --volume=./src/mpc_pkg:/root/coche_ws/src/mpc_pkg \
     f1tenth-system
