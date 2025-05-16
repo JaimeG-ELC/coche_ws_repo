@@ -10,6 +10,6 @@ docker run -it --privileged --net=host \
     --volume=./src/particle_filter_pkg:/root/coche_ws/src/particle_filter_pkg \
     --volume=./src/gap_follow_pkg:/root/coche_ws/src/gap_follow_pkg \
     --volume=./src/pure_persuit_pkg:/root/coche_ws/src/pure_persuit_pkg \
-    --volume=./src/pure_persuit_pkg:/root/coche_ws/src/pure_persuit_pkg \
+    --volume=./src/mpc_pkg:/root/coche_ws/src/mpc_pkg \
 
     f1tenth-system
