@@ -61,7 +61,6 @@ RUN chmod +x compile_with_cuda.sh compile.sh && \
         ./compile.sh; \
     fi
 
-
 WORKDIR /root/coche_ws
 
 # Install the associated dependencies
