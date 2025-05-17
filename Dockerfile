@@ -53,7 +53,14 @@ RUN pip3 install cython && \
     git clone -b foxy-devel https://github.com/f1tenth/range_libc.git
 
 WORKDIR /root/coche_ws/src/particle_filter/range_libc/pywrapper
-RUN chmod +x compile.sh && ./compile.sh
+RUN chmod +x compile_with_cuda.sh compile.sh && \
+    if ./compile_with_cuda.sh; then \
+        echo "Compiled with CUDA"; \
+    else \
+        echo "CUDA failed, falling back to CPU compile"; \
+        ./compile.sh; \
+    fi
+
 
 WORKDIR /root/coche_ws
 
