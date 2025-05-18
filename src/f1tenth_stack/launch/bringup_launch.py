@@ -101,12 +101,6 @@ def generate_launch_description():
         name='vesc_driver_node',
         parameters=[LaunchConfiguration('vesc_config')]
     )
-    throttle_interpolator_node = Node(
-        package='f1tenth_stack',
-        executable='throttle_interpolator',
-        name='throttle_interpolator',
-        parameters=[LaunchConfiguration('vesc_config')]
-    )
     urg_node = Node(
         package='urg_node',
         executable='urg_node_driver',
