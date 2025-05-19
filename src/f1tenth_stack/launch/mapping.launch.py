@@ -35,7 +35,7 @@ def generate_launch_description():
     mapping_config = os.path.join(
         get_package_share_directory('f1tenth_stack'),
         'config',
-        'mapper_params_online_async.yaml'
+        'f1tenth_online_async.yaml'
     )
     # Declare launch arguments
     mapping_la = DeclareLaunchArgument(
