@@ -46,7 +46,7 @@ This will set up ROS2 Foxy and CUDA inside the container:
 ```bash
 cd /root/coche_ws
 colcon build
-source /opt/ros/foxy/setup.bash
+source install/setup.bash
 ```
 
 ### 6. Run Your ROS2 Nodes
