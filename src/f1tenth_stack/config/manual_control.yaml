@@ -1,0 +1,15 @@
+/**:
+  ros__parameters:
+    joy_topic: "/joy"
+    drive_topic: "/drive"
+    ackermann_cmd_topic: "/ackermann_cmd"
+    lb_button_idx: 5
+    rb_button_idx: 4
+    rt_axis_idx: 2
+    lt_axis_idx: 5
+    left_horizontal_axis_idx: 0
+    throttle_gain: 2.0
+    throttle_multiplier: 3.0
+    steering_gain: -0.37
+    steering_offset: 0.0
+    constant_throttle: 1.0
