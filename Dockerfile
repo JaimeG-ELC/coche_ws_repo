@@ -68,8 +68,12 @@ WORKDIR /root/coche_ws
 RUN rosdep update --include-eol-distros && \
     rosdep install --from-paths src --ignore-src --rosdistro foxy -y
 
-# Build the workspace
-RUN source /opt/ros/foxy/setup.bash && colcon build
+# Set shell to bash
+SHELL ["/bin/bash", "-c"]
+
+# Build workspace with explicit bash shell
+RUN source /opt/ros/foxy/setup.bash && \
+    colcon build
 
 # Set the entrypoint to run the container in a bash shell
 CMD ["/bin/bash"]
