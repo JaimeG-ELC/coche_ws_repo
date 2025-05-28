@@ -63,11 +63,12 @@ def generate_launch_description():
 
     ld = LaunchDescription([manual_control_la, vesc_la, sensors_la])
 
+
     joy_node = Node(
         package='joy',
         executable='joy_node',
-        name='joy',
-        parameters=[LaunchConfiguration('joy_config')]
+        name='joy_node',
+        output='screen'
     )
     manual_control_node = Node(
         package='manual_control_pkg',
@@ -75,7 +76,7 @@ def generate_launch_description():
         name='manual_control_node',
         output='screen',
         parameters=[LaunchConfiguration('manual_control_config')]
-        )
+    )
     ackermann_to_vesc_node = Node(
         package='vesc_ackermann',
         executable='ackermann_to_vesc_node',
