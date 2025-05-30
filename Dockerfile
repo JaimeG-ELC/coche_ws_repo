@@ -68,7 +68,9 @@ WORKDIR /root/coche_ws
 RUN rosdep update --include-eol-distros && \
     rosdep install --from-paths src --ignore-src --rosdistro foxy -y
 
-# Set shell to bash
+RUN sudo apt-get install -y ros-foxy-urg-node 
+
+    # Set shell to bash
 SHELL ["/bin/bash", "-c"]
 
 # Build workspace with explicit bash shell
