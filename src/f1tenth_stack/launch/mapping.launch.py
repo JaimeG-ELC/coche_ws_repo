@@ -112,11 +112,17 @@ def generate_launch_description():
         name='urg_node',
         parameters=[LaunchConfiguration('sensors_config')]
     )
-    static_tf_node = Node(
+    static_tf_baselink_basefootprint_node = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
-        name='static_baselink_to_laser',
-        arguments=['0.27', '0.0', '0.11', '0.0', '0.0', '0.0', 'base_link', 'laser']
+        name='static_baselink_to_basefootprint',
+        arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'base_link', 'base_footprint']
+    )
+    static_tf_basefootprint_laser_node = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_basefootprint_to_laser',
+        arguments=['0.27', '0.0', '0.11', '0.0', '0.0', '0.0', 'base_footprint', 'laser']
     )
     mapping_node = Node(
         package='slam_toolbox',
@@ -127,5 +133,13 @@ def generate_launch_description():
     )
 
     # finalize
+    ld.add_action(joy_node)
+    ld.add_action(manual_control_node)
+    ld.add_action(ackermann_to_vesc_node)
+    ld.add_action(vesc_to_odom_node)
+    ld.add_action(vesc_driver_node)
+    ld.add_action(urg_node)
+    ld.add_action(static_tf_baselink_basefootprint_node)
+    ld.add_action(static_tf_basefootprint_laser_node)
     ld.add_action(mapping_node)
     return ld
