@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(waypoint_generator_pkg)
+project(pure_pursuit_pkg)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -8,7 +8,7 @@ endif()
 
 # Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 17)
+  set(CMAKE_CXX_STANDARD 14)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -21,43 +21,42 @@ endif()
 # find_package(<dependency> REQUIRED)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(tf2_ros REQUIRED)
 find_package(nav_msgs REQUIRED)
+find_package(ackermann_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
 
-
-# Include directories
-include_directories(
-  include
+# Incluir Headers
+include_directories(include
   ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}
 )
 
-# Create the node executables
-add_executable(waypoint_generator_node
-  src/waypoint_generator_node.cpp
-)
+# Creamos los ejecutables
+add_executable(pure_pursuit_node 
+  src/pure_pursuit_node.cpp
+  ) 
 
-# Link dependencies for waypoint_generator
-ament_target_dependencies(waypoint_generator_node 
+ament_target_dependencies(pure_pursuit_node  
   rclcpp 
-  nav_msgs
+  tf2_ros 
+  nav_msgs 
+  ackermann_msgs 
+  geometry_msgs 
+  visualization_msgs
 )
 
 # Añadimos los ejecutables a la carpeta install
 install(TARGETS
-  waypoint_generator_node
+  pure_pursuit_node
   DESTINATION lib/${PROJECT_NAME} 
 )
 
-#Install include directories
 install(DIRECTORY 
-  include/
-  DESTINATION include/${PROJECT_NAME}
-)
-
-# Install launch and config files
-install(DIRECTORY 
-  launch
-  config
-  DESTINATION share/${PROJECT_NAME}/
+  config 
+  launch 
+  racelines 
+  DESTINATION share/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)
