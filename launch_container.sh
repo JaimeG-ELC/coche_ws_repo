@@ -3,6 +3,7 @@ docker run -it --privileged --net=host \
     -v /dev:/dev \
     -v /etc/udev/rules.d:/etc/udev/rules.d \
     --device /dev/sensors/vesc:/dev/sensors/vesc \
+    --device /dev/sensors/joystick:/dev/sensors/joystick \
     --env DISPLAY=$DISPLAY \
     --volume /tmp/.X11-unix:/tmp/.X11-unix \
     --volume ~/.Xauthority:/root/.Xauthority \
