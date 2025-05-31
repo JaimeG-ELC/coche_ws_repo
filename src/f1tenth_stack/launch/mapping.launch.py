@@ -75,7 +75,7 @@ def generate_launch_description():
 
     ld = LaunchDescription([mapping_la, manual_control_la, vesc_la, sensors_la])
 
-        joy_node = Node(
+    joy_node = Node(
         package='joy',
         executable='joy_node',
         name='joy_node',

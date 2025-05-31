@@ -79,7 +79,7 @@ RUN source /opt/ros/foxy/setup.bash && \
     colcon build
 
 # ROS domain id
-RUN export ROS_DOMAIN_ID=9
+ENV ROS_DOMAIN_ID=9
 
 # Set the entrypoint to run the container in a bash shell
 CMD ["/bin/bash"]
