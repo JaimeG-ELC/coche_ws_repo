@@ -28,6 +28,7 @@ RUN apt-get update && apt-get install -y \
     ros-foxy-diagnostics \
     ros-foxy-slam-toolbox \
     ros-foxy-rviz2 \
+    ros-foxy-urg-node \
     && rm -rf /var/lib/apt/lists/*
 
 #Install ds4drv
@@ -76,6 +77,9 @@ SHELL ["/bin/bash", "-c"]
 # Build workspace with explicit bash shell
 RUN source /opt/ros/foxy/setup.bash && \
     colcon build
+
+# ROS domain id
+RUN export ROS_DOMAIN_ID=9
 
 # Set the entrypoint to run the container in a bash shell
 CMD ["/bin/bash"]
