@@ -3,8 +3,8 @@
     joy_topic: "/joy"
     drive_topic: "/drive"
     ackermann_cmd_topic: "/ackermann_cmd"
-    lb_button_idx: 5
-    rb_button_idx: 4
+    lb_button_idx: 4
+    rb_button_idx: 5
     rt_axis_idx: 5
     lt_axis_idx: 2
     left_horizontal_axis_idx: 0
