@@ -240,11 +240,10 @@ void PurePursuit::steering_angle_calculation()
 
     // Determine speed depending on the value of k
     cmd.drive.speed = max_speed/(1 + k/max_steering_angle);  
-    // std::cout << "Speed: " << cmd.drive.speed << std::endl;
+    std::cout << "Speed: " << cmd.drive.speed << std::endl;
 
     cmd.drive.steering_angle = k;
-
-    // std::cout << "Steering Angle: " << cmd.drive.steering_angle << "\n" <<  "Speed: "  << cmd.drive.speed << std::endl;
+    std::cout << "Steering Angle: " << cmd.drive.steering_angle << "\n" <<  "Speed: "  << cmd.drive.speed << std::endl;
 
     // Command the car
     ack_pub_->publish(cmd);
@@ -260,7 +259,7 @@ void PurePursuit::odom_callback(const nav_msgs::msg::Odometry::ConstSharedPtr od
     double curr_vel = std::sqrt(std::pow(odom_msg->twist.twist.linear.x, 2) + std::pow(odom_msg->twist.twist.linear.y, 2));
 
     // Calculate lookahead_dist dynamically
-    lookahead_dist = std::min(std::max(max_lookahead_dist * curr_vel /lookahead_ratio, min_lookahead_dist), max_lookahead_dist);
+    //lookahead_dist = std::min(std::max(max_lookahead_dist * curr_vel /lookahead_ratio, min_lookahead_dist), max_lookahead_dist);
     // std::cout << "Lookahead_dist: " << lookahead_dist << std::endl;
 
     // Get the closest pathpoint
