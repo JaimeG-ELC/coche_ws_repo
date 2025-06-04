@@ -19,7 +19,7 @@ def generate_launch_description():
     )
 
     pure_pursuit_node = Node(
-        package="pure_pursuitpkg",
+        package="pure_pursuit_pkg",
         executable="pure_pursuit_node",
         name="pure_pursuit_node",
         parameters=[LaunchConfiguration('pure_pursuit_config')]

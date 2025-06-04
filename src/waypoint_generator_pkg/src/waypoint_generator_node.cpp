@@ -34,35 +34,6 @@ WayPointGenerator::WayPointGenerator()
     );
 }
 
-void WayPointGenerator::odom_callback(const nav_msgs::msg::Odometry::ConstSharedPtr odom_msg)
-{
-    // Check whether the points are apart enough
-    double diff = sqrt(pow((odom_msg->pose.pose.position.x - prev_x), 2) + pow((odom_msg->pose.pose.position.y - prev_y), 2));  
-    RCLCPP_INFO(this->get_logger(), "Waypoint iteration.");
-
-    if(diff >= min_distance)
-    {
-        // Open csv
-csv_odom.open(csv_path, std::ios::out | std::ios::app);
-    if (!csv_odom.is_open()) {
-        RCLCPP_ERROR(this->get_logger(), "Failed to open CSV file at path: %s", csv_path.c_str());
-        return;
-    }
-
-    RCLCPP_INFO(this->get_logger(), "Saving waypoint to file: %s", csv_path.c_str());
-
-        // Save the new point (x, y, theta, velocity, arc_length, curvature)
-        csv_odom << "\n" << odom_msg->pose.pose.position.x << ", " << odom_msg->pose.pose.position.y;
-
-        // Update the prev point (x, y)
-        prev_x = odom_msg->pose.pose.position.x;
-        prev_y = odom_msg->pose.pose.position.y;
-
-        // Close csv
-        csv_odom.close();
-    }    
-}
-
 void WayPointGenerator::timer_callback()
 {
     geometry_msgs::msg::TransformStamped tfStamped;
