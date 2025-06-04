@@ -10,7 +10,7 @@ def generate_launch_description():
     # First launch bringup to establish odom->base_link->laser
     bringup_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(pkg_f1tenth, 'launch', 'bringup.launch.py')
+            os.path.join(pkg_f1tenth, 'launch', 'bringup_pf.launch.py')
         )
     )
 
