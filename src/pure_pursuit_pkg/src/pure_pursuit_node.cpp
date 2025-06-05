@@ -76,7 +76,7 @@ int PurePursuit::load_pathpoints2memory()
 
     if(!csv.is_open())
     {
-        std::cerr << "Error: Could Not Open the File" << std::endl;
+        RCLCPP_INFO(this->get_logger(), "Error: Could Not Open the File");
         return -1;
     }
  
@@ -108,8 +108,8 @@ int PurePursuit::load_pathpoints2memory()
         pathpoints.emplace_back(std::stod(x_str), std::stod(y_str));
     }
 
-    // std::cout << "Elements: " << pathpoints[0].x << ", " << pathpoints[0].y << ", " << pathpoints[0].l << std::endl;
-    // std::cout << "Size: " << pathpoints.size() << std::endl;
+    // RCLCPP_INFO(this->get_logger(), "Elements: %f, %f", pathpoints[0].x, pathpoints[0].y);
+    // RCLCPP_INFO(this->get_logger(), "Size: %zu", pathpoints.size());
 
     return 0;
 }
@@ -138,8 +138,11 @@ void PurePursuit::graph_closest_pathpoint()
     marker.pose.position.y = v_global[1];
     marker.pose.position.z = 0.0;
 
-    graph_pub_->publish(marker);
+    // Add logging for waypoint information
+    RCLCPP_INFO(this->get_logger(), "Using waypoint %d at position (%.2f, %.2f)", 
+                start_index, v_global[0], v_global[1]);
 
+    graph_pub_->publish(marker);
     return;
 }
 
@@ -148,6 +151,7 @@ void PurePursuit::get_closest_pathpoint()
     int i = start_index;
     double aux;
     double closest_distance = std::numeric_limits<double>::max();
+    int closest_index = start_index;  // Track the closest point's index
     
     // Iterate through window_size
     for(int n = 0; n < window_size; n++)
@@ -155,14 +159,14 @@ void PurePursuit::get_closest_pathpoint()
         // Calculate pathpoint i to current pose distance
         aux = std::sqrt(std::pow(pathpoints[i].x - curr_pose.x, 2) + std::pow(pathpoints[i].y - curr_pose.y, 2));
 
-        // std::cout << "Closest_Distance: " << closest_distance << std::endl;
+        // RCLCPP_INFO(this->get_logger(), "Closest_Distance: %f", closest_distance);
 
         // Access to i pathpoint and compare it (First Exclude the points that are not in range)
         if(aux >= lookahead_dist && aux < closest_distance)
         {            
             closest_distance = aux;
-            start_index = i;
-        
+            closest_index = i;  // Store the closest index
+            
             // Use an Eigen Vector to express the closest point (from Map frame perspective)
             v_global << pathpoints[i].x, pathpoints[i].y, 0.0;
         }
@@ -171,8 +175,9 @@ void PurePursuit::get_closest_pathpoint()
         i = (i+1)%n_pathpoints;
     }
 
-    // std::cout << "Closest Point: " << v_global[0] << " " << v_global[1] << " " << l << std::endl;
+    // RCLCPP_INFO(this->get_logger(), "Closest Point: %f %f", v_global[0], v_global[1]);
 
+    start_index = closest_index;  // Update start_index with the closest point found
     graph_closest_pathpoint();
 
     return;
@@ -217,8 +222,8 @@ void PurePursuit::map2car()
     // Express v_global in Car Reference Frame (First Rotation and Then Translation)
     v_local = (R * v_global) + translation;
     
-    // std::cout << "Coordenadas Globales:\n" << v_global << std::endl;
-    // std::cout << "Coordenadas Locales:\n" << v_local << std::endl;
+    // RCLCPP_INFO(this->get_logger(), "Coordenadas Globales: [%f, %f, %f]", v_global[0], v_global[1], v_global[2]);
+    // RCLCPP_INFO(this->get_logger(), "Coordenadas Locales: [%f, %f, %f]", v_local[0], v_local[1], v_local[2]);
 
     return;
 }
@@ -240,10 +245,10 @@ void PurePursuit::steering_angle_calculation()
 
     // Determine speed depending on the value of k
     cmd.drive.speed = max_speed/(1 + k/max_steering_angle);  
-    std::cout << "Speed: " << cmd.drive.speed << std::endl;
+    RCLCPP_INFO(this->get_logger(), "Speed: %f", cmd.drive.speed);
 
     cmd.drive.steering_angle = k;
-    std::cout << "Steering Angle: " << cmd.drive.steering_angle << "\n" <<  "Speed: "  << cmd.drive.speed << std::endl;
+    RCLCPP_INFO(this->get_logger(), "Steering Angle: %f", cmd.drive.steering_angle);
 
     // Command the car
     ack_pub_->publish(cmd);
@@ -260,7 +265,7 @@ void PurePursuit::odom_callback(const nav_msgs::msg::Odometry::ConstSharedPtr od
 
     // Calculate lookahead_dist dynamically
     //lookahead_dist = std::min(std::max(max_lookahead_dist * curr_vel /lookahead_ratio, min_lookahead_dist), max_lookahead_dist);
-    // std::cout << "Lookahead_dist: " << lookahead_dist << std::endl;
+    // RCLCPP_INFO(this->get_logger(), "Lookahead_dist: %f", lookahead_dist);
 
     // Get the closest pathpoint
     get_closest_pathpoint();
