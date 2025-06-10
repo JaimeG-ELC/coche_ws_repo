@@ -42,7 +42,7 @@ ManualControlNode::ManualControlNode() : Node("manual_control_node"){
     enable_button_pub_ = this->create_publisher<std_msgs::msg::Int8>("/enable_0", 10);
     enable_button1_pub_ = this->create_publisher<std_msgs::msg::Int8>("/enable_1", 10);
 
-    drive_multiplier_ = -1.0;
+    drive_multiplier_ = 1.0;
     button_pressed_ = false;
     prev_drive_multiplier_button_value_ = 0.0;
     kill_button_prev_ = 0;
@@ -130,9 +130,13 @@ void ManualControlNode::joyCallback(const sensor_msgs::msg::Joy::SharedPtr joy) 
 
 void ManualControlNode::driveCallback(const ackermann_msgs::msg::AckermannDriveStamped::SharedPtr drive) {
     if (button_pressed_) {
-        drive->drive.speed *= drive_multiplier_;
-        ackermann_pub_->publish(*drive);
+        auto modified_drive = *drive;
+
+        modified_drive.drive.speed *= drive_multiplier_;
+        
+        RCLCPP_INFO(this->get_logger(), "Modified speed: %f (multiplier: %f)", 
+                    modified_drive.drive.speed, drive_multiplier_);
+
+        ackermann_pub_->publish(modified_drive);
     }
 }
-
-    

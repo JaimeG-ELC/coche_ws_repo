@@ -76,7 +76,7 @@ int PurePursuit::load_pathpoints2memory()
 
     if(!csv.is_open())
     {
-        std::cerr << "Error: Could Not Open the File" << std::endl;
+        RCLCPP_INFO(this->get_logger(), "Error: Could Not Open the File");
         return -1;
     }
  
@@ -108,8 +108,8 @@ int PurePursuit::load_pathpoints2memory()
         pathpoints.emplace_back(std::stod(x_str), std::stod(y_str));
     }
 
-    // std::cout << "Elements: " << pathpoints[0].x << ", " << pathpoints[0].y << ", " << pathpoints[0].l << std::endl;
-    // std::cout << "Size: " << pathpoints.size() << std::endl;
+    // RCLCPP_INFO(this->get_logger(), "Elements: %f, %f", pathpoints[0].x, pathpoints[0].y);
+    // RCLCPP_INFO(this->get_logger(), "Size: %zu", pathpoints.size());
 
     return 0;
 }
@@ -138,8 +138,11 @@ void PurePursuit::graph_closest_pathpoint()
     marker.pose.position.y = v_global[1];
     marker.pose.position.z = 0.0;
 
-    graph_pub_->publish(marker);
+    // Add logging for waypoint information
+    RCLCPP_INFO(this->get_logger(), "Using waypoint %d at position (%.2f, %.2f)", 
+                start_index, v_global[0], v_global[1]);
 
+    graph_pub_->publish(marker);
     return;
 }
 
@@ -153,6 +156,7 @@ void PurePursuit::get_closest_pathpoint()
     int i = start_index;
     double distance_to_pose;
     double closest_distance = std::numeric_limits<double>::max();
+    int closest_index = start_index;  // Track the closest point's index
     
     // Iterate through window_size
     for(int n = 0; n < window_size; n++)
@@ -160,22 +164,24 @@ void PurePursuit::get_closest_pathpoint()
         // Calculate pathpoint i to current pose distance
         distance_to_pose = std::sqrt(std::pow(pathpoints[i].x - curr_pose.x, 2) + std::pow(pathpoints[i].y - curr_pose.y, 2));
 
-        // Transform point to check if it's in front of the car
-        Eigen::Vector3d point;
-        point << pathpoints[i].x, pathpoints[i].y, 0.0;
-        Eigen::Vector3d point_local = transform_to_car_frame(point);
+        // std::cout << "Closest_Distance: " << closest_distance << std::endl;
 
         // Only consider points that are in front of the car and beyond lookahead distance
         if (point_local[0] > 0 && distance_to_pose >= lookahead_dist && distance_to_pose < closest_distance)
         {            
-            closest_distance = distance_to_pose;
+            closest_distance = aux;
             start_index = i;
+        
+            // Use an Eigen Vector to express the closest point (from Map frame perspective)
             v_global << pathpoints[i].x, pathpoints[i].y, 0.0;
         }
 
         i = (i+1)%n_pathpoints;
     }
 
+    // std::cout << "Closest Point: " << v_global[0] << " " << v_global[1] << " " << l << std::endl;
+
+    start_index = closest_index;  // Update start_index with the closest point found
     graph_closest_pathpoint();
 }
 
@@ -187,39 +193,24 @@ Eigen::Matrix3d PurePursuit::quaternionToMatrix(const geometry_msgs::msg::Quater
     double q2 = q.y;
     double q3 = q.z;
 
-    Eigen::Matrix3d R_car2map;
-    R_car2map << 2 * (q0*q0 + q1*q1) - 1,
-         2 * (q1*q2 - q0*q3),
-         2 * (q1*q3 + q0*q2),
-         2 * (q1*q2 + q0*q3),
-         2 * (q0*q0 + q2*q2) - 1,
-         2 * (q2*q3 - q0*q1),
-         2 * (q1*q3 - q0*q2),
-         2 * (q2*q3 + q0*q1),
-         2 * (q0*q0 + q3*q3) - 1;
-    return R_car2map;
-}
+    Eigen::Matrix3d R;
+    R << 2 * (q0*q0 + q1*q1) - 1,
+        2 * (q1*q2 - q0*q3),
+        2 * (q1*q3 + q0*q2),
+        2 * (q1*q2 + q0*q3),
+        2 * (q0*q0 + q2*q2) - 1,
+        2 * (q2*q3 - q0*q1),
+        2 * (q1*q3 - q0*q2),
+        2 * (q2*q3 + q0*q1),
+        2 * (q0*q0 + q3*q3) -1;
 
-Eigen::Vector3d PurePursuit::transform_to_car_frame(const Eigen::Vector3d& point_map)
-{
-    // Use cached transform instead of looking it up again
-    Eigen::Vector3d t_car_in_map(
-        current_transform_.transform.translation.x,
-        current_transform_.transform.translation.y,
-        current_transform_.transform.translation.z
-    );
-
-    // Get car→map rotation and transpose for map→car
-    Eigen::Matrix3d R_car2map = quaternionToMatrix(current_transform_.transform.rotation);
-    Eigen::Matrix3d R_map2car = R_car2map.transpose();
+    // Express v_global in Car Reference Frame (First Rotation and Then Translation)
+    v_local = (R * v_global) + translation;
     
-    // First subtract translation, then rotate
-    return R_map2car * (point_map - t_car_in_map);
-}
+    // std::cout << "Coordenadas Globales:\n" << v_global << std::endl;
+    // std::cout << "Coordenadas Locales:\n" << v_local << std::endl;
 
-void PurePursuit::map2car()
-{
-    v_local = transform_to_car_frame(v_global);
+    return;
 }
 
 void PurePursuit::steering_angle_calculation()
@@ -239,10 +230,10 @@ void PurePursuit::steering_angle_calculation()
 
     // Determine speed depending on the value of k
     cmd.drive.speed = max_speed/(1 + k/max_steering_angle);  
-    std::cout << "Speed: " << cmd.drive.speed << std::endl;
+    RCLCPP_INFO(this->get_logger(), "Speed: %f", cmd.drive.speed);
 
     cmd.drive.steering_angle = k;
-    std::cout << "Steering Angle: " << cmd.drive.steering_angle << "\n" <<  "Speed: "  << cmd.drive.speed << std::endl;
+    RCLCPP_INFO(this->get_logger(), "Steering Angle: %f", cmd.drive.steering_angle);
 
     // Command the car
     ack_pub_->publish(cmd);
@@ -258,26 +249,9 @@ void PurePursuit::odom_callback(const nav_msgs::msg::Odometry::ConstSharedPtr od
         odom_msg->twist.twist.linear.y
     );
 
-    // Cache current transform for this cycle
-    try {
-        current_transform_ = tf_buffer_->lookupTransform(
-            map_frame,          // target frame
-            car_frame,          // source frame
-            tf2::TimePointZero, 
-            std::chrono::milliseconds(100)
-        );
-    } catch (const tf2::TransformException &ex) {
-        RCLCPP_WARN(
-            this->get_logger(),
-            "Failed to get %s → %s transform: %s",
-            map_frame.c_str(), car_frame.c_str(), ex.what()
-        );
-        return;
-    }
-
-    // Update current pose
-    curr_pose.x = current_transform_.transform.translation.x;
-    curr_pose.y = current_transform_.transform.translation.y;
+    // Calculate lookahead_dist dynamically
+    //lookahead_dist = std::min(std::max(max_lookahead_dist * curr_vel /lookahead_ratio, min_lookahead_dist), max_lookahead_dist);
+    // std::cout << "Lookahead_dist: " << lookahead_dist << std::endl;
 
     // Rest of the pipeline uses cached transform
     get_closest_pathpoint();
