@@ -138,6 +138,10 @@ void PurePursuit::graph_closest_pathpoint()
     marker.pose.position.y = v_global[1];
     marker.pose.position.z = 0.0;
 
+    // Add logging for waypoint information
+    RCLCPP_INFO(this->get_logger(), "Using waypoint %d at position (%.2f, %.2f)", 
+                start_index, v_global[0], v_global[1]);
+
     graph_pub_->publish(marker);
 
     return;
@@ -159,6 +163,8 @@ void PurePursuit::get_closest_pathpoint()
     {
         // Calculate pathpoint i to current pose distance
         distance_to_pose = std::sqrt(std::pow(pathpoints[i].x - curr_pose.x, 2) + std::pow(pathpoints[i].y - curr_pose.y, 2));
+        RCLCPP_INFO(this->get_logger(), "Point: %i, Closest_distance: %f", i, aux);
+
 
         // Transform point to check if it's in front of the car
         Eigen::Vector3d point;
@@ -175,6 +181,8 @@ void PurePursuit::get_closest_pathpoint()
 
         i = (i+1)%n_pathpoints;
     }
+        RCLCPP_INFO(this->get_logger(), "VENTANA TERMINADA");
+
 
     graph_closest_pathpoint();
 }
