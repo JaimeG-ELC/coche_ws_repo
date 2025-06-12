@@ -10,6 +10,7 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
     this->declare_parameter<double>("lookahead_ratio", 8.0);
     this->declare_parameter<double>("max_speed", 4.0);
     this->declare_parameter<double>("Kp", 0.3);
+    
     this->declare_parameter<double>("max_steering_angle", 0.7);
     this->declare_parameter<int>("n_pathpoints", 123);
     this->declare_parameter<int>("window_size", 25);
@@ -163,7 +164,7 @@ void PurePursuit::get_closest_pathpoint()
     {
         // Calculate pathpoint i to current pose distance
         distance_to_pose = std::sqrt(std::pow(pathpoints[i].x - curr_pose.x, 2) + std::pow(pathpoints[i].y - curr_pose.y, 2));
-        RCLCPP_INFO(this->get_logger(), "Point: %i, Closest_distance: %f", i, aux);
+        RCLCPP_INFO(this->get_logger(), "Point: %i, Closest_distance: %f", i, distance_to_pose);
 
 
         // Transform point to check if it's in front of the car
