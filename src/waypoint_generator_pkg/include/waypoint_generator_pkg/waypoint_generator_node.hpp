@@ -1,3 +1,6 @@
+#ifndef WAYPOINT_GENERATOR_NODE_HPP_
+#define WAYPOINT_GENERATOR_NODE_HPP_
+
 #include <fstream> // Required to work with csv files
 #include <iostream>
 #include <string>
@@ -15,22 +18,22 @@ class WayPointGenerator : public rclcpp::Node
         WayPointGenerator();
 
     private:
-        // Required Variables
+        // Core parameters
         std::string csv_path;
         double min_distance;
         double prev_x;
         double prev_y;
         std::ofstream csv_odom;
-        std::string map_frame;    // New parameter
-        std::string car_frame;    // New parameter
+        std::string map_frame;
+        std::string car_frame;
 
-        // TF2 members
-        tf2_ros::Buffer tf_buffer;
-        tf2_ros::TransformListener tf_listener;
+        // Transform handling
+        std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
+        std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
+        geometry_msgs::msg::TransformStamped current_transform_;
 
-        // Timer
         rclcpp::TimerBase::SharedPtr timer_;
-
-        // Timer callback
         void timer_callback();
 };
+
+#endif  // WAYPOINT_GENERATOR_NODE_HPP_

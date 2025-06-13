@@ -1,10 +1,7 @@
 #include "waypoint_generator_pkg/waypoint_generator_node.hpp"
 
-
 WayPointGenerator::WayPointGenerator()
-: Node("waypoint_generator_node"),
-  tf_buffer(this->get_clock()),
-  tf_listener(tf_buffer)
+: Node("waypoint_generator_node")
 {
     this->declare_parameter("csv_path", "coche_ws/src/pure_pursuit_pkg/racelines/waypoints_odom_v1.csv");
     this->declare_parameter("min_distance", 0.5);
@@ -28,6 +25,11 @@ WayPointGenerator::WayPointGenerator()
     RCLCPP_INFO(this->get_logger(), "Map Frame: %s", map_frame.c_str());
     RCLCPP_INFO(this->get_logger(), "Car Frame: %s", car_frame.c_str());
 
+    // Initialize transform buffer and listener
+    tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
+    tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
+
+    // Create timer for periodic waypoint generation
     timer_ = this->create_wall_timer(
         std::chrono::milliseconds(100),
         std::bind(&WayPointGenerator::timer_callback, this)
@@ -36,17 +38,26 @@ WayPointGenerator::WayPointGenerator()
 
 void WayPointGenerator::timer_callback()
 {
-    geometry_msgs::msg::TransformStamped tfStamped;
     try {
-        tfStamped = tf_buffer.lookupTransform(map_frame, car_frame, tf2::TimePointZero);
-    } catch (tf2::TransformException &ex) {
-        RCLCPP_WARN(this->get_logger(), "Could not transform %s->%s: %s", 
-                    map_frame.c_str(), car_frame.c_str(), ex.what());
+        // Get car's pose in map frame
+        current_transform_ = tf_buffer_->lookupTransform(
+            map_frame,          // target frame
+            car_frame,          // source frame
+            tf2::TimePointZero, 
+            std::chrono::milliseconds(100)
+        );
+    } catch (const tf2::TransformException &ex) {
+        RCLCPP_WARN(
+            this->get_logger(),
+            "Failed to get %s → %s transform: %s",
+            map_frame.c_str(), car_frame.c_str(), ex.what()
+        );
         return;
     }
 
-    double x = tfStamped.transform.translation.x;
-    double y = tfStamped.transform.translation.y;
+    // Extract current position
+    double x = current_transform_.transform.translation.x;
+    double y = current_transform_.transform.translation.y;
     double diff = sqrt(pow((x - prev_x), 2) + pow((y - prev_y), 2));
 
     if(diff >= min_distance)
