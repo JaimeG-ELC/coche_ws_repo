@@ -1,4 +1,4 @@
-docker run -it --privileged --net=host \
+docker run --runtime nvidia -it --privileged --net=host \
     -v /var/run/dbus/:/var/run/dbus \
     -v /dev:/dev \
     -v /etc/udev/rules.d:/etc/udev/rules.d \
@@ -15,4 +15,4 @@ docker run -it --privileged --net=host \
     --volume=./src/manual_control_pkg:/root/coche_ws/src/manual_control_pkg \
     --volume=./src/interfaces_pkg:/root/coche_ws/src/interfaces_pkg \
     --volume=./src/slam_toolbox:/root/coche_ws/src/slam_toolbox \
-    f1tenth-system
+    f1tenth-system-gpu

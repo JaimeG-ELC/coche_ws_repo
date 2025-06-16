@@ -1,0 +1,72 @@
+# Use the ROS2 development base image (osrf/ros2:devel as requested)
+FROM f1tenth/focal-l4t-foxy:f1tenth-stack
+
+# Set environment variables
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+
+# Update the package list and install necessary packages for building ROS2
+RUN apt-get update && apt-get install -y --fix-missing \
+    cmake \
+    wget \
+    curl \
+    nano \
+    sudo \
+    libbullet-dev \
+    tmux \
+    python3-pip \
+    python3-dev \
+    python3-numpy \
+    cython3 \
+    libhidapi-dev \
+    libusb-1.0-0-dev \
+    dbus \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /root/coche_ws
+
+# Set source file to install asio dependency later on
+# RUN wget https://github.com/chriskohlhoff/asio/archive/asio-1-12-2.tar.gz && \
+#     tar -xvzf asio-1-12-2.tar.gz && \
+#     cd asio-asio-1-12-2 && \
+#     cp -r asio/include/asio /usr/include/ && \
+#     apt-get update
+
+# Create a workspace directory
+WORKDIR /root/coche_ws/src
+
+# Install VESC Drivers
+RUN git clone https://github.com/ros-drivers/transport_drivers.git && \
+    git clone -b foxy https://github.com/f1tenth/vesc.git
+   
+#Install Particle Filter repo
+RUN git clone -b foxy-devel https://github.com/f1tenth/particle_filter.git
+
+WORKDIR /root/coche_ws/src/particle_filter
+RUN pip3 install cython && \
+    git clone -b foxy-devel https://github.com/f1tenth/range_libc.git
+
+WORKDIR /root/coche_ws/src/particle_filter/range_libc/pywrapper
+RUN chmod +x compile_with_cuda.sh && ./compile_with_cuda.sh
+
+WORKDIR /root/coche_ws
+
+# Install the associated dependencies
+RUN rosdep update --include-eol-distros && \
+    rosdep install --from-paths src --ignore-src --rosdistro foxy -y
+
+RUN sudo apt install -y ros-foxy-joy  \
+    # ros-foxy-slam-toolbox \
+    ros-foxy-rviz2 
+    
+RUN sudo apt-get install -y ros-foxy-urg-node 
+
+    # Set shell to bash
+SHELL ["/bin/bash", "-c"]
+
+# Build workspace with explicit bash shell
+RUN source /opt/ros/foxy/setup.bash && \
+    colcon build
+
+# Set the entrypoint to run the container in a bash shell
+CMD ["/bin/bash"]

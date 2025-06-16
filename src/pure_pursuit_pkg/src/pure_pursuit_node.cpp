@@ -1,6 +1,5 @@
 #include "pure_pursuit_pkg/pure_pursuit_node.hpp"
 
-
 PurePursuit::PurePursuit() : Node("pure_pursuit_node")
 {
     // Establish some private variables as parameters
@@ -10,15 +9,14 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
     this->declare_parameter<double>("lookahead_ratio", 8.0);
     this->declare_parameter<double>("max_speed", 4.0);
     this->declare_parameter<double>("Kp", 0.3);
-    
     this->declare_parameter<double>("max_steering_angle", 0.7);
     this->declare_parameter<int>("n_pathpoints", 123);
     this->declare_parameter<int>("window_size", 25);
-    this->declare_parameter<std::string>("csv_path", "/sim_ws/src/pure_pursuit/racelines/waypoints_odom_3.csv");
+    this->declare_parameter<std::string>("csv_path", "/root/coche_ws/src/pure_pursuit/racelines/pathpoints_odom_3.csv");
     this->declare_parameter<std::string>("map_frame", "map");
     this->declare_parameter<std::string>("car_frame", "base_link");
     this->declare_parameter<std::string>("odom_topic", "/odom");
-    this->declare_parameter<std::string>("drive_topic", "/drive");
+    this->declare_parameter<std::string>("goalpoint_topic", "/goalpoint");
 
     // Retrieve parameter values
     lookahead_dist = this->get_parameter("lookahead_dist").as_double();
@@ -34,12 +32,12 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
     map_frame = this->get_parameter("map_frame").as_string();
     car_frame = this->get_parameter("car_frame").as_string();
     odom_topic = this->get_parameter("odom_topic").as_string();
-    ack_topic = this->get_parameter("drive_topic").as_string();
+    goalpoint_topic  = this->get_parameter("goalpoint_topic").as_string();
 
     RCLCPP_INFO(this->get_logger(), "Pure Pursuit Node has started.");
     RCLCPP_INFO(this->get_logger(), "CSV Path: %s", csv_path.c_str());
     RCLCPP_INFO(this->get_logger(), "Odom Topic: %s", odom_topic.c_str());
-    RCLCPP_INFO(this->get_logger(), "Drive Topic: %s", ack_topic.c_str());
+    RCLCPP_INFO(this->get_logger(), "Goal Point Topic: %s", goalpoint_topic.c_str());
     RCLCPP_INFO(this->get_logger(), "Map Frame: %s", map_frame.c_str());    
     RCLCPP_INFO(this->get_logger(), "Car Frame: %s", car_frame.c_str());
     RCLCPP_INFO(this->get_logger(), "Lookahead Distance: %f", lookahead_dist);
@@ -56,8 +54,11 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
     graph_topic = "visualization_marker";
     start_index = 0;
 
-    odom_sub_ = this->create_subscription<nav_msgs::msg::Odometry>(odom_topic, 100, std::bind(&PurePursuit::odom_callback, this, std::placeholders::_1));
-    ack_pub_ = this->create_publisher<ackermann_msgs::msg::AckermannDriveStamped>(ack_topic, 10);
+    odom_sub_ = this->create_subscription<nav_msgs::msg::Odometry>(
+        odom_topic, 100,
+        std::bind(&PurePursuit::odom_callback, this, std::placeholders::_1));
+    goal_pub_ = this->create_publisher<interfaces_pkg::msg::GoalPoint>(
+        goalpoint_topic, 10);    
     graph_pub_ = this->create_publisher<visualization_msgs::msg::Marker>(graph_topic, 10);
 
     // Buffer para guardar Transformaciones entre Coordinate Frames
@@ -68,6 +69,12 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
 
     // We load the path into memory
     load_pathpoints2memory();
+}
+
+double PurePursuit::p2pdist(double &x1, double &x2, double &y1, double &y2) 
+{
+    double dist = sqrt(pow((x2 - x1), 2) + pow((y2 - y1), 2));
+    return dist;
 }
 
 int PurePursuit::load_pathpoints2memory()
@@ -84,29 +91,33 @@ int PurePursuit::load_pathpoints2memory()
     // Create a vector to hold PathPoints
     pathpoints.reserve(n_pathpoints);
 
-    std::string row, x_str, y_str;
+    std::string row, x_str, y_str, v_str;
 
     for(int i = 0; i < n_pathpoints; i++)
     {
-        // Read one line (x, y)
+        // Read one line (x, y, v)
         std::getline(csv, row, '\n');
         std::stringstream ss(row);
 
-        for(int j = 0; j < 2; j++)
+        for(int j = 0; j < 3; j++)
         {
-            // Extract x and y in two iterations
+            // Extract x, y and v in three iterations
             if(j == 0)
             {
                 std::getline(ss, x_str, ',');
             }
             else if (j == 1)
             {
-                std::getline(ss, y_str);
+                std::getline(ss, y_str, ',');
+            }
+            else if (j == 2)
+            {
+                std::getline(ss, v_str);
             }
         }
 
         // Push the new element into the vector
-        pathpoints.emplace_back(std::stod(x_str), std::stod(y_str));
+        pathpoints.emplace_back(std::stod(x_str), std::stod(y_str), std::stod(v_str));
     }
 
     // std::cout << "Elements: " << pathpoints[0].x << ", " << pathpoints[0].y << ", " << pathpoints[0].l << std::endl;
@@ -173,7 +184,7 @@ void PurePursuit::get_closest_pathpoint()
         Eigen::Vector3d point_local = transform_to_car_frame(point);
 
         // Only consider points that are in front of the car and beyond lookahead distance
-        if (point_local[0] > 0 && distance_to_pose >= lookahead_dist && distance_to_pose < closest_distance)
+        if (distance_to_pose >= lookahead_dist && distance_to_pose < closest_distance)
         {            
             closest_distance = distance_to_pose;
             start_index = i;
@@ -233,8 +244,6 @@ void PurePursuit::map2car()
 
 void PurePursuit::steering_angle_calculation()
 {
-    auto cmd = ackermann_msgs::msg::AckermannDriveStamped();
-
     // Calculate the Curvature (or Steering Angle) that connects to the Closest Point (expressed in Car Frame)
     float k =  Kp * (2 * v_local[1]) / std::pow(std::sqrt(std::pow(v_local[0], 2) + std::pow(v_local[1], 2)), 2);
 
@@ -245,18 +254,41 @@ void PurePursuit::steering_angle_calculation()
     {
         k = -max_steering_angle;
     }
-
-    // Determine speed depending on the value of k
-    cmd.drive.speed = max_speed/(1 + k/max_steering_angle);  
-    std::cout << "Speed: " << cmd.drive.speed << std::endl;
-
-    cmd.drive.steering_angle = k;
-    std::cout << "Steering Angle: " << cmd.drive.steering_angle << "\n" <<  "Speed: "  << cmd.drive.speed << std::endl;
-
-    // Command the car
-    ack_pub_->publish(cmd);
     
+    // Build a GoalPoint message
+    interfaces_pkg::msg::GoalPoint goal;
+    // the typical fields might be `x`, `y`, `v` (speed), `s` (steering)
+    goal.x = v_global[0];                // global target x
+    goal.y = v_global[1];                // global target y
+    goal.v = pathpoints[speed_calculation()].v;                    // desired speed
+    goal.s = k;                          // desired steering curvature/angle
+
+    RCLCPP_DEBUG(this->get_logger(),
+        "Publishing GoalPoint: (%.2f, %.2f) v=%.2f, s=%.2f",
+        goal.x, goal.y, goal.v, goal.s);
+
+    goal_pub_->publish(goal);
     return;
+}
+
+int PurePursuit::speed_calculation()
+{
+    // Find the closest point to the car, and use the velocity index for that
+    int start_point = std::max(start_index - (window_size / 3), 0);
+    double shortest_distance = p2pdist(pathpoints[start_point].x, curr_pose.x, pathpoints[start_point].y, curr_pose.y);
+    int speed_i = start_point;
+
+    // Use a separate loop variable for iteration
+    for (int i = start_point; i < (start_point + window_size); i++) 
+    {
+        double distance = p2pdist(pathpoints[i].x, curr_pose.x, pathpoints[i].y, curr_pose.y);
+        if (distance <= shortest_distance) 
+        {
+            shortest_distance = distance;
+            speed_i = i;
+        }
+    }
+    return speed_i;
 }
 
 void PurePursuit::odom_callback(const nav_msgs::msg::Odometry::ConstSharedPtr odom_msg)
@@ -266,6 +298,10 @@ void PurePursuit::odom_callback(const nav_msgs::msg::Odometry::ConstSharedPtr od
         odom_msg->twist.twist.linear.x,
         odom_msg->twist.twist.linear.y
     );
+
+    // Calculate lookahead distance based on current speed
+    lookahead_dist = std::min(std::max(min_lookahead_dist, max_lookahead_dist * curr_vel / lookahead_ratio), max_lookahead_dist);
+    RCLCPP_INFO(this->get_logger(), "Lookahead Distance: %.2f", lookahead_dist);
 
     // Cache current transform for this cycle
     try {

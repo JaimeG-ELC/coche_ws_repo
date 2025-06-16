@@ -34,7 +34,7 @@ def generate_launch_description():
     vesc_config = os.path.join(
         get_package_share_directory('f1tenth_stack'),
         'config',
-        'vesc.yaml'
+        'vesc_pf.yaml'
     )
     sensors_config = os.path.join(
         get_package_share_directory('f1tenth_stack'),

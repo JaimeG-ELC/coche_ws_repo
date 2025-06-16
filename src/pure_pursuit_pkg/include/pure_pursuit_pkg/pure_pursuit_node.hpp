@@ -17,8 +17,8 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "nav_msgs/msg/odometry.hpp"
-#include "ackermann_msgs/msg/ackermann_drive_stamped.hpp"
 #include "visualization_msgs/msg/marker.hpp"
+#include "interfaces_pkg/msg/goal_point.hpp"
 
 class PurePursuit : public rclcpp::Node
 {
@@ -28,10 +28,10 @@ public:
     // Required Structures
     struct PathPoint
     {
-        double x, y;
+        double x, y, v;
 
-        PathPoint() : x(0.0), y(0.0){}
-        PathPoint(double x, double y) : x(x), y(y){}
+        PathPoint() : x(0.0), y(0.0), v(0.0){}
+        PathPoint(double x, double y, double v) : x(x), y(y), v(v){};
     };
 
 private:
@@ -58,17 +58,19 @@ private:
     double Kp;
     double max_steering_angle;
 
+
     // Topics and Paths
     std::string csv_path;
     std::string odom_topic;
     std::string ack_topic;
     std::string graph_topic;
+    std::string goalpoint_topic;
     std::string map_frame;
     std::string car_frame;
 
     // ROS2 Interfaces
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub_;
-    rclcpp::Publisher<ackermann_msgs::msg::AckermannDriveStamped>::SharedPtr ack_pub_;
+    rclcpp::Publisher<interfaces_pkg::msg::GoalPoint>::SharedPtr goal_pub_;
     rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr graph_pub_;
 
     // Tf2 Listener
@@ -82,6 +84,8 @@ private:
     void graph_closest_pathpoint();
     void map2car();
     void steering_angle_calculation();
+    int speed_calculation();
+    double p2pdist(double &x1, double &x2, double &y1, double &y2);
 
     // Utility transforms
     Eigen::Matrix3d quaternionToMatrix(const geometry_msgs::msg::Quaternion& q);
