@@ -1,5 +1,5 @@
 # Use the ROS2 development base image (osrf/ros2:devel as requested)
-FROM ros:foxy-ros-base-focal
+FROM f1tenth/focal-l4t-foxy:f1tenth-stack
 
 # Set environment variables
 ENV LANG=C.UTF-8
@@ -14,9 +14,6 @@ RUN apt-get update && apt-get install -y \
     sudo \
     libbullet-dev \
     tmux \
-    bluetooth \
-    bluez \
-    bluez-tools \
     python3-pip \
     python3-dev \
     python3-numpy \
@@ -30,12 +27,6 @@ RUN apt-get update && apt-get install -y \
     ros-foxy-rviz2 \
     ros-foxy-urg-node \
     && rm -rf /var/lib/apt/lists/*
-
-#Install ds4drv
-RUN pip3 install ds4drv
-
-#Enable Bluetooth permissions for the container
-RUN usermod -aG bluetooth root
 
 WORKDIR /root/coche_ws
 
@@ -61,7 +52,7 @@ RUN pip3 install cython && \
     git clone -b foxy-devel https://github.com/f1tenth/range_libc.git
 
 WORKDIR /root/coche_ws/src/particle_filter/range_libc/pywrapper
-RUN chmod +x compile.sh && ./compile.sh
+RUN chmod +x compile_with_cuda.sh && ./compile_with_cuda.sh
 
 WORKDIR /root/coche_ws
 

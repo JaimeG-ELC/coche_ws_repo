@@ -1,4 +1,5 @@
 docker run -it --privileged --net=host \
+    --gpus all \
     -v /var/run/dbus/:/var/run/dbus \
     -v /dev:/dev \
     -v /etc/udev/rules.d:/etc/udev/rules.d \
