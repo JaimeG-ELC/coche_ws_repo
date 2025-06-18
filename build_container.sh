@@ -1,1 +1,1 @@
-    docker build -t f1tenth-system .
+docker build -f Dockerfile -t f1tenth-system .

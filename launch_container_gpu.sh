@@ -14,5 +14,4 @@ docker run --runtime nvidia -it --privileged --net=host \
     --volume=./src/waypoint_generator_pkg:/root/coche_ws/src/waypoint_generator_pkg \
     --volume=./src/manual_control_pkg:/root/coche_ws/src/manual_control_pkg \
     --volume=./src/interfaces_pkg:/root/coche_ws/src/interfaces_pkg \
-    --volume=./src/slam_toolbox:/root/coche_ws/src/slam_toolbox \
     f1tenth-system-gpu

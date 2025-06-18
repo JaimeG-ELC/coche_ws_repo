@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y \
     dbus \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /root/f1tenth_ws
+WORKDIR /root/coche_ws
 
 # Set source file to install asio dependency later on
 RUN wget https://github.com/chriskohlhoff/asio/archive/asio-1-12-2.tar.gz && \
@@ -33,39 +33,39 @@ RUN wget https://github.com/chriskohlhoff/asio/archive/asio-1-12-2.tar.gz && \
     apt-get update
 
 # Create a workspace directory
-WORKDIR /root/f1tenth_ws/src
+WORKDIR /root/coche_ws/src
 
 # Install VESC Drivers
 RUN git clone https://github.com/ros-drivers/transport_drivers.git && \
     git clone -b foxy https://github.com/f1tenth/vesc.git
    
 # Install LIDAR Drivers
-RUN git clone https://github.com/rudislabs/ldlidar_stl_ros2.git
+# RUN git clone https://github.com/rudislabs/ldlidar_stl_ros2.git
 
 # Install IMU
-RUN git clone https://github.com/JaimeG-ELC/razor_imu_ros2.git
+# RUN git clone https://github.com/JaimeG-ELC/razor_imu_ros2.git
 
 
 #Install Particle Filter repo
-RUN git clone -b foxy-devel https://github.com/f1tenth/particle_filter.git
+# RUN git clone -b foxy-devel https://github.com/f1tenth/particle_filter.git
 
-WORKDIR /root/f1tenth_ws/src/particle_filter
-RUN apt-get update && apt-get install -y python3-dev build-essential && \
-    pip3 install cython && \
-    git clone -b foxy-devel https://github.com/f1tenth/range_libc.git
+# WORKDIR /root/coche_ws/src/particle_filter
+# RUN apt-get update && apt-get install -y python3-dev build-essential && \
+#     pip3 install cython && \
+#     git clone -b foxy-devel https://github.com/f1tenth/range_libc.git
 
-WORKDIR /root/f1tenth_ws/src/particle_filter/range_libc/pywrapper
-RUN chmod +x compile.sh && ./compile.sh
+# WORKDIR /root/coche_ws/src/particle_filter/range_libc/pywrapper
+# RUN chmod +x compile.sh && ./compile.sh
 
-WORKDIR /root/f1tenth_ws
+WORKDIR /root/coche_ws
 
 # Install the associated dependencies
 # RUN rosdep update --include-eol-distros && rosdep install --from-paths src -i -y 
 
 RUN rosdep update --include-eol-distros && rosdep install --from-path src --ignore-src -y
 
-# Install Joy Ros package
-RUN apt-get update && apt-get install -y ros-foxy-joy 
+# Install Joy and Lidar Ros package
+RUN apt-get update && apt-get install -y ros-foxy-joy ros-foxy-urg-node
 
 # Install other required dependencies
 RUN apt install -y ros-foxy-diagnostics

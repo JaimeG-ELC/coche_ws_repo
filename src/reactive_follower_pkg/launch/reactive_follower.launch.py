@@ -7,11 +7,11 @@ from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
-config = os.path.join(
-    get_package_share_directory('reactive_follower_pkg'),
-    'config',
-    'reactive_follower.yaml'
-)
+    config = os.path.join(
+        get_package_share_directory('reactive_follower_pkg'),
+        'config',
+        'reactive_follower.yaml'
+    )
 
     return LaunchDescription([
         Node(

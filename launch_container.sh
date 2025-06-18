@@ -9,10 +9,5 @@ docker run -it --privileged --net=host \
     --volume /tmp/.X11-unix:/tmp/.X11-unix \
     --volume ~/.Xauthority:/root/.Xauthority \
     --volume=./src/f1tenth_stack:/root/coche_ws/src/f1tenth_stack  \
-    --volume=./src/pure_pursuit_pkg:/root/coche_ws/src/pure_pursuit_pkg \
-    --volume=./src/reactive_follower_pkg:/root/coche_ws/src/reactive_follower_pkg \
-    --volume=./src/waypoint_generator_pkg:/root/coche_ws/src/waypoint_generator_pkg \
     --volume=./src/manual_control_pkg:/root/coche_ws/src/manual_control_pkg \
-    --volume=./src/interfaces_pkg:/root/coche_ws/src/interfaces_pkg \
-    --volume=./src/slam_toolbox:/root/coche_ws/src/slam_toolbox \
     f1tenth-system
