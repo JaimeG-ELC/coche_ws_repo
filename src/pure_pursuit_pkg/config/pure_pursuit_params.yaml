@@ -14,3 +14,4 @@
     car_frame: "base_link"
     odom_topic: "/odom"
     drive_topic: "/drive"
+    goalpoit_topic: "/goalpoint"

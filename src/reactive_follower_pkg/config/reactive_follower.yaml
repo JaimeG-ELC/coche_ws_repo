@@ -2,6 +2,7 @@
 ros__parameters:
   lidarscan_topic: "/scan"
   drive_topic: "/drive"
+  goalpoint_topic: "/goalpoint"
   bubble_radius: 25
   max_speed: 0.3
   min_speed: 0.2
