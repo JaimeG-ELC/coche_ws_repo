@@ -5,6 +5,7 @@
     max_lookahead_dist: 0.8
     lookahead_ratio: 4.0
     max_speed: 1.0
+    min_speed: 0.4
     kp: 0.7
     max_steering_angle: 0.4
     n_pathpoints: 169
@@ -14,4 +15,4 @@
     car_frame: "base_link"
     odom_topic: "/odom"
     drive_topic: "/drive"
-    goalpoit_topic: "/goalpoint"
+    goalpoint_topic: "/goalpoint"

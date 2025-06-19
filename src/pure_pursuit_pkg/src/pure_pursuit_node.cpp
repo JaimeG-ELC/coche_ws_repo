@@ -8,6 +8,7 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
     this->declare_parameter<double>("max_lookahead_dist", 4.0);
     this->declare_parameter<double>("lookahead_ratio", 8.0);
     this->declare_parameter<double>("max_speed", 4.0);
+    this->declare_parameter<double>("min_speed", 0.1); // Default minimum speed if not specified
     this->declare_parameter<double>("Kp", 0.3);
     this->declare_parameter<double>("max_steering_angle", 0.7);
     this->declare_parameter<int>("n_pathpoints", 123);
@@ -24,6 +25,7 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
     max_lookahead_dist = this->get_parameter("max_lookahead_dist").as_double();
     lookahead_ratio = this->get_parameter("lookahead_ratio").as_double();
     max_speed = this->get_parameter("max_speed").as_double();
+    min_speed = this->get_parameter("min_speed").as_double();
     Kp = this->get_parameter("Kp").as_double();
     max_steering_angle = this->get_parameter("max_steering_angle").as_double();
     n_pathpoints = this->get_parameter("n_pathpoints").as_int();
@@ -45,6 +47,7 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
     RCLCPP_INFO(this->get_logger(), "Maximum Lookahead Distance: %f", max_lookahead_dist);  
     RCLCPP_INFO(this->get_logger(), "Lookahead Ratio: %f", lookahead_ratio);
     RCLCPP_INFO(this->get_logger(), "Max Speed: %f", max_speed);
+    RCLCPP_INFO(this->get_logger(), "Min Speed: %f", min_speed);
     RCLCPP_INFO(this->get_logger(), "Kp: %f", Kp);
     RCLCPP_INFO(this->get_logger(), "Max Steering Angle: %f", max_steering_angle);
     RCLCPP_INFO(this->get_logger(), "Number of Pathpoints: %d", n_pathpoints);
@@ -76,7 +79,6 @@ double PurePursuit::p2pdist(double &x1, double &x2, double &y1, double &y2)
     double dist = sqrt(pow((x2 - x1), 2) + pow((y2 - y1), 2));
     return dist;
 }
-
 int PurePursuit::load_pathpoints2memory()
 {
     // Open the csv
@@ -99,29 +101,30 @@ int PurePursuit::load_pathpoints2memory()
         std::getline(csv, row, '\n');
         std::stringstream ss(row);
 
-        for(int j = 0; j < 3; j++)
-        {
-            // Extract x, y and v in three iterations
-            if(j == 0)
-            {
-                std::getline(ss, x_str, ',');
-            }
-            else if (j == 1)
-            {
-                std::getline(ss, y_str, ',');
-            }
-            else if (j == 2)
-            {
-                std::getline(ss, v_str);
+        // Extract x, y, v (v may be missing)
+        std::getline(ss, x_str, ',');
+        std::getline(ss, y_str, ',');
+        if (!std::getline(ss, v_str, ',')) {
+            v_str = ""; // v is missing
+            RCLCPP_WARN(this->get_logger(), "Missing velocity for point %d, defaulting to min_speed", i);
+        }
+
+        double x = std::stod(x_str);
+        double y = std::stod(y_str);
+        double v;
+        if (v_str.empty()) {
+            v = min_speed; // Default to max_speed if v is missing
+        } else {
+            try {
+                v = std::stod(v_str);
+            } catch (...) {
+                v = min_speed;
             }
         }
 
         // Push the new element into the vector
-        pathpoints.emplace_back(std::stod(x_str), std::stod(y_str), std::stod(v_str));
+        pathpoints.emplace_back(x, y, v);
     }
-
-    // std::cout << "Elements: " << pathpoints[0].x << ", " << pathpoints[0].y << ", " << pathpoints[0].l << std::endl;
-    // std::cout << "Size: " << pathpoints.size() << std::endl;
 
     return 0;
 }
