@@ -8,10 +8,20 @@ ReactiveFollowerNode::ReactiveFollowerNode() : Node("reactive_follower") {
     this->declare_parameter("goalpoint_topic", "/goalpoint");
     this->declare_parameter("laser_frame", "laser");
     this->declare_parameter("car_frame", "base_link");
-    this->declare_parameter("bubble_radius", 25);
+
+    this->declare_parameter("lidar_angle", 270.0);
+    this->declare_parameter("lidar_angle_front_car", 135.0);
+    this->declare_parameter("lidar_scans", 1180);
+
     this->declare_parameter("max_speed", 0.2);
     this->declare_parameter("min_speed", 0.2);
-    this->declare_parameter("lidar_angle", 180.0);
+    this->declare_parameter("bubble_radius", 25);
+    this->declare_parameter("processed_angle", 180.0);
+    this->declare_parameter("safety_distance_min", 0.4);
+    this->declare_parameter("safety_distance_threshold", 180.0);
+    this->declare_parameter("safety_distance_gain", 18);
+    this->declare_parameter("vehicule_width_+_safety", 0.3);
+
     this->declare_parameter("max_lidar_distance", 12.0);
     this->declare_parameter("weight_speed", 0.5);
     this->declare_parameter("weight_steering", 0.5);
@@ -21,10 +31,20 @@ ReactiveFollowerNode::ReactiveFollowerNode() : Node("reactive_follower") {
     goalpoint_topic = this->get_parameter("goalpoint_topic").as_string();
     laser_frame = this->get_parameter("laser_frame").as_string();
     car_frame = this->get_parameter("car_frame").as_string();
-    bubble_radius = this->get_parameter("bubble_radius").as_int();
+
+    lidar_angle = this->get_parameter("lidar_angle").as_double();
+    lidar_angle_from_car = this->get_parameter("lidar_angle_front_car").as_double();
+    lidar_scans = this->get_parameter("lidar_scans").as_double();
+
     max_speed = this->get_parameter("max_speed").as_double();
     min_speed = this->get_parameter("min_speed").as_double();
-    lidar_angle = this->get_parameter("lidar_angle").as_double();
+    bubble_radius = this->get_parameter("bubble_radius").as_int();
+    processed_angle = this->get_parameter("processed_angle").as_double();
+    safety_distance_min = this->get_parameter("safety_distance_min").as_double();
+    safety_distance_threshold = this->get_parameter("safety_distance_threshold").as_double();
+    safety_distance_gain = this->get_parameter("safety_distance_gain").as_double();
+    vehicule_width_ = this->get_parameter("vehicule_width_+_safety").as_double()
+
     max_lidar_distance = this->get_parameter("max_lidar_distance").as_double();
     weight_speed = this->get_parameter("weight_speed").as_double();
     weight_steering = this->get_parameter("weight_steering").as_double();
@@ -40,11 +60,11 @@ ReactiveFollowerNode::ReactiveFollowerNode() : Node("reactive_follower") {
 
     drive_publisher_ =  create_publisher<ackermann_msgs::msg::AckermannDriveStamped>(drive_topic, 10);
 
-    start_angle = (135 - (lidar_angle / 2) ) * (M_PI / 180.0);  // Convert degrees to radians
-    end_angle = (135 + (lidar_angle / 2) ) * (M_PI / 180.0);
+    start_angle = (lidar_angle_from_car - (processed_angle / 2) ) * (M_PI / 180.0);  // Convert degrees to radians
+    end_angle = (lidar_angle_from_car + (processed_angle / 2) ) * (M_PI / 180.0);
 
-    start_index = std::max(0, std::min(1180, static_cast<int>(start_angle / ((270.0 / 1180) * (M_PI / 180.0)))));
-    end_index = std::max(0, std::min(1180, static_cast<int>(end_angle / ((270.0 / 1180) * (M_PI / 180.0)))));
+    start_index = std::max(0, std::min(lidar_scans, static_cast<int>(start_angle / ((lidar_angle / lidar_scans) * (M_PI / 180.0)))));
+    end_index = std::max(0, std::min(lidar_scans, static_cast<int>(end_angle / ((lidar_angle / lidar_scans) * (M_PI / 180.0)))));
 
     // Initialize transform buffer and listener
     tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
@@ -55,10 +75,20 @@ ReactiveFollowerNode::ReactiveFollowerNode() : Node("reactive_follower") {
     RCLCPP_INFO(get_logger(), "<goalpoint_topic>: %s", goalpoint_topic.c_str());
     RCLCPP_INFO(get_logger(), "<laser_frame>: %s", laser_frame.c_str());
     RCLCPP_INFO(get_logger(), "<car_frame>: %s", car_frame.c_str());
-    RCLCPP_INFO(get_logger(), "<bubble_radius>: %d", bubble_radius);
+
+    RCLCPP_INFO(get_logger(), "<lidar_angle>: %f", lidar_angle);
+    RCLCPP_INFO(get_logger(), "<lidar_angle_front_car>: %f", lidar_angle_front_car);
+    RCLCPP_INFO(get_logger(), "<lidar_scans>: %f", lidar_scans);
+
     RCLCPP_INFO(get_logger(), "<max_speed>: %f", max_speed);
     RCLCPP_INFO(get_logger(), "<min_speed>: %f", min_speed);
-    RCLCPP_INFO(get_logger(), "<lidar_angle>: %f", lidar_angle);
+    RCLCPP_INFO(get_logger(), "<bubble_radius>: %d", bubble_radius);
+    RCLCPP_INFO(get_logger(), "<processed_angle>: %f", processed_angle);
+    RCLCPP_INFO(get_logger(), "<safety_distance_min>: %f", safety_distance_min);
+    RCLCPP_INFO(get_logger(), "<safety_distance_threshold>: %f", safety_distance_threshold);
+    RCLCPP_INFO(get_logger(), "<safety_distance_gain>: %f", safety_distance_gain);
+    RCLCPP_INFO(get_logger(), "<vehicule_width_+_safety>: %f", vehicule_width_);
+
     RCLCPP_INFO(get_logger(), "<max_lidar_distance>: %f", max_lidar_distance);
     RCLCPP_INFO(get_logger(), "<weight_speed>: %f", weight_speed);
     RCLCPP_INFO(get_logger(), "<weight_steering>: %f", weight_steering);
@@ -115,16 +145,16 @@ void ReactiveFollowerNode::eliminate_bubble(std::vector<float> &ranges, size_t c
 
 // returns safety distance based on speed
 double ReactiveFollowerNode::calculate_safety_distance(double speed){
-    if (speed < 0.8) {
-        return 0.4; // Safety distance for low speeds
+    if (speed < safety_distance_threshold) {
+        return safety_distance_min; // Safety distance for low speeds
     } else {
-        return 0.4 + (speed - 0.8) * 0.3; // Proportional increase for higher speeds
+        return safety_distance_min + (speed) * safety_distance_min; // Proportional increase for higher speeds
     }
 }
     // Calculate the minimum number of LiDAR beams for a safe gap
 size_t ReactiveFollowerNode::calculate_min_gap_size(double safety_distance) {
-    double alpha = 2*(atan2((0.3 / 2), safety_distance)); //geometry cacl
-    size_t min_gap = static_cast<size_t>(std::ceil((alpha * 1180) / (2 * M_PI))); // Number of scans in alpha radians (1180 scans in 270º)
+    double alpha = 2*(atan2((vehicule_width_+_safety / 2), safety_distance)); //geometry cacl
+    size_t min_gap = static_cast<size_t>(std::ceil((alpha * lidar_scans) / (2 * M_PI))); // Number of scans in alpha radians (1180 scans in 270º)
     return min_gap;
 }
 
@@ -155,8 +185,8 @@ int ReactiveFollowerNode::point_to_lidar_index(){
     double angle = atan2(y, x); // angle in radians, CCW from x-axis
 
     if (angle < 0) angle += 3*M_PI/2;
-    int idx = std::round(angle *1180.0/(2*M_PI));
-    return std::clamp(idx, 0, 449);
+    int idx = std::round(angle *lidar_scans/(2*M_PI));
+    return std::clamp(idx, 0, lidar_scans-1);
 }    
 
 std::vector<ReactiveFollowerNode::Gap> ReactiveFollowerNode::find_gaps(const std::vector<float> &ranges, size_t min_gap, double safety_distance) {
@@ -215,7 +245,7 @@ std::pair<double, double> ReactiveFollowerNode::alternative_commands(
     }
     if (best_idx == -1) best_idx = 0; // fallback
 
-    double best_angle = (best_idx) * ((270.0 / 1180) * (M_PI / 180.0));
+    double best_angle = (best_idx) * ((lidar_angle / lidar_scans) * (M_PI / 180.0));
     double steering_angle = - (best_angle - ((3 * M_PI)/2));
     double speed = std::min(std::abs(max_speed * (weight_speed * ranges[best_idx] - weight_steering * std::abs(steering_angle))), max_speed);
 

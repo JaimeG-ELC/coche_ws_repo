@@ -39,10 +39,19 @@ private:
     std::string laser_frame;
     std::string car_frame;  // first declaration kept
 
-    int bubble_radius;
+    double lidar_angle;
+    double lidar_angle_front_car;
+    double lidar_scans;  // renamed from lidar_scans to match use
+
     double max_speed;
     double min_speed;
-    double lidar_angle;
+    int bubble_radius;
+    double processed_angle;
+    double safety_distance_min;
+    double safety_distance_threshold;
+    double safety_distance_gain;
+    double vehicule_width_+_safety;
+
     double max_lidar_distance;
     double weight_speed;
     double weight_steering;
