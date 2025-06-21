@@ -67,7 +67,7 @@ void WayPointGenerator::timer_callback()
             RCLCPP_ERROR(this->get_logger(), "Failed to open CSV file at path: %s", csv_path.c_str());
             return;
         }
-        csv_odom << "\n" << x << ", " << y;
+        csv_odom << "\n" << x << ", " << y << ', ' << 0.7;
         prev_x = x;
         prev_y = y;
         csv_odom.close();

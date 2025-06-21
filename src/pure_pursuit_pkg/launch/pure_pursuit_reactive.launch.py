@@ -23,7 +23,7 @@ def generate_launch_description():
         executable="pure_pursuit_node",
         name="pure_pursuit_node",
         parameters=[LaunchConfiguration('pure_pursuit_config'),
-                    {'reactive': False}]
+                    {'reactive': True}]    
     )
 
     ld = LaunchDescription([pure_pursuit_la])

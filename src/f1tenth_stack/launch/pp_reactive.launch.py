@@ -9,7 +9,6 @@ def generate_launch_description():
     pkg_pure_pursuit = get_package_share_directory('pure_pursuit_pkg')
     pkg_reactive = get_package_share_directory('reactive_follower_pkg')
 
-
     # First launch bringup to establish odom->base_link->laser
     bringup_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(

@@ -8,11 +8,12 @@
     min_speed: 0.4
     kp: 0.7
     max_steering_angle: 0.4
-    n_pathpoints: 169
+    # n_pathpoints: 169
     window_size: 30
-    csv_path:  "/root/coche_ws/src/pure_pursuit_pkg/racelines/uc3m_hall_v0_waypoints.csv"
+    csv_path:  "/root/coche_ws/src/pure_pursuit_pkg/racelines/roma_vo.csv"
     map_frame: "map"
     car_frame: "base_link"
     odom_topic: "/odom"
     drive_topic: "/drive"
     goalpoint_topic: "/goalpoint"
+    reactive: true

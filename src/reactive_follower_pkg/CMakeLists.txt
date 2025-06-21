@@ -57,12 +57,6 @@ install(TARGETS
   DESTINATION lib/${PROJECT_NAME}
 )
 
-# Install include directories
-install(DIRECTORY 
-  include/
-  DESTINATION include/${PROJECT_NAME}
-)
-
 # Install launch and config files
 install(DIRECTORY 
   launch/

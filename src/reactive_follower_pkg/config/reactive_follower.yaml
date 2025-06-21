@@ -9,13 +9,13 @@ ros__parameters:
   lidar_angle_front_car: 135.0
   lidar_scans: 1180
 
-  max_speed: 0.3
+  max_speed: 1.0
   min_speed: 0.2
-  bubble_radius: 25
+  bubble_radius: 15
   processed_angle: 180.0
   safety_distance_min: 0.4
   safety_distance_threshold: 0.5
-  safety_distance_gain: 0.5
+  safety_distance_gain: 0.2
   vehicle_width_+_safety: 0.3
   
   max_lidar_distance: 12.0

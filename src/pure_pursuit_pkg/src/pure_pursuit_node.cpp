@@ -11,13 +11,14 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
     this->declare_parameter<double>("min_speed", 0.1); // Default minimum speed if not specified
     this->declare_parameter<double>("Kp", 0.3);
     this->declare_parameter<double>("max_steering_angle", 0.7);
-    this->declare_parameter<int>("n_pathpoints", 123);
     this->declare_parameter<int>("window_size", 25);
     this->declare_parameter<std::string>("csv_path", "/root/coche_ws/src/pure_pursuit/racelines/pathpoints_odom_3.csv");
     this->declare_parameter<std::string>("map_frame", "map");
     this->declare_parameter<std::string>("car_frame", "base_link");
     this->declare_parameter<std::string>("odom_topic", "/odom");
     this->declare_parameter<std::string>("goalpoint_topic", "/goalpoint");
+    this->declare_parameter<std::string>("drive_topic", "/drive");
+    this->declare_parameter<bool>("reactive", true); // Default to false if not specified
 
     // Retrieve parameter values
     lookahead_dist = this->get_parameter("lookahead_dist").as_double();
@@ -28,18 +29,21 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
     min_speed = this->get_parameter("min_speed").as_double();
     Kp = this->get_parameter("Kp").as_double();
     max_steering_angle = this->get_parameter("max_steering_angle").as_double();
-    n_pathpoints = this->get_parameter("n_pathpoints").as_int();
+    // n_pathpoints = this->get_parameter("n_pathpoints").as_int();
     window_size = this->get_parameter("window_size").as_int();
     csv_path = this->get_parameter("csv_path").as_string();
     map_frame = this->get_parameter("map_frame").as_string();
     car_frame = this->get_parameter("car_frame").as_string();
     odom_topic = this->get_parameter("odom_topic").as_string();
     goalpoint_topic  = this->get_parameter("goalpoint_topic").as_string();
+    drive_topic = this->get_parameter("drive_topic").as_string();
+    reactive = this->get_parameter("reactive").as_bool();
 
     RCLCPP_INFO(this->get_logger(), "Pure Pursuit Node has started.");
     RCLCPP_INFO(this->get_logger(), "CSV Path: %s", csv_path.c_str());
     RCLCPP_INFO(this->get_logger(), "Odom Topic: %s", odom_topic.c_str());
     RCLCPP_INFO(this->get_logger(), "Goal Point Topic: %s", goalpoint_topic.c_str());
+    RCLCPP_INFO(this->get_logger(), "Drive Topic: %s", drive_topic.c_str());
     RCLCPP_INFO(this->get_logger(), "Map Frame: %s", map_frame.c_str());    
     RCLCPP_INFO(this->get_logger(), "Car Frame: %s", car_frame.c_str());
     RCLCPP_INFO(this->get_logger(), "Lookahead Distance: %f", lookahead_dist);
@@ -50,8 +54,8 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
     RCLCPP_INFO(this->get_logger(), "Min Speed: %f", min_speed);
     RCLCPP_INFO(this->get_logger(), "Kp: %f", Kp);
     RCLCPP_INFO(this->get_logger(), "Max Steering Angle: %f", max_steering_angle);
-    RCLCPP_INFO(this->get_logger(), "Number of Pathpoints: %d", n_pathpoints);
     RCLCPP_INFO(this->get_logger(), "Window Size: %d", window_size);
+    RCLCPP_INFO(this->get_logger(), "Reactive Mode: %s", reactive ? "true" : "false");
 
     // Other required member variables
     graph_topic = "visualization_marker";
@@ -60,6 +64,8 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
     odom_sub_ = this->create_subscription<nav_msgs::msg::Odometry>(
         odom_topic, 100,
         std::bind(&PurePursuit::odom_callback, this, std::placeholders::_1));
+    drive_pub_ = this->create_publisher<ackermann_msgs::msg::AckermannDriveStamped>(
+        drive_topic, 10);
     goal_pub_ = this->create_publisher<interfaces_pkg::msg::GoalPoint>(
         goalpoint_topic, 10);    
     graph_pub_ = this->create_publisher<visualization_msgs::msg::Marker>(graph_topic, 10);
@@ -69,6 +75,9 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
 
     // Creamos un objeto de tipo Listener para que automáticamente guarde la Transformación en el Buffer
     tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
+    
+    // Calculate the number of pathpoints from the CSV file
+    n_pathpoints = calculate_n_pathpoints(csv_path);
 
     // We load the path into memory
     load_pathpoints2memory();
@@ -79,6 +88,30 @@ double PurePursuit::p2pdist(double &x1, double &x2, double &y1, double &y2)
     double dist = sqrt(pow((x2 - x1), 2) + pow((y2 - y1), 2));
     return dist;
 }
+
+int PurePursuit::calculate_n_pathpoints(const std::string& csv_path)
+{
+    // Open the csv file
+    std::ifstream csv(csv_path);
+    if (!csv.is_open()) {
+        RCLCPP_ERROR(this->get_logger(), "Error: Could Not Open the File %s", csv_path.c_str());
+        return -1;
+    }
+
+    // Count the number of lines in the file
+    int count = 0;
+    std::string line;
+    while (std::getline(csv, line)) {
+        if (!line.empty()) {
+            count++;
+        }
+    }
+
+    csv.close();
+    RCLCPP_INFO(this->get_logger(), "Number of pathpoints: %d", count);
+    return count;
+}
+
 int PurePursuit::load_pathpoints2memory()
 {
     // Open the csv
@@ -86,10 +119,10 @@ int PurePursuit::load_pathpoints2memory()
 
     if(!csv.is_open())
     {
-        std::cerr << "Error: Could Not Open the File" << std::endl;
+        RCLCPP_ERROR(this->get_logger(), "Error: Could Not Open the File %s", csv_path.c_str());
         return -1;
     }
- 
+
     // Create a vector to hold PathPoints
     pathpoints.reserve(n_pathpoints);
 
@@ -104,7 +137,7 @@ int PurePursuit::load_pathpoints2memory()
         // Extract x, y, v (v may be missing)
         std::getline(ss, x_str, ',');
         std::getline(ss, y_str, ',');
-        if (!std::getline(ss, v_str, ',')) {
+        if (!std::getline(ss, v_str)) {
             v_str = ""; // v is missing
             RCLCPP_WARN(this->get_logger(), "Missing velocity for point %d, defaulting to min_speed", i);
         }
@@ -154,8 +187,8 @@ void PurePursuit::graph_closest_pathpoint()
     marker.pose.position.z = 0.0;
 
     // Add logging for waypoint information
-    RCLCPP_INFO(this->get_logger(), "Using waypoint %d at position (%.2f, %.2f)", 
-                start_index, v_global[0], v_global[1]);
+    // RCLCPP_INFO(this->get_logger(), "Using waypoint %d at position (%.2f, %.2f)", 
+                // start_index, v_global[0], v_global[1]);
 
     graph_pub_->publish(marker);
 
@@ -178,7 +211,7 @@ void PurePursuit::get_closest_pathpoint()
     {
         // Calculate pathpoint i to current pose distance
         distance_to_pose = std::sqrt(std::pow(pathpoints[i].x - curr_pose.x, 2) + std::pow(pathpoints[i].y - curr_pose.y, 2));
-        RCLCPP_INFO(this->get_logger(), "Point: %i, Closest_distance: %f", i, distance_to_pose);
+        // RCLCPP_INFO(this->get_logger(), "Point: %i, Closest_distance: %f", i, distance_to_pose);
 
 
         // Transform point to check if it's in front of the car
@@ -196,8 +229,6 @@ void PurePursuit::get_closest_pathpoint()
 
         i = (i+1)%n_pathpoints;
     }
-        RCLCPP_INFO(this->get_logger(), "VENTANA TERMINADA");
-
 
     graph_closest_pathpoint();
 }
@@ -258,20 +289,23 @@ void PurePursuit::steering_angle_calculation()
         k = -max_steering_angle;
     }
     
-    // Build a GoalPoint message
-    interfaces_pkg::msg::GoalPoint goal;
-    // the typical fields might be `x`, `y`, `v` (speed), `s` (steering)
-    goal.x = v_global[0];                // global target x
-    goal.y = v_global[1];                // global target y
-    goal.v = pathpoints[speed_calculation()].v;                    // desired speed
-    goal.s = k;                          // desired steering curvature/angle
 
-    RCLCPP_DEBUG(this->get_logger(),
-        "Publishing GoalPoint: (%.2f, %.2f) v=%.2f, s=%.2f",
-        goal.x, goal.y, goal.v, goal.s);
-
-    goal_pub_->publish(goal);
-    return;
+    if (reactive){
+            // Build a GoalPoint message
+        interfaces_pkg::msg::GoalPoint goal;
+        // the typical fields might be `x`, `y`, `v` (speed), `s` (steering)
+        goal.x = v_global[0];                // global target x
+        goal.y = v_global[1];                // global target y
+        goal.v = pathpoints[speed_calculation()].v;                    // desired speed
+        goal.s = k;                          // desired steering curvature/angle
+        goal_pub_->publish(goal);
+    }
+    else{
+        auto drive_msg = ackermann_msgs::msg::AckermannDriveStamped();
+        drive_msg.drive.speed = pathpoints[speed_calculation()].v;
+        drive_msg.drive.steering_angle = k;
+        drive_pub_->publish(drive_msg);
+    }
 }
 
 int PurePursuit::speed_calculation()
@@ -304,7 +338,6 @@ void PurePursuit::odom_callback(const nav_msgs::msg::Odometry::ConstSharedPtr od
 
     // Calculate lookahead distance based on current speed
     lookahead_dist = std::min(std::max(min_lookahead_dist, max_lookahead_dist * curr_vel / lookahead_ratio), max_lookahead_dist);
-    RCLCPP_INFO(this->get_logger(), "Lookahead Distance: %.2f", lookahead_dist);
 
     // Cache current transform for this cycle
     try {
