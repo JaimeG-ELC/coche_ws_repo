@@ -159,11 +159,14 @@ size_t ReactiveFollowerNode::calculate_min_gap_size(double safety_distance) {
     return min_gap;
 }
 
+// Converts the goal point from the car's frame to the LiDAR frame and computes the corresponding LiDAR scan index.
+// This involves transforming the goal coordinates using the latest available transform, calculating the angle to the goal,
+// and mapping that angle to the appropriate LiDAR scan index.
 int ReactiveFollowerNode::point_to_lidar_index(){
     
     double x = goal_msg_->x;
     double y = goal_msg_->y;
-    try {
+/*     try {
         // Get car's goal in laser frame
         current_transform_ = tf_buffer_->lookupTransform(
             laser_frame,          // target frame
@@ -180,13 +183,20 @@ int ReactiveFollowerNode::point_to_lidar_index(){
         return -1;
     }
     x = current_transform_.transform.translation.x;
-    y = current_transform_.transform.translation.y;
+    y = current_transform_.transform.translation.y; */
+    
+    RCLCPP_INFO(this->get_logger(), "Goal point in car frame: x = %f, y = %f", x, y);
+
+    x = goal_msg_->x - 0.4;
+
         
     // Calculate the angle from the x and y coordinates
-    double angle = atan2(y, x); // angle in radians, CCW from x-axis
+    double angle = atan2(y, x);
 
-    if (angle < 0) angle += 3*M_PI/2;
-    int idx = std::round(angle *lidar_scans/(2*M_PI));
+    angle += M_PI / 2; // Adjust angle to match LiDAR frame (0 rad = front of the car)
+
+    int idx = std::round(angle *lidar_scans/(3*M_PI/2));
+    RCLCPP_INFO(this->get_logger(), "Angle: %f, Index: %i", angle, idx);
     // double lidar_clamp = lidar_scans - 1;
     return std::clamp(idx, 0, 1179);
 }    

@@ -1,6 +1,6 @@
 /**:
   ros__parameters:
-    csv_path: "/root/coche_ws/src/pure_pursuit_pkg/racelines/roma_vo.csv"  # Update this path
+    csv_path: "/root/coche_ws/src/pure_pursuit_pkg/racelines/test_day.csv"  # Update this path
     min_distance : 0.1
     prev_x : 0.0
     prev_y : 0.0
