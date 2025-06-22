@@ -11,7 +11,7 @@ ros__parameters:
 
   max_speed: 1.0
   min_speed: 0.2
-  bubble_radius: 150
+  bubble_radius: 50
   processed_angle: 180.0
   safety_distance_min: 1.0
   safety_distance_threshold: 2.0
