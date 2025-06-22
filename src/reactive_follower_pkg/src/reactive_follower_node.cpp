@@ -185,7 +185,7 @@ int ReactiveFollowerNode::point_to_lidar_index(){
     x = current_transform_.transform.translation.x;
     y = current_transform_.transform.translation.y; */
     
-    RCLCPP_INFO(this->get_logger(), "Goal point in car frame: x = %f, y = %f", x, y);
+    //RCLCPP_INFO(this->get_logger(), "Goal point in car frame: x = %f, y = %f", x, y);
 
     x = goal_msg_->x - 0.4;
 
@@ -219,6 +219,7 @@ std::vector<ReactiveFollowerNode::Gap> ReactiveFollowerNode::find_gaps(const std
     if (in_gap) {
         size_t end = ranges.size()-1;
         if (end - start +1 >= min_gap) gaps.push_back({start,end});
+
     }
     return gaps;
 }
@@ -307,7 +308,6 @@ void ReactiveFollowerNode::goal_callback(const interfaces_pkg::msg::GoalPoint::C
     }
 
     RCLCPP_INFO(get_logger(), "close index: %zu", closest_idx);
-    RCLCPP_INFO(get_logger(), "Velocity: %f", speed);
     RCLCPP_INFO(get_logger(), "Steering angle: %f", steering_angle);
     RCLCPP_INFO(get_logger(), "\n");
 
