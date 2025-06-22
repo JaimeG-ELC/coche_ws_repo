@@ -1,7 +1,7 @@
-image: test_day_v4.pgm
+image: casa.pgm
 mode: trinary
 resolution: 0.05
-origin: [-13.7, -1.75, 0]
+origin: [-0.243, -0.518, 0]
 negate: 0
 occupied_thresh: 0.65
 free_thresh: 0.25

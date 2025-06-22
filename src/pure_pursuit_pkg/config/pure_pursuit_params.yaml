@@ -1,16 +1,16 @@
 /**:
   ros__parameters:
-    lookahead_dist: 0.6
-    min_lookahead_dist: 0.5
-    max_lookahead_dist: 0.8
+    lookahead_dist: 1.2
+    min_lookahead_dist: 1.0
+    max_lookahead_dist: 1.8
     lookahead_ratio: 4.0
     max_speed: 1.0
     min_speed: 0.4
     kp: 0.7
     max_steering_angle: 0.4
     # n_pathpoints: 169
-    window_size: 30
-    csv_path:  "/root/coche_ws/src/pure_pursuit_pkg/racelines/test_day_v3.csv"
+    window_size: 20
+    csv_path:  "/root/coche_ws/src/pure_pursuit_pkg/racelines/hallo_ieee_v0_waypoints.csv"
     map_frame: "map"
     car_frame: "base_link"
     odom_topic: "/odom"

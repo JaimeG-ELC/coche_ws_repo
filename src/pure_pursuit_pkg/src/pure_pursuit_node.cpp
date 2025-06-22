@@ -294,8 +294,8 @@ void PurePursuit::steering_angle_calculation()
             // Build a GoalPoint message
         interfaces_pkg::msg::GoalPoint goal;
         // the typical fields might be `x`, `y`, `v` (speed), `s` (steering)
-        goal.x = v_global[0];                // global target x
-        goal.y = v_global[1];                // global target y
+        goal.x = v_local[0];                // global target x
+        goal.y = v_local[1];                // global target y
         goal.v = pathpoints[speed_calculation()].v;                    // desired speed
         goal.s = k;                          // desired steering curvature/angle
         goal_pub_->publish(goal);
