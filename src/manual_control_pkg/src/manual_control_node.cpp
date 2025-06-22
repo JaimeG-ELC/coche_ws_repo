@@ -16,7 +16,7 @@ ManualControlNode::ManualControlNode() : Node("manual_control_node"){
     this->declare_parameter<double>("throttle_multiplier", 3);
     this->declare_parameter<double>("steering_gain", -0.37);
     this->declare_parameter<double>("steering_offset", 0.0);
-    this->declare_parameter<double>("constant_throttle", 1);
+    this->declare_parameter<double>("constant_throttle", 2.5);
 
     // Get parameters
     lb_button_idx_ = this->get_parameter("lb_button_idx").as_int();
@@ -46,7 +46,7 @@ ManualControlNode::ManualControlNode() : Node("manual_control_node"){
     button_pressed_ = false;
     prev_drive_multiplier_button_value_ = 0.0;
     kill_button_prev_ = 0;
-
+    RCLCPP_INFO(this->get_logger(), "constant_throttle_: %f", constant_throttle_);
     RCLCPP_INFO(get_logger(), "Manual control node initialized");
 }
 
@@ -105,7 +105,7 @@ void ManualControlNode::joyCallback(const sensor_msgs::msg::Joy::SharedPtr joy) 
     }
     
     if (joy->buttons[rb_button_idx_]) {
-        ackermann_msg.drive.speed = constant_throttle_;
+        ackermann_msg.drive.speed = 3.5;
     }
 
     ackermann_msg.drive.steering_angle = -joy->axes[left_horizontal_axis_idx_] * steering_gain_ + steering_offset_;

@@ -12,4 +12,4 @@
     throttle_multiplier: 3.0
     steering_gain: -0.37
     steering_offset: 0.0
-    constant_throttle: 1.0
+    constant_throttle: 2.0
