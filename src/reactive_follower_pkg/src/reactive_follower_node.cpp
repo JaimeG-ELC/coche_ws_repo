@@ -174,7 +174,7 @@ int ReactiveFollowerNode::point_to_lidar_index(){
     angle += M_PI / 2; // Adjust angle to match LiDAR frame (0 rad = front of the car)
 
     int idx = std::round(angle * lidar_scans/(3*M_PI/2));
-    RCLCPP_INFO(this->get_logger(), "Angle: %f, Index: %i", angle, idx);
+    // RCLCPP_INFO(this->get_logger(), "Angle: %f, Index: %i", angle, idx);
     // double lidar_clamp = lidar_scans - 1;
     return std::clamp(idx, 0, 1179);
 }    
@@ -218,7 +218,7 @@ std::vector<ReactiveFollowerNode::Gap> ReactiveFollowerNode::find_gaps(const std
     // Optionally, you can store the middle of the biggest gap for further use
     if (max_gap_size > 0) {
         size_t middle_of_biggest_gap = biggest_gap.start + (biggest_gap.end - biggest_gap.start) / 2;
-        RCLCPP_INFO(this->get_logger(), "Middle of biggest gap: %zu", middle_of_biggest_gap);
+        //RCLCPP_INFO(this->get_logger(), "Middle of biggest gap: %zu", middle_of_biggest_gap);
     }
 
     return gaps;
@@ -227,7 +227,7 @@ std::vector<ReactiveFollowerNode::Gap> ReactiveFollowerNode::find_gaps(const std
 bool ReactiveFollowerNode::gp_in_gaps(const std::vector<Gap> &gaps){
     //Si indice_pp esta dentro de un gap, return true. si no está en ninguno, return false
     for (auto &gap : gaps) {
-        RCLCPP_INFO(this->get_logger(), "Gap: start = %zu, end = %zu", gap.start, gap.end);
+        //RCLCPP_INFO(this->get_logger(), "Gap: start = %zu, end = %zu", gap.start, gap.end);
         if (gp_index >= static_cast<int>(gap.start) && gp_index <= static_cast<int>(gap.end)) {
             return true;
         }
@@ -265,7 +265,7 @@ std::pair<double, double> ReactiveFollowerNode::alternative_commands(
     // Place best_idx at the middle of the biggest gap
     int best_idx = static_cast<int>(biggest_gap->start + (biggest_gap->end - biggest_gap->start) / 2);
 
-    RCLCPP_INFO(this->get_logger(), "BIGGEST GAP: start=%zu, end=%zu, best_idx=%i", biggest_gap->start, biggest_gap->end, best_idx);
+    //RCLCPP_INFO(this->get_logger(), "BIGGEST GAP: start=%zu, end=%zu, best_idx=%i", biggest_gap->start, biggest_gap->end, best_idx);
 
     double best_angle = best_idx * ((lidar_angle / lidar_scans) * (M_PI / 180.0));
     double steering_angle = best_angle - (M_PI / 2);
@@ -314,9 +314,9 @@ void ReactiveFollowerNode::goal_callback(const interfaces_pkg::msg::GoalPoint::C
         RCLCPP_INFO(get_logger(), "Pure Pursuit commands.");
     }
 
-    RCLCPP_INFO(get_logger(), "close index: %zu", closest_idx);
+    //RCLCPP_INFO(get_logger(), "close index: %zu", closest_idx);
     //RCLCPP_INFO(get_logger(), "Steering angle: %f", steering_angle);
-    RCLCPP_INFO(get_logger(), "\n");
+    //RCLCPP_INFO(get_logger(), "\n");
 
     auto drive_msg = ackermann_msgs::msg::AckermannDriveStamped();
     drive_msg.drive.speed = std::max(speed, min_speed);
