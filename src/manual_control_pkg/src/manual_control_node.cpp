@@ -16,14 +16,15 @@ ManualControlNode::ManualControlNode() : Node("manual_control_node"){
     this->declare_parameter<double>("throttle_multiplier", 3);
     this->declare_parameter<double>("steering_gain", -0.37);
     this->declare_parameter<double>("steering_offset", 0.0);
-    this->declare_parameter<double>("constant_throttle", 2.5);
+    this->declare_parameter<double>("constant_throttle", 0.5);
 
     // Get parameters
     lb_button_idx_ = this->get_parameter("lb_button_idx").as_int();
     rb_button_idx_ = this->get_parameter("rb_button_idx").as_int();
     rt_axis_idx_ = this->get_parameter("rt_axis_idx").as_int();
     lt_axis_idx_ = this->get_parameter("lt_axis_idx").as_int();
-    left_horizontal_axis_idx_ = this->get_parameter("left_horizontal_axis_idx").as_int();
+    left_horizontal_a
+    xis_idx_ = this->get_parameter("left_horizontal_axis_idx").as_int();
     joy_topic_ = this->get_parameter("joy_topic").as_string();
     drive_topic_ = this->get_parameter("drive_topic").as_string();
     ackermann_cmd_topic_ = this->get_parameter("ackermann_cmd_topic").as_string();
