@@ -23,8 +23,7 @@ ManualControlNode::ManualControlNode() : Node("manual_control_node"){
     rb_button_idx_ = this->get_parameter("rb_button_idx").as_int();
     rt_axis_idx_ = this->get_parameter("rt_axis_idx").as_int();
     lt_axis_idx_ = this->get_parameter("lt_axis_idx").as_int();
-    left_horizontal_a
-    xis_idx_ = this->get_parameter("left_horizontal_axis_idx").as_int();
+    left_horizontal_axis_idx_ = this->get_parameter("left_horizontal_axis_idx").as_int();
     joy_topic_ = this->get_parameter("joy_topic").as_string();
     drive_topic_ = this->get_parameter("drive_topic").as_string();
     ackermann_cmd_topic_ = this->get_parameter("ackermann_cmd_topic").as_string();
