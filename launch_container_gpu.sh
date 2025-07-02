@@ -4,6 +4,7 @@ docker run --runtime nvidia -it --privileged --net=host \
     -v /etc/udev/rules.d:/etc/udev/rules.d \
     --device /dev/sensors/vesc:/dev/sensors/vesc \
     --device /dev/sensors/joystick:/dev/sensors/joystick \
+    --device /dev/sensors/imu:/dev/sensors/imu \
     --env DISPLAY=$DISPLAY \
     --env ROS_DOMAIN_ID=9 \
     --volume /tmp/.X11-unix:/tmp/.X11-unix \
@@ -14,4 +15,6 @@ docker run --runtime nvidia -it --privileged --net=host \
     --volume=./src/waypoint_generator_pkg:/root/coche_ws/src/waypoint_generator_pkg \
     --volume=./src/manual_control_pkg:/root/coche_ws/src/manual_control_pkg \
     --volume=./src/interfaces_pkg:/root/coche_ws/src/interfaces_pkg \
+    --volume=./src/vesc:/root/coche_ws/src/vesc \
+    --volume=./src/state_stimation:/root/coche_ws/src/state_stimation \
     f1tenth-system-gpu

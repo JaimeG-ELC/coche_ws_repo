@@ -16,7 +16,7 @@ ManualControlNode::ManualControlNode() : Node("manual_control_node"){
     this->declare_parameter<double>("throttle_multiplier", 3);
     this->declare_parameter<double>("steering_gain", -0.37);
     this->declare_parameter<double>("steering_offset", 0.0);
-    this->declare_parameter<double>("constant_throttle", 2.5);
+    this->declare_parameter<double>("constant_throttle", 0.5);
 
     // Get parameters
     lb_button_idx_ = this->get_parameter("lb_button_idx").as_int();
