@@ -1,56 +1,46 @@
-#include "f1tenth_stack/tf_publisher_node.hpp"
-#include <tf2/LinearMath/Quaternion.h>
+#include "map_to_odom_tf_broadcaster/broadcaster_node.hpp"
 
-TFPublisherNode::TFPublisherNode() : Node("tf_publisher_node") {
-    // Declare and get parameters
-    this->declare_parameter("base_link_frame", "base_link");
-    this->declare_parameter("laser_frame", "laser");
-    this->declare_parameter("laser_x", 0.0);
-    this->declare_parameter("laser_y", 0.0);
-    this->declare_parameter("laser_z", 0.0);
-    this->declare_parameter("laser_roll", 0.0);
-    this->declare_parameter("laser_pitch", 0.0);
-    this->declare_parameter("laser_yaw", -1.5708);
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf2/LinearMath/Transform.h>
 
-    base_link_frame_ = this->get_parameter("base_link_frame").as_string();
-    laser_frame_ = this->get_parameter("laser_frame").as_string();
-    laser_x_ = this->get_parameter("laser_x").as_double();
-    laser_y_ = this->get_parameter("laser_y").as_double();
-    laser_z_ = this->get_parameter("laser_z").as_double();
-    laser_roll_ = this->get_parameter("laser_roll").as_double();
-    laser_pitch_ = this->get_parameter("laser_pitch").as_double();
-    laser_yaw_ = this->get_parameter("laser_yaw").as_double();
+MapToOdomBroadcaster::MapToOdomBroadcaster()
+: Node("map_to_odom_tf_broadcaster")
+{
+  tf_buffer_ = std::make_shared<tf2_ros::Buffer>(this->get_clock());
+  tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
+  tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 
-    // Initialize TF broadcaster
-    tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
-
-    // Create timer for periodic publishing
-    timer_ = this->create_wall_timer(
-        std::chrono::milliseconds(100),
-        std::bind(&TFPublisherNode::timerCallback, this));
-
-    RCLCPP_INFO(this->get_logger(), "TF Publisher Node has been initialized");
+  timer_ = this->create_wall_timer(
+    std::chrono::milliseconds(50),
+    std::bind(&MapToOdomBroadcaster::broadcastTransform, this)
+  );
 }
 
-void TFPublisherNode::timerCallback() {
-    geometry_msgs::msg::TransformStamped transform;
-    transform.header.stamp = this->get_clock()->now();
-    transform.header.frame_id = base_link_frame_;
-    transform.child_frame_id = laser_frame_;
+void MapToOdomBroadcaster::broadcastTransform()
+{
+  geometry_msgs::msg::TransformStamped map_to_base, odom_to_base;
 
-    // Set translation
-    transform.transform.translation.x = laser_x_;
-    transform.transform.translation.y = laser_y_;
-    transform.transform.translation.z = laser_z_;
+  try {
+    map_to_base = tf_buffer_->lookupTransform("map", "base_link", tf2::TimePointZero);
+    odom_to_base = tf_buffer_->lookupTransform("odom", "base_link", tf2::TimePointZero);
+  } catch (const tf2::TransformException & ex) {
+    RCLCPP_WARN(this->get_logger(), "Transform lookup failed: %s", ex.what());
+    return;
+  }
 
-    // Set rotation
-    tf2::Quaternion q;
-    q.setRPY(laser_roll_, laser_pitch_, laser_yaw_);
-    transform.transform.rotation.x = q.x();
-    transform.transform.rotation.y = q.y();
-    transform.transform.rotation.z = q.z();
-    transform.transform.rotation.w = q.w();
+  // Convert to tf2
+  tf2::Transform tf_map_base, tf_odom_base;
+  tf2::fromMsg(map_to_base.transform, tf_map_base);
+  tf2::fromMsg(odom_to_base.transform, tf_odom_base);
 
-    // Send transform
-    tf_broadcaster_->sendTransform(transform);
-} 
+  tf2::Transform tf_base_odom = tf_odom_base.inverse();
+  tf2::Transform tf_map_odom = tf_map_base * tf_base_odom;
+
+  geometry_msgs::msg::TransformStamped map_to_odom;
+  map_to_odom.header.stamp = this->get_clock()->now();
+  map_to_odom.header.frame_id = "map";
+  map_to_odom.child_frame_id = "odom";
+  map_to_odom.transform = tf2::toMsg(tf_map_odom);
+
+  tf_broadcaster_->sendTransform(map_to_odom);
+}

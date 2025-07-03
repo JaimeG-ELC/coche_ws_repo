@@ -114,6 +114,6 @@ def generate_launch_description():
     ld.add_action(vesc_to_odom_node)
     ld.add_action(vesc_driver_node)
     ld.add_action(urg_node)
-    ld.add_action(static_tf_baselink_laser_node)
+    #ld.add_action(static_tf_baselink_laser_node)
 
     return ld

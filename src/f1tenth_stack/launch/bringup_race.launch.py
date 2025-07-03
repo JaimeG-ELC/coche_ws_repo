@@ -106,6 +106,12 @@ def generate_launch_description():
         name='static_laser_baselink_node',
         arguments=['0.4', '0.0', '0.15', '0.0', '0.0', '0.0', 'base_link', 'laser']
     )
+    tf_publisher_node = Node(
+    package='f1tenth_stack',
+    executable='tf_publisher_node',
+    name='tf_publisher_node',
+    output='screen'
+    )
 
     # finalize
     ld.add_action(joy_node)
@@ -114,6 +120,7 @@ def generate_launch_description():
     ld.add_action(vesc_to_odom_node)
     ld.add_action(vesc_driver_node)
     ld.add_action(urg_node)
-    #ld.add_action(static_tf_laser_baselink_node)
+    ld.add_action(static_tf_laser_baselink_node)
+    ld.add_action(tf_publisher_node)
 
     return ld
