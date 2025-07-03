@@ -23,6 +23,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2 REQUIRED)
+find_package(vesc_msgs REQUIRED)
 
 # Include directories
 include_directories(
@@ -30,24 +31,46 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}
 )
 
+find_package(vesc_msgs REQUIRED)
+
+# Include directories
+include_directories(
+  include
+  ${vesc_msgs_INCLUDE_DIRS}
+)
+
 # Create the node executables
-add_executable(tf_publisher_node 
-  src/main.cpp
-  src/tf_publisher_node.cpp
+# add_executable(tf_publisher_node 
+#   src/main.cpp
+#   src/tf_publisher_node.cpp
+# )
+
+add_executable(imu_tf_broadcaster 
+  src/imu_tf_broadcaster.cpp
 )
 
 # Link dependencies for tf_publisher_node
-ament_target_dependencies(tf_publisher_node 
-  rclcpp 
-  std_msgs
-  geometry_msgs
-  tf2
+# ament_target_dependencies(tf_publisher_node 
+#   rclcpp 
+#   std_msgs
+#   geometry_msgs
+#   tf2
+#   tf2_ros
+# )
+ament_target_dependencies(imu_tf_broadcaster
+  rclcpp
   tf2_ros
+  geometry_msgs
 )
 
 # Install targets
+# install(TARGETS 
+#   tf_publisher_node
+#   DESTINATION lib/${PROJECT_NAME}
+# )
+# Install targets
 install(TARGETS 
-  tf_publisher_node
+  imu_tf_broadcaster
   DESTINATION lib/${PROJECT_NAME}
 )
 
