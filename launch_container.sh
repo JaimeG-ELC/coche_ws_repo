@@ -9,5 +9,8 @@ docker run -it --privileged --net=host \
     --volume /tmp/.X11-unix:/tmp/.X11-unix \
     --volume ~/.Xauthority:/root/.Xauthority \
     --volume=./src/f1tenth_stack:/root/coche_ws/src/f1tenth_stack  \
+    --volume=./src/waypoint_generator_pkg:/root/coche_ws/src/waypoint_generator_pkg \
     --volume=./src/manual_control_pkg:/root/coche_ws/src/manual_control_pkg \
+    --volume=./src/interfaces_pkg:/root/coche_ws/src/interfaces_pkg \
+    --volume=./src/vesc:/root/coche_ws/src/vesc \
     f1tenth-system

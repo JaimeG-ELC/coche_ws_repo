@@ -36,8 +36,8 @@ RUN wget https://github.com/chriskohlhoff/asio/archive/asio-1-12-2.tar.gz && \
 WORKDIR /root/coche_ws/src
 
 # Install VESC Drivers
-RUN git clone https://github.com/ros-drivers/transport_drivers.git && \
-    git clone -b foxy https://github.com/f1tenth/vesc.git
+RUN git clone https://github.com/ros-drivers/transport_drivers.git
+#    git clone -b foxy https://github.com/f1tenth/vesc.git
    
 # Install LIDAR Drivers
 # RUN git clone https://github.com/rudislabs/ldlidar_stl_ros2.git

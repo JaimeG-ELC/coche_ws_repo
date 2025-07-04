@@ -2,13 +2,14 @@
 #define TF_PUBLISHER_NODE_HPP_
 
 #include <tf2/LinearMath/Quaternion.h>
-#include <tf2/LinearMath/Matrix3x3.h> // <-- Add this line
+#include <tf2/LinearMath/Matrix3x3.h>
 #include <tf2_ros/transform_broadcaster.h>
 #include <geometry_msgs/msg/transform_stamped.hpp>
 #include <sensor_msgs/msg/imu.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <memory>
 #include <string>
+#include <interfaces_pkg/msg/vesc_imu_stamped.hpp>  
 
 class TFPublisherNode : public rclcpp::Node {
 public:
@@ -37,17 +38,11 @@ private:
     rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr imu_std_sub_;
 
     // Callbacks
-    void imuCallback(const interfaces_pkg::msg::VescImuStamped::SharedPtr msg);
+    void imuCallback(const sensor_msgs::msg::Imu::SharedPtr msg);
     void timerCallback();
 
     bool use_ypr_;
-    bool print_yaw_rates_; // <-- Add this line
-
-    double last_yaw_rate_ = 0.0; // <-- Add this line
-    rclcpp::Time last_yaw_rate_stamp_; // <-- Add this line
-
-    double yaw_rate_ = 0.0;
-    double yaw_acc_ = 0.0;
+    bool print_yaw_rates_;
 };
 
 #endif // TF_PUBLISHER_NODE_HPP_

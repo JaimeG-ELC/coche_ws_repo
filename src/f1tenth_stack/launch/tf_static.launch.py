@@ -38,14 +38,14 @@ def generate_launch_description():
         package='tf2_ros',
         executable='static_transform_publisher',
         name='static_baselink_to_laser',
-        arguments=['0.1', '0.02', '0.08', '0.0', '0.0', '0.0', 'imu', 'base_link']
+        arguments=['0.09', '0.02', '-0.06', '3.14', '0.0', '0', 'imu', 'base_link']
     )
 
     static_tf_baselink_laser_node = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
         name='static_baselink_to_laser',
-        arguments=['0.27', '0.0', '0.11', '0.0', '0.0', '0.0', 'base_link', 'laser']
+        arguments=['0.36', '0.0', '0.12', '0.0', '0.0', '0.0', 'base_link', 'laser']
     )
 
     # finalize

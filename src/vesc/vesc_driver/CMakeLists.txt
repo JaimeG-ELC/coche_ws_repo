@@ -11,6 +11,9 @@ elseif("${CMAKE_CXX_STANDARD_COMPUTED_DEFAULT}" STREQUAL "98")
 endif()
 
 find_package(ament_cmake_auto REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(tf2 REQUIRED)
+
 ament_auto_find_build_dependencies()
 
 find_package(Threads)

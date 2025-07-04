@@ -39,6 +39,8 @@
 #include <memory>
 #include <sstream>
 #include <string>
+#include <tf2/LinearMath/Quaternion.h>
+#include <tf2/LinearMath/Matrix3x3.h>
 
 namespace vesc_driver
 {
@@ -208,8 +210,6 @@ void VescDriver::vescPacketCallback(const std::shared_ptr<VescPacket const> & pa
     auto imu_msg = VescImuStamped();
     auto std_imu_msg = Imu();
     imu_msg.header.stamp = now();
-    imu_msg.imu.header.frame_id = "base_link";
-    std_imu_msg.header.frame_id = "base_link";
     std_imu_msg.header.stamp = now();
 
     imu_msg.imu.ypr.x = imuData->roll();
@@ -233,6 +233,31 @@ void VescDriver::vescPacketCallback(const std::shared_ptr<VescPacket const> & pa
     imu_msg.imu.orientation.y = imuData->q_y();
     imu_msg.imu.orientation.z = imuData->q_z();
 
+
+    tf2::Quaternion q_raw(
+      imuData->q_x(),
+      imuData->q_y(),
+      imuData->q_z(),
+      imuData->q_w()
+    );
+
+    // 2. Define 180-degree rotation around Z axis
+    tf2::Quaternion q_flip_z;
+    q_flip_z.setRPY(0, 0, M_PI);  // 180 deg yaw
+
+    // 3. Compose final orientation: apply flip AFTER the raw IMU
+    tf2::Quaternion q_final = q_flip_z * q_raw;
+    q_final.normalize();
+
+    // Rotation matrix from q_flip_z
+    tf2::Matrix3x3 rot_matrix(q_flip_z);
+
+    // 5. Fill ROS message
+    std_imu_msg.orientation.w = q_final.w();
+    std_imu_msg.orientation.x = q_final.x();
+    std_imu_msg.orientation.y = q_final.y();
+    std_imu_msg.orientation.z = q_final.z();
+
     std_imu_msg.linear_acceleration.x = imuData->acc_x();
     std_imu_msg.linear_acceleration.y = imuData->acc_y();
     std_imu_msg.linear_acceleration.z = imuData->acc_z();
@@ -240,12 +265,6 @@ void VescDriver::vescPacketCallback(const std::shared_ptr<VescPacket const> & pa
     std_imu_msg.angular_velocity.x = imuData->gyr_x();
     std_imu_msg.angular_velocity.y = imuData->gyr_y();
     std_imu_msg.angular_velocity.z = imuData->gyr_z();
-
-    std_imu_msg.orientation.w = imuData->q_w();
-    std_imu_msg.orientation.x = imuData->q_x();
-    std_imu_msg.orientation.y = imuData->q_y();
-    std_imu_msg.orientation.z = imuData->q_z();
-
 
     imu_pub_->publish(imu_msg);
     imu_std_pub_->publish(std_imu_msg);
