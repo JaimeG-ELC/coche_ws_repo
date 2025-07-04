@@ -1,27 +1,50 @@
 #ifndef TF_PUBLISHER_NODE_HPP_
 #define TF_PUBLISHER_NODE_HPP_
 
-#pragma once
-
-#include <rclcpp/rclcpp.hpp>
-#include <tf2_ros/transform_listener.h>
-#include <tf2_ros/buffer.h>
+#include <tf2/LinearMath/Quaternion.h>
+#include <tf2/LinearMath/Matrix3x3.h> // <-- Add this line
 #include <tf2_ros/transform_broadcaster.h>
 #include <geometry_msgs/msg/transform_stamped.hpp>
+#include <sensor_msgs/msg/imu.hpp>
+#include <rclcpp/rclcpp.hpp>
+#include <memory>
+#include <string>
 
-class MapToOdomBroadcaster : public rclcpp::Node
-{
+class TFPublisherNode : public rclcpp::Node {
 public:
-  MapToOdomBroadcaster();
+    TFPublisherNode();
 
 private:
-  void broadcastTransform();
+    // Parameters for odom->imu transform
+    std::string odom_frame_;
+    std::string imu_frame_;
+    double imu_x_;
+    double imu_y_;
+    double imu_z_;
 
-  rclcpp::TimerBase::SharedPtr timer_;
-  std::shared_ptr<tf2_ros::Buffer> tf_buffer_;
-  std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
-  std::shared_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
+    // Latest IMU orientation
+    geometry_msgs::msg::Quaternion latest_orientation_;
+    rclcpp::Time latest_stamp_;
+
+    // TF broadcaster
+    std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
+
+    // Timer
+    rclcpp::TimerBase::SharedPtr timer_;
+
+    // IMU subscriber
+    rclcpp::Subscription<interfaces_pkg::msg::VescImuStamped>::SharedPtr imu_sub_;
+    rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr imu_std_sub_;
+
+    // Callbacks
+    void imuCallback(const sensor_msgs::msg::Imu::SharedPtr msg);
+    void timerCallback();
+
+    bool use_ypr_;
+    bool print_yaw_rates_; // <-- Add this line
+
+    double last_yaw_rate_ = 0.0; // <-- Add this line
+    rclcpp::Time last_yaw_rate_stamp_; // <-- Add this line
 };
 
-
-#endif // TF_PUBLISHER_NODE_HPP_ 
+#endif // TF_PUBLISHER_NODE_HPP_

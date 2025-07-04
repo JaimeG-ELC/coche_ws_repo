@@ -39,40 +39,29 @@ include_directories(
   ${vesc_msgs_INCLUDE_DIRS}
 )
 
-# Create the node executables
-# add_executable(tf_publisher_node 
-#   src/main.cpp
-#   src/tf_publisher_node.cpp
-# )
-
-add_executable(imu_tf_broadcaster 
-  src/imu_tf_broadcaster.cpp
+Create the node executables
+add_executable(tf_publisher_node 
+  src/main.cpp
+  src/tf_publisher_node.cpp
 )
 
-# Link dependencies for tf_publisher_node
-# ament_target_dependencies(tf_publisher_node 
-#   rclcpp 
-#   std_msgs
-#   geometry_msgs
-#   tf2
-#   tf2_ros
-# )
-ament_target_dependencies(imu_tf_broadcaster
-  rclcpp
-  tf2_ros
+
+Link dependencies for tf_publisher_node
+ament_target_dependencies(tf_publisher_node 
+  rclcpp 
+  std_msgs
   geometry_msgs
+  tf2
+  tf2_ros
 )
 
-# Install targets
-# install(TARGETS 
-#   tf_publisher_node
-#   DESTINATION lib/${PROJECT_NAME}
-# )
-# Install targets
+
+Install targets
 install(TARGETS 
-  imu_tf_broadcaster
+  tf_publisher_node
   DESTINATION lib/${PROJECT_NAME}
 )
+
 
 # Install include directories
 install(DIRECTORY 

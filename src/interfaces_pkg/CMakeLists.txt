@@ -21,10 +21,17 @@ find_package(rclcpp REQUIRED)
 
 set(msg_files
   "msg/GoalPoint.msg"
+  "msg/VescImu.msg"
+  "msg/VescImuStamped.msg"
+  "msg/Odom.msg"
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   ${msg_files}
+  DEPENDENCIES 
+    std_msgs 
+    sensor_msgs 
+    geometry_msgs
 )
 
 ament_export_dependencies(rosidl_default_runtime)
