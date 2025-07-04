@@ -22,7 +22,7 @@ TFPublisherNode::TFPublisherNode() : Node("tf_publisher_node") {
     tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
 
     // Subscribe to IMU topic
-    imu_sub_ = this->create_subscription<sensor_msgs::msg::VescImuStamped>(
+    imu_sub_ = this->create_subscription<interfaces_pkg::msg::VescImuStamped>(
         "imu", 10,
         std::bind(&TFPublisherNode::imuCallback, this, std::placeholders::_1)
     );
@@ -48,21 +48,21 @@ TFPublisherNode::TFPublisherNode() : Node("tf_publisher_node") {
     RCLCPP_INFO(this->get_logger(), "TF Publisher Node (odom->imu, dynamic) initialized");
 }
 
-void TFPublisherNode::imuCallback(const sensor_msgs::msg::VescImuStamped::SharedPtr msg) {
+void TFPublisherNode::imuCallback(const interfaces_pkg::msg::VescImuStamped::SharedPtr msg) {
     latest_stamp_ = msg->header.stamp;
 
-    double yaw_rate = msg->imu.angular_velocity.z; // Yaw rate
+    yaw_rate_ = msg->imu.angular_velocity.z; // Yaw rate
 
     // Compute yaw acceleration
-    double yaw_acc = 0.0;
+    yaw_acc_ = 0.0;
     if (last_yaw_rate_stamp_.nanoseconds() > 0) {
         double dt = (msg->header.stamp - last_yaw_rate_stamp_).seconds();
         if (dt > 1e-6) {
-            yaw_acc = (yaw_rate - last_yaw_rate_) / dt;
+            yaw_acc_ = (yaw_rate_ - last_yaw_rate_) / dt;
         }
     }
 
-    last_yaw_rate_ = yaw_rate;
+    last_yaw_rate_ = yaw_rate_;
     last_yaw_rate_stamp_ = msg->header.stamp;
 
     if (use_ypr_) {
@@ -128,8 +128,8 @@ void TFPublisherNode::timerCallback() {
     );
         
     if (print_yaw_rates_) {
-        double yaw_rate_deg = yaw_rate * 180.0 / M_PI;
-        double yaw_acc_deg = yaw_acc * 180.0 / M_PI;
+        double yaw_rate_deg = yaw_rate_ * 180.0 / M_PI;
+        double yaw_acc_deg = yaw_acc_ * 180.0 / M_PI;
         RCLCPP_INFO(this->get_logger(),
             "(yaw rate: %.4f deg/s)\n (yaw acceleration: %.4f deg/s^2)",
             yaw_rate_deg, yaw_acc_deg);

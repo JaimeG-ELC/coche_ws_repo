@@ -37,7 +37,7 @@ private:
     rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr imu_std_sub_;
 
     // Callbacks
-    void imuCallback(const sensor_msgs::msg::Imu::SharedPtr msg);
+    void imuCallback(const interfaces_pkg::msg::VescImuStamped::SharedPtr msg);
     void timerCallback();
 
     bool use_ypr_;
@@ -45,6 +45,9 @@ private:
 
     double last_yaw_rate_ = 0.0; // <-- Add this line
     rclcpp::Time last_yaw_rate_stamp_; // <-- Add this line
+
+    double yaw_rate_ = 0.0;
+    double yaw_acc_ = 0.0;
 };
 
 #endif // TF_PUBLISHER_NODE_HPP_
