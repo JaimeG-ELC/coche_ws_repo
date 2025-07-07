@@ -25,6 +25,8 @@ set(msg_files
   "msg/VescImu.msg"
   "msg/VescImuStamped.msg"
   "msg/Odom.msg"
+  "msg/VescState.msg"
+  "msg/VescStateStamped.msg"
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}

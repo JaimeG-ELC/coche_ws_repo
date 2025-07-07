@@ -46,6 +46,10 @@ add_executable(tf_publisher_node
   src/tf_publisher_node.cpp
 )
 
+add_executable(tf_odom_node 
+  src/tf_odom_node.cpp
+)
+
 
 # Link dependencies for tf_publisher_node
 ament_target_dependencies(tf_publisher_node 
@@ -56,11 +60,21 @@ ament_target_dependencies(tf_publisher_node
   tf2_ros
   interfaces_pkg
 )
+ament_target_dependencies(tf_odom_node 
+  rclcpp 
+  std_msgs
+  geometry_msgs
+  tf2
+  tf2_ros
+  interfaces_pkg
+)
+
 
 
 # Install targets
 install(TARGETS 
   tf_publisher_node
+  tf_odom_node
   DESTINATION lib/${PROJECT_NAME}
 )
 

@@ -233,26 +233,6 @@ void VescDriver::vescPacketCallback(const std::shared_ptr<VescPacket const> & pa
     imu_msg.imu.orientation.y = imuData->q_y();
     imu_msg.imu.orientation.z = imuData->q_z();
 
-
-    tf2::Quaternion q_raw(
-      imuData->q_x(),
-      imuData->q_y(),
-      imuData->q_z(),
-      imuData->q_w()
-    );
-
-    // 2. Define 180-degree rotation around Z axis
-    tf2::Quaternion q_flip_z;
-    q_flip_z.setRPY(0, 0, M_PI);  // 180 deg yaw
-
-    // 3. Compose final orientation: apply flip AFTER the raw IMU
-    tf2::Quaternion q_final = q_flip_z * q_raw;
-    q_final.normalize();
-
-    // Rotation matrix from q_flip_z
-    tf2::Matrix3x3 rot_matrix(q_flip_z);
-
-    // 5. Fill ROS message
     std_imu_msg.orientation.w = q_final.w();
     std_imu_msg.orientation.x = q_final.x();
     std_imu_msg.orientation.y = q_final.y();
