@@ -7,7 +7,7 @@ BaseToOdomTFPublisher::BaseToOdomTFPublisher()
     // Declare and get parameters
     this->declare_parameter("odom_frame", "odom");
     this->declare_parameter("base_frame", "base_link");
-    this->declare_parameter("speed_to_erpm_gain", 4614.0);
+    this->declare_parameter("speed_to_erpm_gain", 7528.0);
     this->declare_parameter("speed_to_erpm_offset", 0.0);
 
     odom_frame_ = this->get_parameter("odom_frame").as_string();
