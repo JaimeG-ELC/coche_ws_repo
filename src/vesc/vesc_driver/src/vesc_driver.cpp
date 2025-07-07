@@ -233,10 +233,10 @@ void VescDriver::vescPacketCallback(const std::shared_ptr<VescPacket const> & pa
     imu_msg.imu.orientation.y = imuData->q_y();
     imu_msg.imu.orientation.z = imuData->q_z();
 
-    std_imu_msg.orientation.w = q_final.w();
-    std_imu_msg.orientation.x = q_final.x();
-    std_imu_msg.orientation.y = q_final.y();
-    std_imu_msg.orientation.z = q_final.z();
+    std_imu_msg.orientation.w = imuData->q_w();
+    std_imu_msg.orientation.x = imuData->q_x();
+    std_imu_msg.orientation.y = imuData->q_y();
+    std_imu_msg.orientation.z = imuData->q_z();
 
     std_imu_msg.linear_acceleration.x = imuData->acc_x();
     std_imu_msg.linear_acceleration.y = imuData->acc_y();

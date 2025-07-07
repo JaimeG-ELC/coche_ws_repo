@@ -76,6 +76,8 @@ RUN apt install -y ros-foxy-slam-toolbox
 #Install RVIZ2
 RUN apt install -y ros-foxy-rviz2
 
+RUN apt install -y ros-foxy-ackermann-msgs
+
 SHELL ["/bin/bash", "-c"]
 
 RUN source /opt/ros/foxy/setup.bash && colcon build

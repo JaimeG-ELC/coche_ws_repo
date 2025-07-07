@@ -1,7 +1,7 @@
-#include "f1tenth_stack/base_to_odom_tf_publisher_node.hpp"
+#include "f1tenth_stack/tf_odom_node.hpp"
 
-BaseToOdomTFPublisher::BaseToOdomTFPublisher()
-    : Node("base_to_odom_tf_publisher"),
+TFOdomNode::TFOdomNode()
+    : Node("tf_odom_node"),
       x_(0.0), y_(0.0), yaw_(0.0), has_prev_time_(false)
 {
     // Declare and get parameters
@@ -19,12 +19,12 @@ BaseToOdomTFPublisher::BaseToOdomTFPublisher()
 
     vesc_sub_ = this->create_subscription<vesc_msgs::msg::VescStateStamped>(
         "sensors/core", 10,
-        std::bind(&BaseToOdomTFPublisher::vescCallback, this, std::placeholders::_1));
+        std::bind(&TFOdomNode::vescCallback, this, std::placeholders::_1));
 
-    RCLCPP_INFO(this->get_logger(), "BaseToOdomTFPublisher node initialized");
+    RCLCPP_INFO(this->get_logger(), "TFOdomNode node initialized");
 }
 
-void BaseToOdomTFPublisher::vescCallback(const vesc_msgs::msg::VescStateStamped::SharedPtr msg)
+void TFOdomNode::vescCallback(const vesc_msgs::msg::VescStateStamped::SharedPtr msg)
 {
     rclcpp::Time current_time = msg->header.stamp;
 
@@ -62,4 +62,14 @@ void BaseToOdomTFPublisher::vescCallback(const vesc_msgs::msg::VescStateStamped:
     tf_msg.transform.rotation.w = q.w();
 
     tf_broadcaster_->sendTransform(tf_msg);
+}
+
+// The main function
+int main(int argc, char * argv[])
+{
+    rclcpp::init(argc, argv);
+    auto node = std::make_shared<TFOdomNode>();
+    rclcpp::spin(node);
+    rclcpp::shutdown();
+    return 0;
 }

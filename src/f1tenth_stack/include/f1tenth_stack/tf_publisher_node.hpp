@@ -11,8 +11,6 @@
 #include <string>
 #include <interfaces_pkg/msg/vesc_imu_stamped.hpp>  
 
-#include <geometry_msgs/msg/vector3.hpp>
-
 class TFPublisherNode : public rclcpp::Node {
 public:
     TFPublisherNode();
@@ -21,16 +19,18 @@ private:
     // Parameters for odom->imu transform
     std::string odom_frame_;
     std::string imu_frame_;
+    double imu_x_;
+    double imu_y_;
+    double imu_z_;
 
     // Latest IMU orientation
     geometry_msgs::msg::Quaternion latest_orientation_;
-    geometry_msgs::msg::Vector3 latest_linear_accel_;
-    geometry_msgs::msg::Vector3 position_;
-    geometry_msgs::msg::Vector3 velocity_;
+    geometry_msgs::msg::Vector3 latest_linear_acceleration_;
+    geometry_msgs::msg::Vector3 latest_linear_velocity_;
+    geometry_msgs::msg::Vector3 latest_position_;
 
     rclcpp::Time latest_stamp_;
     rclcpp::Time prev_time_;
-    bool has_prev_time_;
 
     // TF broadcaster
     std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;

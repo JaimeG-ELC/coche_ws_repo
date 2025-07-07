@@ -1,5 +1,5 @@
-#ifndef TF_PUBLISHER_NODE_HPP_
-#define TF_PUBLISHER_NODE_HPP_
+#ifndef TF_ODOM_NODE_HPP_
+#define TF_ODOM_NODE_HPP_
 
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2/LinearMath/Matrix3x3.h>
@@ -36,4 +36,4 @@ private:
     void vescCallback(const vesc_msgs::msg::VescStateStamped::SharedPtr msg);
 };
 
-#endif // TF_PUBLISHER_NODE_HPP_
+#endif // TF_ODOM_NODE_HPP_
