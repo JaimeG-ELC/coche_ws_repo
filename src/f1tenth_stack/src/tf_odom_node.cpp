@@ -20,6 +20,12 @@ TFOdomNode::TFOdomNode()
     vesc_sub_ = this->create_subscription<vesc_msgs::msg::VescStateStamped>(
         "sensors/core", 10,
         std::bind(&TFOdomNode::vescCallback, this, std::placeholders::_1));
+        
+    // servo_sub_ = this->create_subscription<Float64>(
+    //   "sensors/servo_position_command", 10, std::bind(&TFOdomNode::servoCmdCallback, this, std::placeholders::_1));
+
+    x_ = y_ = yaw = 0.0;
+    has_prev_time_ = false;
 
     RCLCPP_INFO(this->get_logger(), "TFOdomNode node initialized");
 }
@@ -28,20 +34,21 @@ void TFOdomNode::vescCallback(const vesc_msgs::msg::VescStateStamped::SharedPtr 
 {
     rclcpp::Time current_time = msg->header.stamp;
 
+    if(!has_prev_time_) {
+        prev_time_ = current_time;
+        has_prev_time_ = true;
+        return;
+    }
     // Convert ERPM to m/s
     double speed = -(msg->state.speed + speed_to_erpm_offset_) / speed_to_erpm_gain_;
     if (std::fabs(speed) < 0.05) {
         speed = 0.0;
     }
 
-    if (has_prev_time_) {
-        double dt = (current_time - prev_time_).seconds();
-        x_ += speed * cos(yaw_) * dt;
-        y_ += speed * sin(yaw_) * dt;
-        // No yaw change assumed here
-    } else {
-        has_prev_time_ = true;
-    }
+    double dt = (current_time - prev_time_).seconds();
+    x_ += speed * cos(yaw_) * dt;
+    y_ += speed * sin(yaw_) * dt;
+
 
     prev_time_ = current_time;
 
@@ -62,6 +69,13 @@ void TFOdomNode::vescCallback(const vesc_msgs::msg::VescStateStamped::SharedPtr 
     tf_msg.transform.rotation.w = q.w();
 
     tf_broadcaster_->sendTransform(tf_msg);
+
+    RCLCPP_INFO(
+        this->get_logger(),
+        "Published transform from '%s' to '%s' at time %.2f: (x: %.2f, y: %.2f, yaw: %.2f)",
+        odom_frame_.c_str(), base_frame_.c_str(),
+        current_time.seconds(), x_, y_, yaw_
+    );
 }
 
 // The main function

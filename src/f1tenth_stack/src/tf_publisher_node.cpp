@@ -89,47 +89,17 @@ void TFPublisherNode::timerCallback() {
         latest_linear_acceleration_.y,
         latest_linear_acceleration_.z
     );
-    // tf2::Vector3 acc_world = rotation * acc_body;
-    tf2::Vector3 acc_world = acc_body;
+    tf2::Vector3 acc_world = rotation * acc_body;
 
-    // 3. Optional: Remove gravity if z is affected
-    acc_world.setZ(0.0); // assuming you only want to integrate XY
+    acc_world.setZ(0.0); // assuming you only XY
 
-    double vel_x, vel_y;
+    latest_linear_velocity_.x += (-acc_world.x()) * 9.8 * dt;
+    latest_linear_velocity_.y += acc_world.y() * 9.8 * dt;
 
-    if (std::abs(acc_world.x()) < 0.05){
-        vel_x = 0.0;
-    } else{
-        vel_x = -acc_world.x() * 100;
-    }
 
-    if (std::abs(acc_world.y()) < 0){
-        vel_y = 0.0;
-    } else{
-        vel_y = acc_world.y() * 100;
-    }
+    latest_position_.x += latest_linear_velocity_.x * dt + 0.5 * (-acc_world.x()) * 9.8 * dt * dt;
+    latest_position_.y += latest_linear_velocity_.y * dt + 0.5 * acc_world.y() * 9.8 * dt * dt;
 
-    latest_linear_velocity_.x += vel_x * dt;
-    latest_linear_velocity_.y += vel_y * dt;
-
-    latest_position_.x += latest_linear_velocity_.x * dt;
-    latest_position_.y += latest_linear_velocity_.y * dt;
-
-    RCLCPP_INFO(
-        this->get_logger(),
-        "Acceleration: (%.2f, %.2f, %.2f)",
-        acc_world.x(), acc_world.y(), acc_world.z()
-    );
-    RCLCPP_INFO(
-        this->get_logger(),
-        "Acc_mult: (%.2f, %.2f, %.2f)",
-        vel_x, vel_y, 0.0
-    );
-    RCLCPP_INFO(
-        this->get_logger(),
-        "Velocity: (%.2f, %.2f, %.2f)",
-        latest_linear_velocity_.x, latest_linear_velocity_.y, 0.0
-    );
 
     // Set dynamic position from IMU integration
     transform.transform.translation.x = latest_position_.x;
@@ -172,6 +142,16 @@ void TFPublisherNode::timerCallback() {
         "Published YAW-only transform from '%s' to '%s' \n (yaw: %.2f deg)",
         odom_frame_.c_str(), imu_frame_.c_str(), yaw_deg
     );       
+    RCLCPP_INFO(
+        this->get_logger(),
+        "Acceleration: (%.2f, %.2f, %.2f)",
+        acc_world.x(), acc_world.y(), acc_world.z()
+    );
+    RCLCPP_INFO(
+        this->get_logger(),
+        "Velocity: (%.2f, %.2f, %.2f)",
+        latest_linear_velocity_.x, latest_linear_velocity_.y, 0.0
+    );
     RCLCPP_INFO(
         this->get_logger(),
         "Position: (%.2f, %.2f, %.2f)",
