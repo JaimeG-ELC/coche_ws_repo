@@ -32,13 +32,6 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}
 )
 
-find_package(vesc_msgs REQUIRED)
-
-# Include directories
-include_directories(
-  include
-  ${vesc_msgs_INCLUDE_DIRS}
-)
 
 # Create the node executables
 add_executable(tf_publisher_node 
@@ -67,6 +60,7 @@ ament_target_dependencies(tf_odom_node
   tf2
   tf2_ros
   interfaces_pkg
+  vesc_msgs
 )
 
 

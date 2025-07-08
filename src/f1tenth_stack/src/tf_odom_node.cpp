@@ -9,11 +9,17 @@ TFOdomNode::TFOdomNode()
     this->declare_parameter("base_frame", "base_link");
     this->declare_parameter("speed_to_erpm_gain", 7528.0);
     this->declare_parameter("speed_to_erpm_offset", 0.0);
+    this->declare_parameter("steering_to_servo_gain", -1.0);
+    this->declare_parameter("steering_to_servo_offset", 0.4980);
+    this->declare_parameter("wheelbase", 0.33); 
 
     odom_frame_ = this->get_parameter("odom_frame").as_string();
     base_frame_ = this->get_parameter("base_frame").as_string();
     speed_to_erpm_gain_ = this->get_parameter("speed_to_erpm_gain").as_double();
     speed_to_erpm_offset_ = this->get_parameter("speed_to_erpm_offset").as_double();
+    steering_to_servo_gain_ = this->get_parameter("steering_to_servo_gain").as_double();
+    steering_to_servo_offset_ = this->get_parameter("steering_to_servo_offset").as_double();
+    wheelbase_ = this->get_parameter("wheelbase").as_double();
 
     tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
 
@@ -21,13 +27,18 @@ TFOdomNode::TFOdomNode()
         "sensors/core", 10,
         std::bind(&TFOdomNode::vescCallback, this, std::placeholders::_1));
         
-    // servo_sub_ = this->create_subscription<Float64>(
-    //   "sensors/servo_position_command", 10, std::bind(&TFOdomNode::servoCmdCallback, this, std::placeholders::_1));
+    servo_sub_ = this->create_subscription<std_msgs::msg::Float64>(
+        "sensors/servo_position_command", 10, std::bind(&TFOdomNode::servoCmdCallback, this, std::placeholders::_1));
 
-    x_ = y_ = yaw = 0.0;
+    x_ = y_ = yaw_ = 0.0;
     has_prev_time_ = false;
 
     RCLCPP_INFO(this->get_logger(), "TFOdomNode node initialized");
+}
+
+void TFOdomNode::servoCmdCallback(const std_msgs::msg::Float64::SharedPtr servo)
+{
+  yaw_ = (servo->data - steering_to_servo_offset_) / steering_to_servo_gain_;
 }
 
 void TFOdomNode::vescCallback(const vesc_msgs::msg::VescStateStamped::SharedPtr msg)
@@ -40,8 +51,8 @@ void TFOdomNode::vescCallback(const vesc_msgs::msg::VescStateStamped::SharedPtr 
         return;
     }
     // Convert ERPM to m/s
-    double speed = -(msg->state.speed + speed_to_erpm_offset_) / speed_to_erpm_gain_;
-    if (std::fabs(speed) < 0.05) {
+    double speed = (msg->state.speed + speed_to_erpm_offset_) / speed_to_erpm_gain_;
+    if (std::fabs(speed) < 0.01) {
         speed = 0.0;
     }
 

@@ -40,7 +40,23 @@ def generate_launch_description():
         name='tf_publisher_node',
         output='screen'
     )
+    
+    static_tf_imu_base_link_node = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_baselink_to_laser',
+        arguments=['0.09', '0.02', '-0.06', '3.14', '0.0', '0', 'imu', 'base_link']
+    )
+
+    static_tf_baselink_laser_node = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_baselink_to_laser',
+        arguments=['0.36', '0.0', '0.12', '0.0', '0.0', '0.0', 'base_link', 'laser']
+    )
 
     ld.add_action(tf_publisher_node)
+    ld.add_action(static_tf_imu_base_link_node)
+    ld.add_action(static_tf_baselink_laser_node)
 
     return ld

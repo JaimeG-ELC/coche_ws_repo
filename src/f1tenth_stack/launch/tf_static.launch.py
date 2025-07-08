@@ -50,7 +50,7 @@ def generate_launch_description():
 
     # finalize
 
-    ld.add_action(static_tf_imu_base_link_node)
+#    ld.add_action(static_tf_imu_base_link_node)
     ld.add_action(static_tf_baselink_laser_node)
 
     return ld

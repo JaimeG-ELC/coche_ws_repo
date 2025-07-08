@@ -93,6 +93,13 @@ void TFPublisherNode::timerCallback() {
 
     acc_world.setZ(0.0); // assuming you only XY
 
+    if (std::fabs(acc_world.x()) < 0.05) {
+        acc_world.setX(0.0);
+    }
+    if (std::fabs(acc_world.y()) < 0.05) {
+        acc_world.setY(0.0);
+    }
+
     latest_linear_velocity_.x += (-acc_world.x()) * 9.8 * dt;
     latest_linear_velocity_.y += acc_world.y() * 9.8 * dt;
 

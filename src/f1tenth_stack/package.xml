@@ -19,9 +19,8 @@
   <depend>urg_node</depend>
   <depend>joy</depend>
   <depend>joy_teleop</depend>
-  <depend>vesc_msgs</depend>
   <depend>rosbridge_server</depend>
-  <depend>vesc</depend>
+  <depend>vesc_msgs</depend>
   <depend>ackermann_mux</depend>
   <depend>interfaces_pkg</depend>
 
