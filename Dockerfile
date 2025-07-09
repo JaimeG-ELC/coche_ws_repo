@@ -76,7 +76,11 @@ RUN apt install -y ros-foxy-slam-toolbox
 #Install RVIZ2
 RUN apt install -y ros-foxy-rviz2
 
-RUN apt install -y ros-foxy-ackermann-msgs
+RUN apt install -y ros-foxy-ackermann-msgs \
+    ros-foxy-geographic-msgs
+
+RUN apt install -y libgeographic-dev
+
 
 SHELL ["/bin/bash", "-c"]
 

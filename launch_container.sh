@@ -13,4 +13,5 @@ docker run -it --privileged --net=host \
     --volume=./src/manual_control_pkg:/root/coche_ws/src/manual_control_pkg \
     --volume=./src/interfaces_pkg:/root/coche_ws/src/interfaces_pkg \
     --volume=./src/vesc:/root/coche_ws/src/vesc \
+    --volume=./src/state_estimation_pkg:/root/coche_ws/src/state_estimation_pkg \
     f1tenth-system
