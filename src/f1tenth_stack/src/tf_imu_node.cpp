@@ -36,13 +36,13 @@ TFImuNode::TFImuNode() : Node("tf_imu_node") {
     // Subscribe to IMU topic
     // imu_sub_ = this->create_subscription<interfaces_pkg::msg::VescImuStamped>(
     //     "imu", 10,
-    //     std::bind(&TFPublisherNode::imuCallback, this, std::placeholders::_1)
+    //     std::bind(&TFImuNode::imuCallback, this, std::placeholders::_1)
     // );
     imu_std_sub_ = this->create_subscription<sensor_msgs::msg::Imu>(
         imu_frame_, 10,
-        std::bind(&TFPublisherNode::imuCallback, this, std::placeholders::_1)
+        std::bind(&TFImuNode::imuCallback, this, std::placeholders::_1)
     );
-    imu_pub_ = this->create_publisher<sensor_msgs::msg::Imu>(imu_out_frame_, 10)
+    imu_pub_ = this->create_publisher<sensor_msgs::msg::Imu>(imu_out_frame_, 10);
 
 
     RCLCPP_INFO(this->get_logger(), "TF Imu Node (imu/raw->imu/transformed) initialized");
@@ -86,4 +86,14 @@ void TFImuNode::imuCallback(const sensor_msgs::msg::Imu::SharedPtr msg) {
 
     imu_pub_->publish(imu_out);
 
+}
+
+// The main function
+int main(int argc, char * argv[])
+{
+    rclcpp::init(argc, argv);
+    auto node = std::make_shared<TFImuNode>();
+    rclcpp::spin(node);
+    rclcpp::shutdown();
+    return 0;
 }
