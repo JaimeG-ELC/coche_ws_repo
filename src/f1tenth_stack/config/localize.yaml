@@ -2,16 +2,16 @@ particle_filter:
   ros__parameters:
     # topic names
     scan_topic: '/scan'
-    odometry_topic: '/odom'
+    odometry_topic: '/odom/filtered'
     # range data downsampling
     angle_step: 18
-    max_particles: 8000
+    max_particles: 2000
     squash_factor: 2.2
     # visualization
     viz: 1
     max_viz_particles: 60
     # ray marching method
-    range_method: 'rmgpu'
+    range_method: 'rm'
     theta_discretization: 112
     # range data filtering
     max_range: 20

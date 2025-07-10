@@ -32,25 +32,27 @@ import os
 
 def generate_launch_description():
 
-    ld = LaunchDescription()
-
-    static_tf_base_link_imu_node = Node(
-        package='tf2_ros',
-        executable='static_transform_publisher',
-        name='static_baselink_to_laser',
-        arguments=['-0.09', '-0.02', '0.06', '-3.14', '0.0', '0', 'base_link', 'imu']
+    imu_config = os.path.join(
+        get_package_share_directory('f1tenth_stack'),
+        'config',
+        'imu.yaml'
     )
 
-    static_tf_baselink_laser_node = Node(
-        package='tf2_ros',
-        executable='static_transform_publisher',
-        name='static_baselink_to_laser',
-        arguments=['0.36', '0.0', '0.12', '0.0', '0.0', '0.0', 'base_link', 'laser']
+    imu_la = DeclareLaunchArgument(
+        'manual_control_config',
+        default_value=imu_config,
+        description='Descriptions for manual_control configs'
     )
 
-    # finalize
+    ld = LaunchDescription([imu_la])
 
-    ld.add_action(static_tf_base_link_imu_node)
-    ld.add_action(static_tf_baselink_laser_node)
+    tf_imu_node = Node(
+        package='f1tenth_stack',
+        executable='tf_imu_node',
+        name='tf_imu_node',
+        output='screen'
+    )
+
+    ld.add_action(tf_imu_node)
 
     return ld

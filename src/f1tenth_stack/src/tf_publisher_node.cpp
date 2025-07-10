@@ -100,12 +100,12 @@ void TFPublisherNode::timerCallback() {
         acc_world.setY(0.0);
     }
 
-    latest_linear_velocity_.x += (-acc_world.x()) * 9.8 * dt;
-    latest_linear_velocity_.y += acc_world.y() * 9.8 * dt;
+    latest_linear_velocity_.x += (-acc_world.x()) * 9.80665 * dt;
+    latest_linear_velocity_.y += acc_world.y() * 9.80665 * dt;
 
 
-    latest_position_.x += latest_linear_velocity_.x * dt + 0.5 * (-acc_world.x()) * 9.8 * dt * dt;
-    latest_position_.y += latest_linear_velocity_.y * dt + 0.5 * acc_world.y() * 9.8 * dt * dt;
+    latest_position_.x += latest_linear_velocity_.x * dt + 0.5 * (-acc_world.x()) * 9.80665 * dt * dt;
+    latest_position_.y += latest_linear_velocity_.y * dt + 0.5 * acc_world.y() * 9.80665 * dt * dt;
 
 
     // Set dynamic position from IMU integration
