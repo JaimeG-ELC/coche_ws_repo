@@ -105,6 +105,12 @@ def generate_launch_description():
         executable='static_transform_publisher',
         name='static_baselink_to_laser',
         arguments=['0.27', '0.0', '0.11', '0.0', '0.0', '0.0', 'base_link', 'laser']
+    )    
+    static_tf_baselink_imu_node = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_baselink_to_imu',
+        arguments=['0.09', '-0.02', '0.06', '3.14', '0.0', '0', 'base_link', 'imu']
     )
 
     # finalize
@@ -114,6 +120,7 @@ def generate_launch_description():
     ld.add_action(vesc_to_odom_node)
     ld.add_action(vesc_driver_node)
     ld.add_action(urg_node)
-    #ld.add_action(static_tf_baselink_laser_node)
+    ld.add_action(static_tf_baselink_laser_node)
+    ld.add_action(static_tf_baselink_imu_node)
 
     return ld

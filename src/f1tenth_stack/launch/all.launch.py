@@ -6,11 +6,19 @@ import os
 
 def generate_launch_description():
     pkg_f1tenth = get_package_share_directory('f1tenth_stack')
+    pkg_robot = get_package_share_directory('robot_localization')
+
 
     # First launch bringup to establish odom->base_link->laser
     bringup_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(pkg_f1tenth, 'launch', 'bringup_pf.launch.py')
+            os.path.join(pkg_f1tenth, 'launch', 'bringup.launch.py')
+        )
+    )
+
+    robot_localization_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_f1tenth, 'launch', 'robot_localization.launch.py')
         )
     )
 
@@ -23,5 +31,6 @@ def generate_launch_description():
 
     return LaunchDescription([
         bringup_launch,
+        robot_localization_launch,
         localize_launch
     ])

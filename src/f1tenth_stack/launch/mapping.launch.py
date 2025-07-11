@@ -40,7 +40,7 @@ def generate_launch_description():
     vesc_config = os.path.join(
         get_package_share_directory('f1tenth_stack'),
         'config',
-        'vesc_mapping.yaml'
+        'vesc_pf.yaml'
     )
     sensors_config = os.path.join(
         get_package_share_directory('f1tenth_stack'),
@@ -51,6 +51,11 @@ def generate_launch_description():
         get_package_share_directory('f1tenth_stack'),
         'config',
         'manual_control.yaml'
+    )
+    robot_localization_config = os.path.join(
+        get_package_share_directory('robot_localization'),
+        'params',
+        'ekf.yaml'
     )
     # Launch arguments
 
@@ -72,8 +77,13 @@ def generate_launch_description():
          default_value=mapping_config,
          description='Descriptions for mapping configs'
     )
+    robot_localization_la = DeclareLaunchArgument(
+        'robot_localization_config',
+        default_value=robot_localization_config,
+        description='Descriptions for robot localization configs'
+    )
 
-    ld = LaunchDescription([mapping_la, manual_control_la, vesc_la, sensors_la])
+    ld = LaunchDescription([mapping_la, manual_control_la, vesc_la, sensors_la, robot_localization_la])
 
     joy_node = Node(
         package='joy',
@@ -124,6 +134,21 @@ def generate_launch_description():
         name='static_basefootprint_to_laser',
         arguments=['0.27', '0.0', '0.11', '0.0', '0.0', '0.0', 'base_footprint', 'laser']
     )
+    static_tf_baselink_imu_node = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_baselink_to_imu',
+        arguments=['0.09', '-0.02', '0.06', '3.14', '0.0', '0', 'base_link', 'imu']
+    )
+
+    robot_localization_node = Node(
+        package='robot_localization',   
+        executable='ekf_node',
+        name='ekf_filter_node',
+        output='screen',
+        parameters=[LaunchConfiguration('robot_localization_config')],
+        remappings=[('odometry/filtered', 'odometry/local')]
+    )
     mapping_node = Node(
         package='slam_toolbox',
         executable='async_slam_toolbox_node',
@@ -141,5 +166,7 @@ def generate_launch_description():
     ld.add_action(urg_node)
     ld.add_action(static_tf_baselink_basefootprint_node)
     ld.add_action(static_tf_basefootprint_laser_node)
+    ld.add_action(static_tf_baselink_imu_node)
     ld.add_action(mapping_node)
+    ld.add_action(robot_localization_node)
     return ld
