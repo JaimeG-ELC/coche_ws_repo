@@ -75,6 +75,9 @@ RUN apt install -y ros-foxy-slam-toolbox
 #Install RVIZ2
 RUN apt install -y ros-foxy-rviz2
 
+RUN apt install -y ros-foxy-rqt-common-plugins \
+    ros-foxy-rqt-tf-tree
+
 RUN apt install -y ros-foxy-ackermann-msgs \
     ros-foxy-geographic-msgs
 
