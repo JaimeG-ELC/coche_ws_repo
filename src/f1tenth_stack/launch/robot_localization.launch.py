@@ -33,10 +33,11 @@ import os
 def generate_launch_description():
 
     robot_localization_config = os.path.join(
-        get_package_share_directory('robot_localization'),
-        'params',
-        'ekf.yaml'
+        get_package_share_directory('f1tenth_stack'),
+        'config',
+        'ekf_copy.yaml'
     )
+
     # Launch arguments
     robot_localization_la = DeclareLaunchArgument(
         'robot_localization_config',
@@ -46,16 +47,42 @@ def generate_launch_description():
 
     ld = LaunchDescription([robot_localization_la])
 
-    robot_localization_node = Node(
+    robot_localization_local_node = Node(
         package='robot_localization',   
         executable='ekf_node',
-        name='ekf_filter_node',
+        name='ekf_filter_local_node',
         output='screen',
         parameters=[LaunchConfiguration('robot_localization_config')],
-        # remappings=[('odometry/filtered', 'odometry/local')]
+        remappings=[('odometry/filtered', 'odometry/local')]
+    )
+
+    # robot_localization_global_node = Node(
+    #     package='robot_localization',   
+    #     executable='ekf_node',
+    #     name='ekf_filter_global_node',
+    #     output='screen',
+    #     parameters=[LaunchConfiguration('robot_localization_config')],
+    #     remappings=[('odometry/filtered', 'odometry/global')]
+    # )
+
+    static_tf_base_link_imu_node = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_baselink_to_laser',
+        arguments=['0.09', '-0.02', '0.06', '-3.14', '0.0', '0', 'base_link', 'imu']
+    )
+
+    static_tf_baselink_laser_node = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_baselink_to_laser',
+        arguments=['-0.36', '0.0', '-0.12', '0.0', '0.0', '0.0', 'laser', 'base_link']
     )
 
     # finalize
+    ld.add_action(static_tf_baselink_laser_node)
+    ld.add_action(static_tf_base_link_imu_node)
+    ld.add_action(robot_localization_local_node)
+    # ld.add_action(robot_localization_global_node)
 
-    ld.add_action(robot_localization_node)
     return ld

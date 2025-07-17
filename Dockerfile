@@ -45,17 +45,16 @@ RUN git clone https://github.com/ros-drivers/transport_drivers.git
 # Install IMU
 # RUN git clone https://github.com/JaimeG-ELC/razor_imu_ros2.git
 
+# Install Particle Filter repo
+RUN git clone -b foxy-devel https://github.com/f1tenth/particle_filter.git
 
-#Install Particle Filter repo
-# RUN git clone -b foxy-devel https://github.com/f1tenth/particle_filter.git
+WORKDIR /root/coche_ws/src/particle_filter
+RUN apt-get update && apt-get install -y python3-dev build-essential && \
+    pip3 install cython && \
+    git clone -b foxy-devel https://github.com/f1tenth/range_libc.git
 
-# WORKDIR /root/coche_ws/
-# RUN apt-get update && apt-get install -y python3-dev build-essential && \
-#     pip3 install cython && \
-#     git clone -b foxy-devel https://github.com/f1tenth/range_libc.git
-
-# WORKDIR /root/coche_ws/src/particle_filter/range_libc/pywrapper
-# RUN chmod +x compile.sh && ./compile.sh
+WORKDIR /root/coche_ws/src/particle_filter/range_libc/pywrapper
+RUN chmod +x compile.sh && ./compile.sh
 
 WORKDIR /root/coche_ws
 
@@ -80,15 +79,6 @@ RUN apt install -y ros-foxy-ackermann-msgs \
     ros-foxy-geographic-msgs
 
 RUN apt install -y libgeographic-dev
-
-WORKDIR /root/coche_ws/
-RUN apt-get update && apt-get install -y python3-dev build-essential && \
-    pip3 install cython && \
-    git clone -b foxy-devel https://github.com/f1tenth/range_libc.git
-
-WORKDIR /root/coche_ws/src/particle_filter/range_libc/pywrapper
-RUN chmod +x compile.sh && ./compile.sh
-
 
 SHELL ["/bin/bash", "-c"]
 
