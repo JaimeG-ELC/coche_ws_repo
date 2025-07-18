@@ -78,9 +78,15 @@ RUN apt install -y ros-foxy-rqt-common-plugins \
     ros-foxy-rqt-tf-tree
 
 RUN apt install -y ros-foxy-ackermann-msgs \
-    ros-foxy-geographic-msgs
+    ros-foxy-geographic-msgs \
+    ros-foxy-nav2-lifecycle-manager \
+    ros-foxy-navigation2 \
+    ros-foxy-tf-transformations
 
 RUN apt install -y libgeographic-dev
+
+RUN pip3 install transforms3d
+
 
 SHELL ["/bin/bash", "-c"]
 
