@@ -14,4 +14,5 @@ docker run -it --privileged --net=host \
     --volume=./src/interfaces_pkg:/root/coche_ws/src/interfaces_pkg \
     --volume=./src/vesc:/root/coche_ws/src/vesc \
     --volume=./src/state_estimation_pkg:/root/coche_ws/src/state_estimation_pkg \
+    --volume=./src/particle_filter:/root/coche_ws/src/particle_filter \
     f1tenth-system
