@@ -87,9 +87,18 @@ def generate_launch_description():
         arguments=['-0.36', '0.0', '-0.12', '0.0', '0.0', '0.0', 'laser', 'base_link']
     )
 
+    static_tf_map_odom_node = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_tf_map_odom',
+        arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'map', 'odom']
+    )
+
     # finalize
-    ld.add_action(static_tf_laser_baselink_node)
+    # ld.add_action(static_tf_laser_baselink_node)
+    ld.add_action(static_tf_baselink_laser_node)
     ld.add_action(static_tf_base_link_imu_node)
+    ld.add_action(static_tf_map_odom_node)
     ld.add_action(robot_localization_local_node)
     # ld.add_action(robot_localization_global_node)
 

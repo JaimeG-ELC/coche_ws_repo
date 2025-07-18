@@ -11,13 +11,14 @@ ekf_filter_local_node:
         debug_out_file: /path/to/debug/file.txt
         permit_corrected_publication: false
         publish_acceleration: false
-        publish_tf: false
+        publish_tf: true
 
         map_frame: map              # Defaults to "map" if unspecified
         odom_frame: odom            # Defaults to "odom" if unspecified
         base_link_frame: base_link  # Defaults to "base_link" if unspecified
         world_frame: odom           # Defaults to the value of odom_frame if unspecified
 
+        # local odometry
         odom0: odom
         odom0_config: [false, false, false,
                        false, false, false,
@@ -80,7 +81,7 @@ ekf_filter_local_node:
                                       0.0,    0.0,    0.0,    0.0,    0.0,    0.0,    0.0,    0.0,    0.0,    0.0,     0.0,     0.0,     0.0,    0.0,    1e-9]
 
 
-# ### ekf config file ###
+# # ### ekf config file ###
 # ekf_filter_global_node:
 #     ros__parameters:
 #         frequency: 10.0
@@ -93,14 +94,15 @@ ekf_filter_local_node:
 #         debug_out_file: /path/to/debug/file.txt
 #         permit_corrected_publication: false
 #         publish_acceleration: false
-#         publish_tf: true
+#         publish_tf: false
 
 #         map_frame: map              # Defaults to "map" if unspecified
 #         odom_frame: odom            # Defaults to "odom" if unspecified
 #         base_link_frame: base_link  # Defaults to "base_link" if unspecified
 #         world_frame: map           # Defaults to the value of odom_frame if unspecified
 
-#         odom0: pf/pose/odom
+# #        global odometry
+#         odom0: pf/tf_odom
 #         odom0_config: [true, true, false,
 #                        false, false, true,
 #                        false, false, false,

@@ -16,7 +16,12 @@ def generate_launch_description():
         )
     )
 
-    # Then launch localization to add map->odom
+    pf_tf_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_f1tenth, 'launch', 'tf_odom.launch.py')
+        )
+    )
+
     localize_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_f1tenth, 'launch', 'localize.launch.py')
@@ -25,5 +30,6 @@ def generate_launch_description():
 
     return LaunchDescription([
         robot_localization_launch,
+        pf_tf_launch,
         localize_launch
     ])

@@ -25,6 +25,8 @@ find_package(tf2_ros REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(vesc_msgs REQUIRED)
 find_package(interfaces_pkg REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 
 # Include directories
 include_directories(
@@ -61,8 +63,10 @@ ament_target_dependencies(tf_odom_node
   rclcpp 
   std_msgs
   geometry_msgs
+  tf2_geometry_msgs
   tf2
   tf2_ros
+  nav_msgs
   interfaces_pkg
   vesc_msgs
 )

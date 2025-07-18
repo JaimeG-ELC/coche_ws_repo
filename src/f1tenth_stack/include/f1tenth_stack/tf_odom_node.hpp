@@ -4,13 +4,16 @@
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2/LinearMath/Matrix3x3.h>
 #include <tf2_ros/transform_broadcaster.h>
+#include <tf2_ros/transform_listener.h>
+#include <geometry_msgs/msg/pose_stamped.hpp>
+#include <nav_msgs/msg/odometry.hpp>
 #include <geometry_msgs/msg/transform_stamped.hpp>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include <sensor_msgs/msg/imu.hpp>
 #include <std_msgs/msg/float64.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <memory>
 #include <string>
-#include <vesc_msgs/msg/vesc_state_stamped.hpp>
 
 class TFOdomNode : public rclcpp::Node {
 public:
@@ -18,29 +21,19 @@ public:
 
 private:
     // Parameters for odom->imu transform
-    std::string odom_frame_;
-    std::string base_frame_;
 
-    double speed_to_erpm_gain_, speed_to_erpm_offset_;
-    double steering_to_servo_gain_, steering_to_servo_offset_;
-    double wheelbase_;
+    std::string odom_topic_, odom_output_topic_;
 
+    std::shared_ptr<tf2_ros::Buffer> tf_buffer_;
+    std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
 
-    double x_, y_, yaw_;    
-    bool has_prev_time_;
-    rclcpp::Time prev_time_;
+    geometry_msgs::msg::TransformStamped static_transform_stamped_;
 
-    // Timer
-
-    std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
-
-    rclcpp::Subscription<vesc_msgs::msg::VescStateStamped>::SharedPtr vesc_sub_;
-    rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr servo_sub_;
-
+    rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub_;
+    rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odom_pub_;
 
     // Callbacks
-    void servoCmdCallback(const std_msgs::msg::Float64::SharedPtr servo);
-    void vescCallback(const vesc_msgs::msg::VescStateStamped::SharedPtr msg);
+    void odomCallback(const nav_msgs::msg::Odometry::SharedPtr msg);
 
 };
 
