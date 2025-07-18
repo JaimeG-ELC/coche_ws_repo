@@ -82,65 +82,9 @@ def generate_launch_description():
     )
 
     # finalize
-    ld.add_action(static_tf_baselink_laser_node)
+    # ld.add_action(static_tf_baselink_laser_node)
     ld.add_action(static_tf_base_link_imu_node)
     ld.add_action(robot_localization_local_node)
-    ld.add_action(robot_localization_global_node)
+    # ld.add_action(robot_localization_global_node)
 
     return ld
-
-
-# def generate_launch_description():
-#   # Get the config file path
-#     config_dir = os.path.join(
-#         get_package_share_directory('f1tenth_stack'),
-#         'config'
-#     )
-#     localize_config = os.path.join(
-#         config_dir,
-#         'localize.yaml'
-#     )
-
-#     # Load YAML to extract the map name
-#     with open(localize_config, 'r') as f:
-#         localize_config_dict = yaml.safe_load(f)
-#     map_name = localize_config_dict['map_server']['ros__parameters']['map']
-
-#     # Get map file path
-#     map_yaml = os.path.join(get_package_share_directory('f1tenth_stack'), 'maps', map_name + '.yaml')
-
-#     # Declare Launch Description
-#     ld = LaunchDescription()
-
-#     # Declare argument
-#     ld.add_action(DeclareLaunchArgument(
-#         'localize_config',
-#         default_value=localize_config,
-#         description='Path to the localization config file.'
-#     ))
-
-#     map_server_node = Node(
-#         package='nav2_map_server',
-#         executable='map_server',
-#         name='map_server',
-#         parameters=[{'yaml_filename': map_yaml},
-#                     {'topic': 'map_'},
-#                     {'frame_id': 'map_'},
-#                     {'output': 'screen'},
-#                     {'use_sim_time': False}]
-#     )
-#     nav_lifecycle_node = Node(
-#         package='nav2_lifecycle_manager',
-#         executable='lifecycle_manager',
-#         name='lifecycle_manager_localization',
-#         output='screen',
-#         parameters=[{'use_sim_time': False},
-#                     {'autostart': True},
-#                     {'node_names': ['map_server']}]
-#     )
-
-#     # finalize
-#     ld.add_action(nav_lifecycle_node)
-#     ld.add_action(map_server_node)
-
-#     return ld
