@@ -126,11 +126,11 @@ ekf_filter_node:
         # odom0_twist_rejection_threshold: 1.0
 
 # Further input parameter examples
-        # odom1: pf/tf_odom
-        # odom1_config: [true, true, false,
-        #                false, false, true,
-        #                true, true, false,
-        #                false, false, true,
+        # odom1: odometry/local
+        # odom1_config: [false, false, false,
+        #                false, false, false,
+        #                false, false, false,
+        #                false, false, false,
         #                false, false, false]
         # odom1_differential: false
         # odom1_relative: true

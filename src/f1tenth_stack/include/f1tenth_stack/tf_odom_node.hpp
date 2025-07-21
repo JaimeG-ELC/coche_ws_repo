@@ -10,6 +10,7 @@
 #include <geometry_msgs/msg/transform_stamped.hpp>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include <sensor_msgs/msg/imu.hpp>
+#include <sensor_msgs/msg/laser_scan.hpp>
 #include <std_msgs/msg/float64.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <memory>
@@ -35,10 +36,14 @@ private:
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom1_sub_;
     rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odom1_pub_;
 
+    rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr scan_sub_;
+    rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr scan_pub_;
+
 
     // Callbacks
     void odom0Callback(const nav_msgs::msg::Odometry::SharedPtr msg);
     void odom1Callback(const nav_msgs::msg::Odometry::SharedPtr msg);
+    void scanCallback(const sensor_msgs::msg::LaserScan::SharedPtr msg);
 
 };
 

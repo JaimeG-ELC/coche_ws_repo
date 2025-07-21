@@ -26,6 +26,13 @@ TFOdomNode::TFOdomNode()
     
     odom1_pub_ = this->create_publisher<nav_msgs::msg::Odometry>("tf_odom", 10);
 
+    scan_sub_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
+        "scan", 10,
+        std::bind(&TFOdomNode::scanCallback, this, std::placeholders::_1));
+    
+    scan_pub_ = this->create_publisher<sensor_msgs::msg::LaserScan>("tf_scan", 10);
+
+
     RCLCPP_INFO(this->get_logger(), "TFOdomNode node initialized");
 }
 
@@ -74,6 +81,20 @@ void TFOdomNode::odom1Callback(const nav_msgs::msg::Odometry::SharedPtr msg) {
     nav_msgs::msg::Odometry odom1_msg = *msg;
     odom1_msg.header.frame_id = "map";
     odom1_pub_->publish(odom1_msg);
+}
+
+void TFOdomNode::scanCallback(const sensor_msgs::msg::LaserScan::SharedPtr msg){
+    // Transform scan using a static transform from laser to base_link
+    // We'll update the header.frame_id and header.stamp, but the scan points themselves are not transformed here.
+    // For a true point transformation, you'd need to transform each range to base_link coordinates.
+
+    sensor_msgs::msg::LaserScan scan_msg = *msg;
+    scan_msg.header.frame_id = "laser"; // Set to target frame
+
+    // Optionally, update the timestamp if needed
+    scan_msg.header.stamp = this->now();
+
+    scan_pub_->publish(scan_msg);
 }
 
 // The main function

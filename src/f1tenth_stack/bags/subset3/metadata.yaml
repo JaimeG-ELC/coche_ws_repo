@@ -111,12 +111,12 @@ rosbag2_bagfile_information:
         serialization_format: cdr
         offered_qos_profiles: "- history: 3\n  depth: 0\n  reliability: 1\n  durability: 2\n  deadline:\n    sec: 2147483647\n    nsec: 4294967295\n  lifespan:\n    sec: 2147483647\n    nsec: 4294967295\n  liveliness: 1\n  liveliness_lease_duration:\n    sec: 2147483647\n    nsec: 4294967295\n  avoid_ros_namespace_conventions: false"
       message_count: 8297
-    - topic_metadata:
-        name: /tf_static
-        type: tf2_msgs/msg/TFMessage
-        serialization_format: cdr
-        offered_qos_profiles: ""
-      message_count: 0
+    # - topic_metadata:
+    #     name: /tf_static
+    #     type: tf2_msgs/msg/TFMessage
+    #     serialization_format: cdr
+    #     offered_qos_profiles: ""
+    #   message_count: 0
     - topic_metadata:
         name: /parameter_events
         type: rcl_interfaces/msg/ParameterEvent
