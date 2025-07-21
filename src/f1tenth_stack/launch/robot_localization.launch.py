@@ -34,36 +34,46 @@ import yaml
 
 def generate_launch_description():
 
-    robot_localization_config = os.path.join(
+    robot_localization_1_config = os.path.join(
         get_package_share_directory('f1tenth_stack'),
         'config',
-        'ekf_copy.yaml'
+        'ekf_1.yaml'
+    )
+    robot_localization_2_config = os.path.join(
+        get_package_share_directory('f1tenth_stack'),
+        'config',
+        'ekf_2.yaml'
     )
 
     # Launch arguments
-    robot_localization_la = DeclareLaunchArgument(
-        'robot_localization_config',
-        default_value=robot_localization_config,
+    robot_localization_1_la = DeclareLaunchArgument(
+        'robot_localization_1_config',
+        default_value=robot_localization_1_config,
+        description='Descriptions for robot localization configs'
+    )
+    robot_localization_2_la = DeclareLaunchArgument(
+        'robot_localization_2_config',
+        default_value=robot_localization_2_config,
         description='Descriptions for robot localization configs'
     )
 
-    ld = LaunchDescription([robot_localization_la])
+    ld = LaunchDescription([robot_localization_1_la, robot_localization_2_la])
 
     robot_localization_local_node = Node(
         package='robot_localization',   
         executable='ekf_node',
-        name='ekf_filter_local_node',
+        name='ekf_filter_node',
         output='screen',
-        parameters=[LaunchConfiguration('robot_localization_config')],
+        parameters=[LaunchConfiguration('robot_localization_1_config')],
         remappings=[('odometry/filtered', 'odometry/local')]
     )
 
     robot_localization_global_node = Node(
         package='robot_localization',   
         executable='ekf_node',
-        name='ekf_filter_global_node',
+        name='ekf_filter_node',
         output='screen',
-        parameters=[LaunchConfiguration('robot_localization_config')],
+        parameters=[LaunchConfiguration('robot_localization_2_config')],
         remappings=[('odometry/filtered', 'odometry/global')]
     )
 
@@ -96,10 +106,10 @@ def generate_launch_description():
 
     # finalize
     # ld.add_action(static_tf_laser_baselink_node)
-    # ld.add_action(static_tf_baselink_laser_node)
+    ld.add_action(static_tf_baselink_laser_node)
     ld.add_action(static_tf_baselink_imu_node)
-    # ld.add_action(static_tf_map_odom_node)
+    ld.add_action(static_tf_map_odom_node)
     ld.add_action(robot_localization_local_node)
-    # ld.add_action(robot_localization_global_node)
+    ld.add_action(robot_localization_global_node)
 
     return ld

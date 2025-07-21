@@ -13,17 +13,23 @@ TFOdomNode::TFOdomNode()
     tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
     tf_listener_ = std::make_unique<tf2_ros::TransformListener>(*tf_buffer_);
 
-    odom_sub_ = this->create_subscription<nav_msgs::msg::Odometry>(
+    odom0_sub_ = this->create_subscription<nav_msgs::msg::Odometry>(
         odom_topic_, 10,
-        std::bind(&TFOdomNode::odomCallback, this, std::placeholders::_1));
+        std::bind(&TFOdomNode::odom0Callback, this, std::placeholders::_1));
         
-    odom_pub_ = this->create_publisher<nav_msgs::msg::Odometry>(
+    odom0_pub_ = this->create_publisher<nav_msgs::msg::Odometry>(
         odom_output_topic_, 10);
+
+    odom1_sub_ = this->create_subscription<nav_msgs::msg::Odometry>(
+        "odom", 10,
+        std::bind(&TFOdomNode::odom1Callback, this, std::placeholders::_1));
+    
+    odom1_pub_ = this->create_publisher<nav_msgs::msg::Odometry>("tf_odom", 10);
 
     RCLCPP_INFO(this->get_logger(), "TFOdomNode node initialized");
 }
 
-void TFOdomNode::odomCallback(const nav_msgs::msg::Odometry::SharedPtr msg)
+void TFOdomNode::odom0Callback(const nav_msgs::msg::Odometry::SharedPtr msg)
 {
 
     try
@@ -52,15 +58,22 @@ void TFOdomNode::odomCallback(const nav_msgs::msg::Odometry::SharedPtr msg)
         tf_odom_pose.orientation.w = tf_map_to_tf_odom.getRotation().w();
 
         // 5. Publish new odometry
-        nav_msgs::msg::Odometry new_odom = *msg;
-        new_odom.pose.pose = tf_odom_pose;
-        new_odom.child_frame_id = "base_link";  // or whatever you want to call it
-        odom_pub_->publish(new_odom);
+        nav_msgs::msg::Odometry odom0_msg = *msg;
+        odom0_msg.pose.pose = tf_odom_pose;
+        odom0_msg.header.frame_id = "odom";  // or whatever you want to call it
+        odom0_msg.child_frame_id = "base_link";  // or whatever you want to call it
+        odom0_pub_->publish(odom0_msg);
     }
     catch (tf2::TransformException &ex)
     {
       RCLCPP_WARN(this->get_logger(), "Transform failed: %s", ex.what());
     }
+}
+
+void TFOdomNode::odom1Callback(const nav_msgs::msg::Odometry::SharedPtr msg) {
+    nav_msgs::msg::Odometry odom1_msg = *msg;
+    odom1_msg.header.frame_id = "map";
+    odom1_pub_->publish(odom1_msg);
 }
 
 // The main function

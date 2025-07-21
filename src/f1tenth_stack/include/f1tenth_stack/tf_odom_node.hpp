@@ -29,11 +29,16 @@ private:
 
     geometry_msgs::msg::TransformStamped static_transform_stamped_;
 
-    rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub_;
-    rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odom_pub_;
+    rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom0_sub_;
+    rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odom0_pub_;
+
+    rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom1_sub_;
+    rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odom1_pub_;
+
 
     // Callbacks
-    void odomCallback(const nav_msgs::msg::Odometry::SharedPtr msg);
+    void odom0Callback(const nav_msgs::msg::Odometry::SharedPtr msg);
+    void odom1Callback(const nav_msgs::msg::Odometry::SharedPtr msg);
 
 };
 

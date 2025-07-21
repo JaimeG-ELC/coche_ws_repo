@@ -132,7 +132,7 @@ void VescToOdom::vescStateCallback(const VescStateStamped::SharedPtr state)
 
   // publish odometry message
   Odometry odom;
-  odom.header.frame_id = odom_frame_;
+  odom.header.frame_id = "map";
   odom.header.stamp = state->header.stamp;
   odom.child_frame_id = base_frame_;
 
