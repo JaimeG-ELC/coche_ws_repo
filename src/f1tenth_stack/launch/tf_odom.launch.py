@@ -48,6 +48,6 @@ def generate_launch_description():
     )
 
     ld.add_action(tf_odom_node)
-    ld.add_action(static_tf_baselink_laser_node)
+    # ld.add_action(static_tf_baselink_laser_node)
 
     return ld
