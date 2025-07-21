@@ -71,6 +71,7 @@ void WayPointGenerator::timer_callback()
         prev_x = x;
         prev_y = y;
         csv_odom.close();
+        RCLCPP_INFO(this->get_logger(), "Waypoint generated at: x=%.2f, y=%.2f", x, y);
     }
 }
 

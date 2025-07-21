@@ -10,7 +10,7 @@
     max_steering_angle: 0.4
     # n_pathpoints: 169
     window_size: 400
-    csv_path:  "/root/coche_ws/src/pure_pursuit_pkg/racelines/test_day_v3_superslow.csv"
+    csv_path:  "/root/coche_ws/src/pure_pursuit_pkg/racelines/21-07.csv"
     map_frame: "map"
     car_frame: "base_link"
     odom_topic: "/odom"

@@ -105,7 +105,7 @@ void ManualControlNode::joyCallback(const sensor_msgs::msg::Joy::SharedPtr joy) 
     }
     
     if (joy->buttons[rb_button_idx_]) {
-        ackermann_msg.drive.speed = 3.5;
+        ackermann_msg.drive.speed = 4.5;
     }
 
     ackermann_msg.drive.steering_angle = -joy->axes[left_horizontal_axis_idx_] * steering_gain_ + steering_offset_;

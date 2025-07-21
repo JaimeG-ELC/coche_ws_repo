@@ -15,4 +15,6 @@ docker run -it --privileged --net=host \
     --volume=./src/vesc:/root/coche_ws/src/vesc \
     --volume=./src/state_estimation_pkg:/root/coche_ws/src/state_estimation_pkg \
     --volume=./src/particle_filter:/root/coche_ws/src/particle_filter \
+    --volume=./src/pure_pursuit_pkg:/root/coche_ws/src/pure_pursuit_pkg \
+    --volume=./src/reactive_follower_pkg:/root/coche_ws/src/reactive_follower_pkg \
     f1tenth-system
