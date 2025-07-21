@@ -40,7 +40,7 @@ def generate_launch_description():
     vesc_config = os.path.join(
         get_package_share_directory('f1tenth_stack'),
         'config',
-        'vesc_pf.yaml'
+        'vesc.yaml'
     )
     sensors_config = os.path.join(
         get_package_share_directory('f1tenth_stack'),
@@ -140,15 +140,6 @@ def generate_launch_description():
         name='static_baselink_to_imu',
         arguments=['0.09', '-0.02', '0.06', '3.14', '0.0', '0', 'base_link', 'imu']
     )
-
-    robot_localization_node = Node(
-        package='robot_localization',   
-        executable='ekf_node',
-        name='ekf_filter_node',
-        output='screen',
-        parameters=[LaunchConfiguration('robot_localization_config')],
-        remappings=[('odometry/filtered', 'odometry/local')]
-    )
     mapping_node = Node(
         package='slam_toolbox',
         executable='async_slam_toolbox_node',
@@ -168,5 +159,5 @@ def generate_launch_description():
     ld.add_action(static_tf_basefootprint_laser_node)
     ld.add_action(static_tf_baselink_imu_node)
     ld.add_action(mapping_node)
-    ld.add_action(robot_localization_node)
+    
     return ld

@@ -11,17 +11,10 @@ def generate_launch_description():
 
     pp_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(pkg_pure_pursuit, 'launch', 'pure_pursuit_reactive.launch.py')
-        )
-    )
-
-    reactive_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(pkg_reactive, 'launch', 'reactive_follower.launch.py')
+            os.path.join(pkg_pure_pursuit, 'launch', 'pure_pursuit.launch.py')
         )
     )
     
     return LaunchDescription([
-        pp_launch,
-        reactive_launch
+        pp_launch
     ])

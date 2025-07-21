@@ -34,7 +34,7 @@ def generate_launch_description():
     vesc_config = os.path.join(
         get_package_share_directory('f1tenth_stack'),
         'config',
-        'vesc_pf.yaml'
+        'vesc.yaml'
     )
     sensors_config = os.path.join(
         get_package_share_directory('f1tenth_stack'),
@@ -120,7 +120,7 @@ def generate_launch_description():
     ld.add_action(vesc_to_odom_node)
     ld.add_action(vesc_driver_node)
     ld.add_action(urg_node)
-    ld.add_action(static_tf_baselink_laser_node)
-    ld.add_action(static_tf_baselink_imu_node)
+    # ld.add_action(static_tf_baselink_laser_node)
+    # ld.add_action(static_tf_baselink_imu_node)
 
     return ld
