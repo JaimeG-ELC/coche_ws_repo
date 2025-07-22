@@ -135,7 +135,9 @@ int ReactiveFollowerNode::find_closest_point(const std::vector<float> &ranges) {
 }
 
 void ReactiveFollowerNode::eliminate_bubble(std::vector<float> &ranges, int closest_idx, float bubble_radius) {
-    size_t bubble_start = (closest_idx >= static_cast<size_t>(bubble_radius)) ? closest_idx - static_cast<size_t>(bubble_radius) : 0;
+    size_t bubble_start = (static_cast<size_t>(closest_idx) >= static_cast<size_t>(bubble_radius)) 
+        ? static_cast<size_t>(closest_idx) - static_cast<size_t>(bubble_radius) 
+        : 0;
     size_t bubble_end = std::min(closest_idx + static_cast<size_t>(bubble_radius), ranges.size() - 1);
     std::fill(ranges.begin() + bubble_start, ranges.begin() + bubble_end + 1, 0.0);
 }
@@ -179,7 +181,7 @@ int ReactiveFollowerNode::point_to_lidar_index(){
     return std::clamp(idx, 0, 1179);
 }    
 
-std::vector<ReactiveFollowerNode::Gap> ReactiveFollowerNode::find_gaps(const std::vector<float> &ranges, size_t min_gap, double safety_distance) {
+std::vector<ReactiveFollowerNode::Gap> ReactiveFollowerNode::find_gaps(const std::vector<float> &ranges, size_t min_gap) {
     // Find the largest gap in the LiDAR scan data based on the safety distance and minimum gap size
     std::vector<Gap> gaps;
     bool in_gap = false;
@@ -237,8 +239,7 @@ bool ReactiveFollowerNode::gp_in_gaps(const std::vector<Gap> &gaps){
 
 std::pair<double, double> ReactiveFollowerNode::alternative_commands(
     const std::vector<Gap>& gaps, 
-    const std::vector<float>& ranges, 
-    int gp_index) 
+    const std::vector<float>& ranges) 
 {
     // Find the biggest gap
     if (gaps.empty()) {
@@ -303,10 +304,10 @@ void ReactiveFollowerNode::goal_callback(const interfaces_pkg::msg::GoalPoint::C
     min_gap_size = calculate_min_gap_size(safety_distance);
     gp_index = point_to_lidar_index();
 
-    std::vector<Gap> gaps = find_gaps(cropped_ranges, min_gap_size, safety_distance);
+    std::vector<Gap> gaps = find_gaps(cropped_ranges, min_gap_size);
     
     if (!gp_in_gaps(gaps) && closest_idx != -1) {
-        auto [alt_steering_angle, alt_speed] = alternative_commands(gaps, cropped_ranges, gp_index);
+        auto [alt_steering_angle, alt_speed] = alternative_commands(gaps, cropped_ranges);
         steering_angle = alt_steering_angle;
         speed = alt_speed;
         RCLCPP_INFO(get_logger(), "Alternative commands.");
@@ -322,4 +323,11 @@ void ReactiveFollowerNode::goal_callback(const interfaces_pkg::msg::GoalPoint::C
     drive_msg.drive.speed = std::max(speed, min_speed);
     drive_msg.drive.steering_angle = steering_angle;
     drive_publisher_->publish(drive_msg);
+}
+
+int main(int argc, char **argv) {
+    rclcpp::init(argc, argv);
+    rclcpp::spin(std::make_shared<ReactiveFollowerNode>());
+    rclcpp::shutdown();
+    return 0;
 }

@@ -89,9 +89,9 @@ private:
     size_t calculate_min_gap_size(double safety_distance);
     int point_to_lidar_index();
 
-    std::vector<Gap> find_gaps(const std::vector<float>& ranges, size_t min_gap, double safety_distance);
+    std::vector<Gap> find_gaps(const std::vector<float>& ranges, size_t min_gap);
     bool gp_in_gaps(const std::vector<Gap>& gaps);
-    std::pair<double, double> alternative_commands(const std::vector<Gap>& gaps, const std::vector<float>& ranges, int gp_index);
+    std::pair<double, double> alternative_commands(const std::vector<Gap>& gaps, const std::vector<float>& ranges);
     
     // Callback
     void goal_callback(const interfaces_pkg::msg::GoalPoint::ConstSharedPtr msg);
