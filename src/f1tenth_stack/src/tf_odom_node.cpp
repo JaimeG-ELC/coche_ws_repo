@@ -21,16 +21,16 @@ TFOdomNode::TFOdomNode()
         odom_output_topic_, 10);
 
     odom1_sub_ = this->create_subscription<nav_msgs::msg::Odometry>(
-        "odom", 10,
+        "/odom", 10,
         std::bind(&TFOdomNode::odom1Callback, this, std::placeholders::_1));
     
-    odom1_pub_ = this->create_publisher<nav_msgs::msg::Odometry>("tf_odom", 10);
+    odom1_pub_ = this->create_publisher<nav_msgs::msg::Odometry>("/tf_odom", 10);
 
     scan_sub_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
-        "scan", 10,
+        "/scan", 10,
         std::bind(&TFOdomNode::scanCallback, this, std::placeholders::_1));
     
-    scan_pub_ = this->create_publisher<sensor_msgs::msg::LaserScan>("tf_scan", 10);
+    scan_pub_ = this->create_publisher<sensor_msgs::msg::LaserScan>("/tf_scan", 10);
 
 
     RCLCPP_INFO(this->get_logger(), "TFOdomNode node initialized");
