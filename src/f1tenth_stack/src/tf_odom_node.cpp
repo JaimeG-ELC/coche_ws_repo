@@ -67,7 +67,7 @@ void TFOdomNode::odom0Callback(const nav_msgs::msg::Odometry::SharedPtr msg)
         // 5. Publish new odometry
         nav_msgs::msg::Odometry odom0_msg = *msg;
         odom0_msg.pose.pose = tf_odom_pose;
-        odom0_msg.header.frame_id = "odom";  // or whatever you want to call it
+        odom0_msg.header.frame_id = "map";  // or whatever you want to call it
         odom0_msg.child_frame_id = "base_link";  // or whatever you want to call it
         odom0_pub_->publish(odom0_msg);
     }
