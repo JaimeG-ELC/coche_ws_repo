@@ -278,6 +278,25 @@ void PurePursuit::map2car()
 
 void PurePursuit::steering_angle_calculation()
 {
+    // wheelbase = 0.33;              // 60 cm between axles
+    // front_axle_offset = wheelbase/2.0; // if base_link at centroid
+    // Turning radius 
+    //middle 0.482
+    // 0.1 130cm
+    //0.864 145cm
+    // 0.9 130cm
+    // min 0.112 max 0.864
+
+    // // After you have v_global in map frame, transform to rear-axle frame:
+    // Eigen::Vector3d p_front = v_local;
+
+    // p_front[0] -= front_axle_offset;  // x points forward
+
+    // // Use p_front in curvature calc:
+    // double ld2 = p_front[0]*p_front[0] + p_front[1]*p_front[1];
+    // double k = 2.0 * p_front[1] / ld2;
+    // double steering = atan(L * k);  // Ackermann steering angle
+        
     // Calculate the Curvature (or Steering Angle) that connects to the Closest Point (expressed in Car Frame)
     float k =  Kp * (2 * v_local[1]) / std::pow(std::sqrt(std::pow(v_local[0], 2) + std::pow(v_local[1], 2)), 2);
 
@@ -304,6 +323,8 @@ void PurePursuit::steering_angle_calculation()
         auto drive_msg = ackermann_msgs::msg::AckermannDriveStamped();
         drive_msg.drive.speed = pathpoints[speed_calculation()].v;
         drive_msg.drive.steering_angle = k;
+        RCLCPP_INFO(this->get_logger(), "Steering angle: %f", k);
+        RCLCPP_INFO(this->get_logger(), "Speed: %f", pathpoints[speed_calculation()].v);
         drive_pub_->publish(drive_msg);
     }
 }
