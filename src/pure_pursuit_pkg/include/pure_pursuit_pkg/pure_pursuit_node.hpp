@@ -36,10 +36,15 @@ public:
     };
 
 private:
-    // Pathpoints
+    // Variables
+    int closest_pathpoint = 0;
+    int lookahead_point = 0;
+    double lookahead_dist = 0.0;
+    double steering_angle = 0.0;
+    double speed = 0.0;
     int n_pathpoints;
     int start_index = 0;
-    int window_size;
+
     PathPoint curr_pose;
     std::vector<PathPoint> pathpoints;
 
@@ -51,14 +56,15 @@ private:
     geometry_msgs::msg::TransformStamped current_transform_;
 
     // Parameters
-    double lookahead_dist;
     double min_lookahead_dist;
     double max_lookahead_dist;
     double lookahead_ratio;
-    double max_speed;
     double Kp;
+    int window_size;
     double max_steering_angle;
+    double max_lateral_acc;  // Computed from friction, gravity and safety factor
     double min_speed;
+    double max_speed;
     bool reactive;
 
 
@@ -82,15 +88,25 @@ private:
     std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
 
     // Methods
+    double to_radians(double degrees);
+    double to_degrees(double radians);
+    double p2pdist(double x1, double x2, double y1, double &y2);
+
+    void map2car();
+
+    int calculate_n_pathpoints(const std::string& csv_path);
     int load_pathpoints2memory();
-    void odom_callback(const nav_msgs::msg::Odometry::ConstSharedPtr odom_msg);
+
+    void get_lookahead_point();
+    void graph_lookahead_point();
+    void steering_angle_calculation();
+
     void get_closest_pathpoint();
     void graph_closest_pathpoint();
-    void map2car();
-    void steering_angle_calculation();
-    int speed_calculation();
-    int calculate_n_pathpoints(const std::string& csv_path);
-    double p2pdist(double &x1, double &x2, double &y1, double &y2);
+    void speed_calculation();
+
+    void odom_callback(const nav_msgs::msg::Odometry::ConstSharedPtr odom_msg);
+
 
     // Utility transforms
     Eigen::Matrix3d quaternionToMatrix(const geometry_msgs::msg::Quaternion& q);

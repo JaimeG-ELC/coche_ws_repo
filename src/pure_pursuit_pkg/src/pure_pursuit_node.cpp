@@ -3,16 +3,16 @@
 PurePursuit::PurePursuit() : Node("pure_pursuit_node")
 {
     // Establish some private variables as parameters
-    this->declare_parameter<double>("lookahead_dist", 1.5);
     this->declare_parameter<double>("min_lookahead_dist", 0.5);
     this->declare_parameter<double>("max_lookahead_dist", 4.0);
     this->declare_parameter<double>("lookahead_ratio", 8.0);
     this->declare_parameter<double>("max_speed", 4.0);
-    this->declare_parameter<double>("min_speed", 0.1); // Default minimum speed if not specified
-    this->declare_parameter<double>("Kp", 0.3);
-    this->declare_parameter<double>("max_steering_angle", 0.7);
+    this->declare_parameter<double>("min_speed", 0.4); // Default minimum speed if not specified
+    this->declare_parameter<double>("Kp", 0.25);
+    this->declare_parameter<double>("max_steering_angle", 44); //grados
     this->declare_parameter<int>("window_size", 25);
-    this->declare_parameter<std::string>("csv_path", "/root/coche_ws/src/pure_pursuit/racelines/pathpoints_odom_3.csv");
+    this->declare_parameter<double>("max_lateral_acc", 5.0);
+    this->declare_parameter<std::string>("csv_path", "/root/coche_ws/src/pure_pursuit_pkg/racelines/pathpoints_odom_3.csv");
     this->declare_parameter<std::string>("map_frame", "map");
     this->declare_parameter<std::string>("car_frame", "base_link");
     this->declare_parameter<std::string>("odom_topic", "/odom");
@@ -21,7 +21,6 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
     this->declare_parameter<bool>("reactive", true); // Default to false if not specified
 
     // Retrieve parameter values
-    lookahead_dist = this->get_parameter("lookahead_dist").as_double();
     min_lookahead_dist = this->get_parameter("min_lookahead_dist").as_double();
     max_lookahead_dist = this->get_parameter("max_lookahead_dist").as_double();
     lookahead_ratio = this->get_parameter("lookahead_ratio").as_double();
@@ -29,8 +28,8 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
     min_speed = this->get_parameter("min_speed").as_double();
     Kp = this->get_parameter("Kp").as_double();
     max_steering_angle = this->get_parameter("max_steering_angle").as_double();
-    // n_pathpoints = this->get_parameter("n_pathpoints").as_int();
     window_size = this->get_parameter("window_size").as_int();
+    max_lateral_acc = this->get_parameter("max_lateral_acc").as_double();
     csv_path = this->get_parameter("csv_path").as_string();
     map_frame = this->get_parameter("map_frame").as_string();
     car_frame = this->get_parameter("car_frame").as_string();
@@ -46,7 +45,6 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
     RCLCPP_INFO(this->get_logger(), "Drive Topic: %s", drive_topic.c_str());
     RCLCPP_INFO(this->get_logger(), "Map Frame: %s", map_frame.c_str());    
     RCLCPP_INFO(this->get_logger(), "Car Frame: %s", car_frame.c_str());
-    RCLCPP_INFO(this->get_logger(), "Lookahead Distance: %f", lookahead_dist);
     RCLCPP_INFO(this->get_logger(), "Minimum Lookahead Distance: %f", min_lookahead_dist);
     RCLCPP_INFO(this->get_logger(), "Maximum Lookahead Distance: %f", max_lookahead_dist);  
     RCLCPP_INFO(this->get_logger(), "Lookahead Ratio: %f", lookahead_ratio);
@@ -55,10 +53,18 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
     RCLCPP_INFO(this->get_logger(), "Kp: %f", Kp);
     RCLCPP_INFO(this->get_logger(), "Max Steering Angle: %f", max_steering_angle);
     RCLCPP_INFO(this->get_logger(), "Window Size: %d", window_size);
+    RCLCPP_INFO(this->get_logger(), "Max Lateral Acceleration: %f", max_lateral_acc);
     RCLCPP_INFO(this->get_logger(), "Reactive Mode: %s", reactive ? "true" : "false");
 
     // Other required member variables
     graph_topic = "visualization_marker";
+
+    closest_pathpoint = 0;
+    lookahead_point = 0;
+    lookahead_dist = 0.0;
+    steering_angle = 0.0;
+    speed = 0.0;
+    n_pathpoints = 0;
     start_index = 0;
 
     odom_sub_ = this->create_subscription<nav_msgs::msg::Odometry>(
@@ -79,14 +85,74 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
     // Calculate the number of pathpoints from the CSV file
     n_pathpoints = calculate_n_pathpoints(csv_path);
 
+    if (window_size > n_pathpoints) {
+        RCLCPP_ERROR(this->get_logger(), "Window size (%d) larger than path points (%d)", window_size, n_pathpoints);
+        return;
+    }
+
+    max_steering_angle = to_radians(max_steering_angle); // Convert to radians
+
     // We load the path into memory
     load_pathpoints2memory();
 }
 
-double PurePursuit::p2pdist(double &x1, double &x2, double &y1, double &y2) 
+double PurePursuit::to_radians(double degrees) {
+    double radians;
+    return radians = degrees * M_PI / 180.0;
+}
+
+double PurePursuit::to_degrees(double radians) {
+    double degrees;
+    return degrees = radians * 180.0 / M_PI;
+}
+
+double PurePursuit::p2pdist(double x1, double x2, double y1, double y2) 
 {
     double dist = sqrt(pow((x2 - x1), 2) + pow((y2 - y1), 2));
     return dist;
+}
+
+Eigen::Matrix3d PurePursuit::quaternionToMatrix(const geometry_msgs::msg::Quaternion& q)
+{
+    // Matrix will represent R_car2map (car to map rotation)
+    double q0 = q.w;
+    double q1 = q.x;
+    double q2 = q.y;
+    double q3 = q.z;
+
+    Eigen::Matrix3d R_car2map;
+    R_car2map << 2 * (q0*q0 + q1*q1) - 1,
+         2 * (q1*q2 - q0*q3),
+         2 * (q1*q3 + q0*q2),
+         2 * (q1*q2 + q0*q3),
+         2 * (q0*q0 + q2*q2) - 1,
+         2 * (q2*q3 - q0*q1),
+         2 * (q1*q3 - q0*q2),
+         2 * (q2*q3 + q0*q1),
+         2 * (q0*q0 + q3*q3) - 1;
+    return R_car2map;
+}
+
+Eigen::Vector3d PurePursuit::transform_to_car_frame(const Eigen::Vector3d& point_map)
+{
+    // Use cached transform instead of looking it up again
+    Eigen::Vector3d t_car_in_map(
+        current_transform_.transform.translation.x,
+        current_transform_.transform.translation.y,
+        current_transform_.transform.translation.z
+    );
+
+    // Get car→map rotation and transpose for map→car
+    Eigen::Matrix3d R_car2map = quaternionToMatrix(current_transform_.transform.rotation);
+    Eigen::Matrix3d R_map2car = R_car2map.transpose();
+    
+    // First subtract translation, then rotate
+    return R_map2car * (point_map - t_car_in_map);
+}
+
+void PurePursuit::map2car()
+{
+    v_local = transform_to_car_frame(v_global);
 }
 
 int PurePursuit::calculate_n_pathpoints(const std::string& csv_path)
@@ -146,7 +212,7 @@ int PurePursuit::load_pathpoints2memory()
         double y = std::stod(y_str);
         double v;
         if (v_str.empty()) {
-            v = min_speed; // Default to max_speed if v is missing
+            v = min_speed; // Default to min_speed if v is missing
         } else {
             try {
                 v = std::stod(v_str);
@@ -167,7 +233,7 @@ void PurePursuit::graph_closest_pathpoint()
     auto marker = visualization_msgs::msg::Marker();
 
     marker.header.frame_id = map_frame;  // Use parameter instead of hardcoded "map"
-    marker.header.stamp = rclcpp::Clock().now();
+    marker.header.stamp = this->now();  
 
     marker.ns = "basic_shapes";
     marker.id = 0;
@@ -182,8 +248,8 @@ void PurePursuit::graph_closest_pathpoint()
     marker.color.a = 1.0;
     marker.color.r = 1.0;
 
-    marker.pose.position.x = v_global[0];
-    marker.pose.position.y = v_global[1];
+    marker.pose.position.x = pathpoints[closest_pathpoint].x;
+    marker.pose.position.y = pathpoints[closest_pathpoint].y;
     marker.pose.position.z = 0.0;
 
     // Add logging for waypoint information
@@ -191,145 +257,122 @@ void PurePursuit::graph_closest_pathpoint()
                 // start_index, v_global[0], v_global[1]);
 
     graph_pub_->publish(marker);
-
-    return;
 }
 
-void PurePursuit::get_closest_pathpoint()
+void PurePursuit::graph_lookahead_point()
 {
-    if (window_size > n_pathpoints) {
-        RCLCPP_ERROR(this->get_logger(), "Window size (%d) larger than path points (%d)", window_size, n_pathpoints);
-        return;
-    }
+    auto marker = visualization_msgs::msg::Marker();
 
-    int i = start_index;
-    double distance_to_pose;
+    marker.header.frame_id = map_frame;  // Use parameter instead of hardcoded "map"
+    marker.header.stamp = this->now();
+
+    marker.ns = "basic_shapes";
+    marker.id = 1;
+
+    marker.type = visualization_msgs::msg::Marker::SPHERE;
+
+    marker.action = visualization_msgs::msg::Marker::ADD;
+
+    marker.scale.x = 0.15;
+    marker.scale.y = 0.15;
+    marker.scale.z = 0.15;
+    marker.color.a = 1.0;
+    marker.color.g = 1.0;
+
+    marker.pose.position.x = pathpoints[lookahead_point].x;
+    marker.pose.position.y = pathpoints[lookahead_point].y;
+    marker.pose.position.z = 0.0;
+
+    // Add logging for waypoint information
+    // RCLCPP_INFO(this->get_logger(), "Using waypoint %d at position (%.2f, %.2f)", 
+                // start_index, v_global[0], v_global[1]);
+
+    graph_pub_->publish(marker);
+}
+
+void PurePursuit::get_lookahead_point()
+{
+    int best_i = -1;
     double closest_distance = std::numeric_limits<double>::max();
-    
-    // Iterate through window_size
-    for(int n = 0; n < window_size; n++)
-    {
-        // Calculate pathpoint i to current pose distance
-        distance_to_pose = std::sqrt(std::pow(pathpoints[i].x - curr_pose.x, 2) + std::pow(pathpoints[i].y - curr_pose.y, 2));
-        // RCLCPP_INFO(this->get_logger(), "Point: %i, Closest_distance: %f", i, distance_to_pose);
 
+    // Search in the [start_index ... start_index + window_size) window
+    for (int n = 0; n < window_size; ++n) {
+        int i = (start_index + n) % n_pathpoints;
 
-        // Transform point to check if it's in front of the car
-        Eigen::Vector3d point;
-        point << pathpoints[i].x, pathpoints[i].y, 0.0;
-        Eigen::Vector3d point_local = transform_to_car_frame(point);
+        // 1) Distance in map frame
+        double dx = pathpoints[i].x - curr_pose.x;
+        double dy = pathpoints[i].y - curr_pose.y;
+        double d  = std::hypot(dx, dy);
 
-        // Only consider points that are in front of the car and beyond lookahead distance
-        if (distance_to_pose >= lookahead_dist && distance_to_pose < closest_distance)
-        {            
-            closest_distance = distance_to_pose;
-            start_index = i;
-            v_global << pathpoints[i].x, pathpoints[i].y, 0.0;
+        // 2) Skip if it's too close or too far
+        if (d < lookahead_dist || d >= closest_distance) {
+            continue;
         }
 
-        i = (i+1)%n_pathpoints;
+        // 3) Check that the point is in front by transforming to car frame
+        Eigen::Vector3d p_map(pathpoints[i].x, pathpoints[i].y, 0.0);
+        Eigen::Vector3d p_car = transform_to_car_frame(p_map);
+
+        if (p_car.x() <= 0.0) {
+            // behind the car → skip
+            continue;
+        }
+
+        // 4) This is our new best candidate
+        closest_distance = d;
+        best_i           = i;
+        v_global << pathpoints[i].x, pathpoints[i].y, 0.0;
     }
 
-    graph_closest_pathpoint();
+    if (best_i >= 0) {
+        // Found a valid look‑ahead
+        lookahead_point = best_i;
+        start_index     = best_i;  // slide the window forward
+    } else {
+        // No valid point: fall back halfway through window
+        int fallback = (start_index + window_size/2) % n_pathpoints;
+        lookahead_point = fallback;
+        start_index     = fallback;
+        RCLCPP_WARN(this->get_logger(),
+            "No lookahead point ≥ %.2fm in front; fallback to index %d",
+            lookahead_dist, fallback);
+    }
 }
 
-Eigen::Matrix3d PurePursuit::quaternionToMatrix(const geometry_msgs::msg::Quaternion& q)
-{
-    // Matrix will represent R_car2map (car to map rotation)
-    double q0 = q.w;
-    double q1 = q.x;
-    double q2 = q.y;
-    double q3 = q.z;
 
-    Eigen::Matrix3d R_car2map;
-    R_car2map << 2 * (q0*q0 + q1*q1) - 1,
-         2 * (q1*q2 - q0*q3),
-         2 * (q1*q3 + q0*q2),
-         2 * (q1*q2 + q0*q3),
-         2 * (q0*q0 + q2*q2) - 1,
-         2 * (q2*q3 - q0*q1),
-         2 * (q1*q3 - q0*q2),
-         2 * (q2*q3 + q0*q1),
-         2 * (q0*q0 + q3*q3) - 1;
-    return R_car2map;
-}
 
-Eigen::Vector3d PurePursuit::transform_to_car_frame(const Eigen::Vector3d& point_map)
-{
-    // Use cached transform instead of looking it up again
-    Eigen::Vector3d t_car_in_map(
-        current_transform_.transform.translation.x,
-        current_transform_.transform.translation.y,
-        current_transform_.transform.translation.z
-    );
-
-    // Get car→map rotation and transpose for map→car
-    Eigen::Matrix3d R_car2map = quaternionToMatrix(current_transform_.transform.rotation);
-    Eigen::Matrix3d R_map2car = R_car2map.transpose();
-    
-    // First subtract translation, then rotate
-    return R_map2car * (point_map - t_car_in_map);
-}
-
-void PurePursuit::map2car()
-{
-    v_local = transform_to_car_frame(v_global);
-}
 
 void PurePursuit::steering_angle_calculation()
 {
     // wheelbase = 0.33;              // 60 cm between axles
     // front_axle_offset = wheelbase/2.0; // if base_link at centroid
     // Turning radius 
-    //middle 0.482
-    // 0.1 130cm
-    //0.864 145cm
-    // 0.9 130cm
+    // middle 0.482
+    // 0.1 130cm 1/-1,3 = -0,769 rad = -44º
+    // 0.864 145cm
+    // 0.9 130cm 1/1,3 = 0,769 rad = 44º
     // min 0.112 max 0.864
 
-    // // After you have v_global in map frame, transform to rear-axle frame:
-    // Eigen::Vector3d p_front = v_local;
+    // gain for steering vesc 0,4967 left, 0,54356 right
+    // 0,482 - 0,769 rad * 0,4967 = 0,1
+    // 0,482 + 0,769 rad * 0,54356 = 0,9
 
-    // p_front[0] -= front_axle_offset;  // x points forward
-
-    // // Use p_front in curvature calc:
-    // double ld2 = p_front[0]*p_front[0] + p_front[1]*p_front[1];
-    // double k = 2.0 * p_front[1] / ld2;
-    // double steering = atan(L * k);  // Ackermann steering angle
-        
-    // Calculate the Curvature (or Steering Angle) that connects to the Closest Point (expressed in Car Frame)
-    float k =  Kp * (2 * v_local[1]) / std::pow(std::sqrt(std::pow(v_local[0], 2) + std::pow(v_local[1], 2)), 2);
-
-    if(k > max_steering_angle)
-    {
-        k = max_steering_angle;    
-    } else if(k < -max_steering_angle)
-    {
-        k = -max_steering_angle;
+    double distance_squared = v_local[0] * v_local[0] + v_local[1] * v_local[1];
+    
+    // Protect against division by zero
+    if (distance_squared < 1e-6) {
+        steering_angle = 0.0;
+        return;
     }
     
-
-    if (reactive){
-            // Build a GoalPoint message
-        interfaces_pkg::msg::GoalPoint goal;
-        // the typical fields might be `x`, `y`, `v` (speed), `s` (steering)
-        goal.x = v_local[0];                // global target x
-        goal.y = v_local[1];                // global target y
-        goal.v = pathpoints[speed_calculation()].v;                    // desired speed
-        goal.s = k;                          // desired steering curvature/angle
-        goal_pub_->publish(goal);
-    }
-    else{
-        auto drive_msg = ackermann_msgs::msg::AckermannDriveStamped();
-        drive_msg.drive.speed = pathpoints[speed_calculation()].v;
-        drive_msg.drive.steering_angle = k;
-        RCLCPP_INFO(this->get_logger(), "Steering angle: %f", k);
-        RCLCPP_INFO(this->get_logger(), "Speed: %f", pathpoints[speed_calculation()].v);
-        drive_pub_->publish(drive_msg);
-    }
+    double distance = std::sqrt(distance_squared);
+    double angle = Kp * (2 * v_local[1]) / (distance * distance);
+    
+    steering_angle = std::clamp(angle, -max_steering_angle, max_steering_angle);
 }
 
-int PurePursuit::speed_calculation()
+
+void PurePursuit::get_closest_pathpoint()
 {
     // Find the closest point to the car, and use the velocity index for that
     int start_point = std::max(start_index - (window_size / 3), 0);
@@ -346,7 +389,24 @@ int PurePursuit::speed_calculation()
             speed_i = i;
         }
     }
-    return speed_i;
+    closest_pathpoint = speed_i;
+}
+
+void PurePursuit::speed_calculation()
+{
+    // Base speed from path
+    double target_speed = pathpoints[closest_pathpoint].v;
+    
+    // Adjust speed based on steering angle magnitude
+    if (std::abs(steering_angle) > 0.05) { // About 2.86 degrees
+
+        double radius = 1 / std::abs(steering_angle); 
+        double curve_speed = std::sqrt(max_lateral_acc / std::abs(steering_angle));
+        target_speed = std::min(target_speed, curve_speed);
+        RCLCPP_INFO(this->get_logger(), "Max curve speed: %f", curve_speed);
+    }
+    // Clamp to speed limits
+    speed = std::clamp(target_speed, min_speed, max_speed);
 }
 
 void PurePursuit::odom_callback(const nav_msgs::msg::Odometry::ConstSharedPtr odom_msg)
@@ -382,9 +442,36 @@ void PurePursuit::odom_callback(const nav_msgs::msg::Odometry::ConstSharedPtr od
     curr_pose.y = current_transform_.transform.translation.y;
 
     // Rest of the pipeline uses cached transform
+
     get_closest_pathpoint();
+    graph_closest_pathpoint();
+
+    get_lookahead_point();
+    graph_lookahead_point();
+
     map2car();
+
     steering_angle_calculation();
+    speed_calculation();
+
+    if (reactive){
+            // Build a GoalPoint message
+        interfaces_pkg::msg::GoalPoint goal;
+        // the typical fields might be `x`, `y`, `v` (speed), `s` (steering)
+        goal.x = v_local[0];                // global target x
+        goal.y = v_local[1];                // global target y
+        goal.v = speed;                    // desired speed
+        goal.s = steering_angle;                          // desired steering curvature/angle
+        goal_pub_->publish(goal);
+    }
+    else{
+        auto drive_msg = ackermann_msgs::msg::AckermannDriveStamped();
+        drive_msg.drive.speed = speed;
+        drive_msg.drive.steering_angle = steering_angle;
+        RCLCPP_INFO(this->get_logger(), "Steering angle: %f", steering_angle);
+        RCLCPP_INFO(this->get_logger(), "Speed: %f", speed);
+        drive_pub_->publish(drive_msg);
+    } 
 }
 
 int main(int argc, char**argv)
