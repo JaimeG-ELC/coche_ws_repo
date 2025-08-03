@@ -97,19 +97,16 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
 }
 
 double PurePursuit::to_radians(double degrees) {
-    double radians;
-    return radians = degrees * M_PI / 180.0;
+    return degrees * M_PI / 180.0;
 }
 
 double PurePursuit::to_degrees(double radians) {
-    double degrees;
-    return degrees = radians * 180.0 / M_PI;
+    return radians * 180.0 / M_PI;
 }
 
 double PurePursuit::p2pdist(double x1, double x2, double y1, double y2) 
 {
-    double dist = sqrt(pow((x2 - x1), 2) + pow((y2 - y1), 2));
-    return dist;
+    return sqrt(pow((x2 - x1), 2) + pow((y2 - y1), 2));
 }
 
 Eigen::Matrix3d PurePursuit::quaternionToMatrix(const geometry_msgs::msg::Quaternion& q)
@@ -374,15 +371,19 @@ void PurePursuit::steering_angle_calculation()
 
 void PurePursuit::get_closest_pathpoint()
 {
-    // Find the closest point to the car, and use the velocity index for that
-    int start_point = std::max(start_index - (window_size / 3), 0);
-    double shortest_distance = p2pdist(pathpoints[start_point].x, curr_pose.x, pathpoints[start_point].y, curr_pose.y);
+    // Find the closest point to the car within the window
+    int start_point = start_index;  // Start from current index
     int speed_i = start_point;
+    double shortest_distance = p2pdist(pathpoints[start_point].x, curr_pose.x, 
+                                     pathpoints[start_point].y, curr_pose.y);
 
-    // Use a separate loop variable for iteration
-    for (int i = start_point; i < (start_point + window_size); i++) 
+    // Search with circular indexing, just like get_lookahead_point
+    for (int n = 0; n < window_size; ++n) 
     {
-        double distance = p2pdist(pathpoints[i].x, curr_pose.x, pathpoints[i].y, curr_pose.y);
+        int i = (start_point + n) % n_pathpoints;
+        double distance = p2pdist(pathpoints[i].x, curr_pose.x, 
+                                pathpoints[i].y, curr_pose.y);
+        
         if (distance <= shortest_distance) 
         {
             shortest_distance = distance;
@@ -399,9 +400,14 @@ void PurePursuit::speed_calculation()
     
     // Adjust speed based on steering angle magnitude
     if (std::abs(steering_angle) > 0.05) { // About 2.86 degrees
-
-        double radius = 1 / std::abs(steering_angle); 
-        double curve_speed = std::sqrt(max_lateral_acc / std::abs(steering_angle));
+        // Calculate turn radius using bicycle model: R = L/tan(δ)
+        // where L is wheelbase and δ is steering angle
+        constexpr double wheelbase = 0.33;  // meters
+        double radius = wheelbase / std::tan(std::abs(steering_angle));
+        
+        // Calculate speed limit based on lateral acceleration: v = sqrt(a_lat * R)
+        // where a_lat is max lateral acceleration and R is turn radius
+        double curve_speed = std::sqrt(max_lateral_acc * radius);
         target_speed = std::min(target_speed, curve_speed);
         RCLCPP_INFO(this->get_logger(), "Max curve speed: %f", curve_speed);
     }

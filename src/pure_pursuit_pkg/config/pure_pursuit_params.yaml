@@ -8,6 +8,7 @@
     kp: 0.25
     max_steering_angle: 44
     window_size: 25
+    max_lateral_acc: 5
     csv_path:  "/root/coche_ws/src/pure_pursuit_pkg/racelines/23-07.csv"
     map_frame: "map"
     car_frame: "base_link"
