@@ -114,7 +114,7 @@ void VescToOdom::vescStateCallback(const VescStateStamped::SharedPtr state)
 
     // gain for steering vesc 1.488 left, 2.267 right
     // 0,482 - 0,2567 rad * 1.488 = 0,1
-    // 0,482 + 0,2567 rad * 2.267 = 0,9
+    // 0,482 + 0,2567 rad * 1.628 = 0,9
 
   if (use_servo_cmd_) {
     // Use steering gain and offset logic from comments
