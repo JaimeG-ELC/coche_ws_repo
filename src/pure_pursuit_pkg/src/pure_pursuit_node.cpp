@@ -342,17 +342,17 @@ void PurePursuit::get_lookahead_point()
 void PurePursuit::steering_angle_calculation()
 {
     // wheelbase = 0.33;              // 60 cm between axles
-    // front_axle_offset = wheelbase/2.0; // if base_link at centroid
     // Turning radius 
     // middle 0.482
-    // 0.1 diameter 130cm 
-    //  1/(-1,3/2) = -1.538 rad = -88.147º
-    // 0.9 diameter 130cm 
-    //  1/(1,3/2) = 1.538 rad = 88.147º
 
-    // gain for steering vesc 0.24835 left, 0.27178 right
-    // 0,482 - 1.538 rad * 0.24835 = 0,1
-    // 0,482 + 1.538 rad * 0.27178 = 0,9
+    // 0,1 diameter 130cm 
+    //  arcsin(0,33/-1,3) = -0,2567 rad = -14,705º
+    // 0,9 diameter 130cm 
+    //  arcsin(0,33/1,3) = 0,2567 rad = 14,705º
+
+    // gain for steering vesc 1.488 left, 2.267 right
+    // 0,482 - 0,2567 rad * 1.488 = 0,1
+    // 0,482 + 0,2567 rad * 2.267 = 0,9
 
     double distance_squared = v_local[0] * v_local[0] + v_local[1] * v_local[1];
     
