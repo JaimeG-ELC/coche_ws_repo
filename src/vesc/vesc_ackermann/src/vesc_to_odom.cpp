@@ -102,11 +102,47 @@ void VescToOdom::vescStateCallback(const VescStateStamped::SharedPtr state)
     current_speed = 0.0;
   }
   double current_steering_angle(0.0), current_angular_velocity(0.0);
+
+    // wheelbase = 0.33;              // 60 cm between axles
+    // front_axle_offset = wheelbase/2.0; // if base_link at centroid
+    // Turning radius 
+    // middle 0.482
+    // 0.1 diameter 130cm 
+    //  1/(-1.3/2) = -1.538 rad = -88.147º
+    // 0.9 diameter 130cm 
+    //  1/(1.3/2) = 1.538 rad = 88.147º
+
+    // gain for steering vesc 0.24835 left, 0.27178 right
+    // 0.482 - 1.538 rad * 0.24835 = 0.1
+    // 0.482 + 1.538 rad * 0.27178 = 0.9
+
   if (use_servo_cmd_) {
-    current_steering_angle =
-      (last_servo_cmd_->data - steering_to_servo_offset_) / steering_to_servo_gain_;
+    // Use steering gain and offset logic from comments
+    // gain for steering vesc 0.24835 left, 0.27178 right
+    // 0.482 - 1.538 rad * 0.24835 = 0.1
+    // 0.482 + 1.538 rad * 0.27178 = 0.9
+    double left_gain = 0.24835;
+    double right_gain = 0.27178;
+    double center_offset = 0.482;
+    double max_angle = 1.538; // rad
+    if (last_servo_cmd_->data < center_offset) {
+      // Left steering
+      current_steering_angle = (center_offset - (last_servo_cmd_->data / left_gain));
+    } else if (last_servo_cmd_->data > center_offset) {
+      // Right steering
+      current_steering_angle = (center_offset + (last_servo_cmd_->data / right_gain));
+    } else {
+      // Center
+      current_steering_angle = 0.0;
+    }
     current_angular_velocity = current_speed * tan(current_steering_angle) / wheelbase_;
   }
+
+  // if (use_servo_cmd_) {
+  //   current_steering_angle =
+  //     (last_servo_cmd_->data - steering_to_servo_offset_) / steering_to_servo_gain_;
+  //   current_angular_velocity = current_speed * tan(current_steering_angle) / wheelbase_;
+  // }
 
   // use current state as last state if this is our first time here
   if (!last_state_) {

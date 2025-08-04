@@ -345,14 +345,14 @@ void PurePursuit::steering_angle_calculation()
     // front_axle_offset = wheelbase/2.0; // if base_link at centroid
     // Turning radius 
     // middle 0.482
-    // 0.1 130cm 1/-1,3 = -0,769 rad = -44º
-    // 0.864 145cm
-    // 0.9 130cm 1/1,3 = 0,769 rad = 44º
-    // min 0.112 max 0.864
+    // 0.1 diameter 130cm 
+    //  1/(-1,3/2) = -1.538 rad = -88.147º
+    // 0.9 diameter 130cm 
+    //  1/(1,3/2) = 1.538 rad = 88.147º
 
-    // gain for steering vesc 0,4967 left, 0,54356 right
-    // 0,482 - 0,769 rad * 0,4967 = 0,1
-    // 0,482 + 0,769 rad * 0,54356 = 0,9
+    // gain for steering vesc 0.24835 left, 0.27178 right
+    // 0,482 - 1.538 rad * 0.24835 = 0,1
+    // 0,482 + 1.538 rad * 0.27178 = 0,9
 
     double distance_squared = v_local[0] * v_local[0] + v_local[1] * v_local[1];
     
@@ -366,8 +366,9 @@ void PurePursuit::steering_angle_calculation()
     double angle = Kp * (2 * v_local[1]) / (distance * distance);
     
     steering_angle = std::clamp(angle, -max_steering_angle, max_steering_angle);
+    
+    // RCLCPP_INFO(this->get_logger(), "Local lookahead: %f, %f", v_local[0], v_local[1]);
 }
-
 
 void PurePursuit::get_closest_pathpoint()
 {
@@ -380,7 +381,7 @@ void PurePursuit::get_closest_pathpoint()
     // Search with circular indexing, just like get_lookahead_point
     for (int n = 0; n < window_size; ++n) 
     {
-        int i = (start_point + n) % n_pathpoints;
+        int i = (start_point - (window_size / 2) + n) % n_pathpoints;
         double distance = p2pdist(pathpoints[i].x, curr_pose.x, 
                                 pathpoints[i].y, curr_pose.y);
         
@@ -397,7 +398,7 @@ void PurePursuit::speed_calculation()
 {
     // Base speed from path
     double target_speed = pathpoints[closest_pathpoint].v;
-    
+
     // Adjust speed based on steering angle magnitude
     if (std::abs(steering_angle) > 0.05) { // About 2.86 degrees
         // Calculate turn radius using bicycle model: R = L/tan(δ)
@@ -409,7 +410,7 @@ void PurePursuit::speed_calculation()
         // where a_lat is max lateral acceleration and R is turn radius
         double curve_speed = std::sqrt(max_lateral_acc * radius);
         target_speed = std::min(target_speed, curve_speed);
-        RCLCPP_INFO(this->get_logger(), "Max curve speed: %f", curve_speed);
+        RCLCPP_INFO(this->get_logger(), "Target Speed: %f, Max curve speed: %f", target_speed, curve_speed);
     }
     // Clamp to speed limits
     speed = std::clamp(target_speed, min_speed, max_speed);

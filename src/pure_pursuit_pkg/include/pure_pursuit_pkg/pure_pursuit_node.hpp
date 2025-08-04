@@ -90,7 +90,7 @@ private:
     // Methods
     double to_radians(double degrees);
     double to_degrees(double radians);
-    double p2pdist(double x1, double x2, double y1, double &y2);
+    double p2pdist(double x1, double x2, double y1, double y2);
 
     void map2car();
 

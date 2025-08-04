@@ -27,6 +27,7 @@ find_package(vesc_msgs REQUIRED)
 find_package(interfaces_pkg REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
+find_package(ackermann_msgs REQUIRED)
 
 # Include directories
 include_directories(
@@ -49,6 +50,9 @@ add_executable(tf_imu_node
   src/tf_imu_node.cpp
 )
 
+add_executable(test_servo_node 
+  src/test_servo_node.cpp
+)
 
 # Link dependencies for tf_publisher_node
 ament_target_dependencies(tf_publisher_node 
@@ -80,11 +84,23 @@ ament_target_dependencies(tf_imu_node
   vesc_msgs
 )
 
+ament_target_dependencies(test_servo_node 
+  rclcpp 
+  std_msgs
+  geometry_msgs
+  tf2
+  tf2_ros
+  interfaces_pkg
+  vesc_msgs
+  ackermann_msgs 
+)
+
 # Install targets
 install(TARGETS 
   tf_publisher_node
   tf_odom_node
   tf_imu_node
+  test_servo_node
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -101,12 +117,6 @@ install(DIRECTORY
   config
   maps
   DESTINATION share/${PROJECT_NAME}/
-)
-
-# Install Python modules
-install(PROGRAMS
-  f1tenth_stack/test_servo.py
-  DESTINATION lib/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)
