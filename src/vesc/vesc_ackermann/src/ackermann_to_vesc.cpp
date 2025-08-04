@@ -70,10 +70,13 @@ void AckermannToVesc::ackermannCmdCallback(const AckermannDriveStamped::SharedPt
 
   // calc steering angle (servo)
   Float64 servo_msg;
+
+    double left_gain = 1.488;
+    double right_gain = 1.628;
   if (cmd->drive.steering_angle >= 0){
-    servo_msg.data = 0,54356 * cmd->drive.steering_angle + steering_to_servo_offset_;
+    servo_msg.data = right_gain * cmd->drive.steering_angle + steering_to_servo_offset_;
   } else{
-    servo_msg.data = 0,4967 * cmd->drive.steering_angle + steering_to_servo_offset_;
+    servo_msg.data = steering_to_servo_offset_ + left_gain * cmd->drive.steering_angle;
   }
   // publish
   if (rclcpp::ok()) {

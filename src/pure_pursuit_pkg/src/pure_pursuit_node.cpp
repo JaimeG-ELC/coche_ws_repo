@@ -350,9 +350,9 @@ void PurePursuit::steering_angle_calculation()
     // 0,9 diameter 130cm 
     //  arcsin(0,33/1,3) = 0,2567 rad = 14,705º
 
-    // gain for steering vesc 1.488 left, 2.267 right
+    // gain for steering vesc 1.488 left, 1.628 right
     // 0,482 - 0,2567 rad * 1.488 = 0,1
-    // 0,482 + 0,2567 rad * 2.267 = 0,9
+    // 0,482 + 0,2567 rad * 1.628 = 0,9
 
     double distance_squared = v_local[0] * v_local[0] + v_local[1] * v_local[1];
     
@@ -479,6 +479,11 @@ void PurePursuit::odom_callback(const nav_msgs::msg::Odometry::ConstSharedPtr od
         RCLCPP_INFO(this->get_logger(), "Speed: %f", speed);
         drive_pub_->publish(drive_msg);
     } 
+    // static int i = 0;
+    // if (++i > 10) {
+    //     RCLCPP_INFO(this->get_logger(), "Heartbeat");
+    //     i = 0;
+    // }   
 }
 
 int main(int argc, char**argv)

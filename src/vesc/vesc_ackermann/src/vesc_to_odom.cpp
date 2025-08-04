@@ -118,21 +118,21 @@ void VescToOdom::vescStateCallback(const VescStateStamped::SharedPtr state)
 
   if (use_servo_cmd_) {
     // Use steering gain and offset logic from comments
-    double left_gain = 1,488;
-    double right_gain = 2,267;
-    double center_offset = 0.482;
-    double max_angle = 0,2567; // rad
-    if (last_servo_cmd_->data < center_offset) {
-      // Left steering
-      current_steering_angle = (center_offset - (last_servo_cmd_->data / left_gain));
-    } else if (last_servo_cmd_->data > center_offset) {
-      // Right steering
-      current_steering_angle = (center_offset + (last_servo_cmd_->data / right_gain));
-    } else {
-      // Center
-      current_steering_angle = 0.0;
-    }
-    current_angular_velocity = current_speed * tan(current_steering_angle) / wheelbase_;
+    // double left_gain = 1,488;
+    // double right_gain = 1.628;
+    // double center_offset = 0.482;
+    // double max_angle = 0,2567; // rad
+    // if (last_servo_cmd_->data < center_offset) {
+    //   // Left steering
+    //   current_steering_angle = (center_offset - (last_servo_cmd_->data / left_gain));
+    // } else if (last_servo_cmd_->data > center_offset) {
+    //   // Right steering
+    //   current_steering_angle = (center_offset + (last_servo_cmd_->data / right_gain));
+    // } else {
+    //   // Center
+    //   current_steering_angle = 0.0;
+    // }
+    // current_angular_velocity = current_speed * tan(current_steering_angle) / wheelbase_;
   }
 
   // if (use_servo_cmd_) {
