@@ -9,7 +9,7 @@
     lidar_angle_front_car: 135.0
     lidar_scans: 1180
 
-    max_speed: 1.0
+    max_speed: 2.0
     min_speed: 0.2
     max_steering_angle: 14.705
     bubble_radius: 50

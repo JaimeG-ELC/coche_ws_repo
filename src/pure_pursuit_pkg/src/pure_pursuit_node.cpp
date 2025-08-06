@@ -9,7 +9,7 @@ PurePursuit::PurePursuit() : Node("pure_pursuit_node")
     this->declare_parameter<double>("max_speed", 4.0);
     this->declare_parameter<double>("min_speed", 0.4); // Default minimum speed if not specified
     this->declare_parameter<double>("Kp", 0.25);
-    this->declare_parameter<double>("max_steering_angle", 44); //grados
+    this->declare_parameter<double>("max_steering_angle", 14.705);
     this->declare_parameter<int>("window_size", 25);
     this->declare_parameter<double>("max_lateral_acc", 5.0);
     this->declare_parameter<std::string>("csv_path", "/root/coche_ws/src/pure_pursuit_pkg/racelines/pathpoints_odom_3.csv");
