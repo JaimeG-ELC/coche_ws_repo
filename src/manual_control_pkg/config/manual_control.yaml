@@ -10,6 +10,6 @@
     left_horizontal_axis_idx: 0
     throttle_gain: 2.0
     throttle_multiplier: 3.0
-    steering_gain: -0.37
+    steering_gain: 0.2567
     steering_offset: 0.0
-    constant_throttle: 2.0
+    constant_throttle: 1.0

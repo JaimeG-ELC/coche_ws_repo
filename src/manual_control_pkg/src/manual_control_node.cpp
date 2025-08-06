@@ -1,26 +1,26 @@
 #include "manual_control_pkg/manual_control_node.hpp"
 
-//#define DS4_PATH "/sys/class/leds/0005:054C:09CC"  // Adjust
-
 ManualControlNode::ManualControlNode() : Node("manual_control_node"){
     // Declare and retrieve parameters
     this->declare_parameter<int>("lb_button_idx", 4);
     this->declare_parameter<int>("rb_button_idx", 5);
+    // this->declare_parameter<int>("brake_button_idx", 3);
     this->declare_parameter<int>("rt_axis_idx", 5);
     this->declare_parameter<int>("lt_axis_idx", 2);
     this->declare_parameter<int>("left_horizontal_axis_idx", 0);
     this->declare_parameter<std::string>("joy_topic", "/joy");
     this->declare_parameter<std::string>("drive_topic", "/drive");
     this->declare_parameter<std::string>("ackermann_cmd_topic", "/ackermann_cmd");
-    this->declare_parameter<double>("throttle_gain", 2);
-    this->declare_parameter<double>("throttle_multiplier", 3);
-    this->declare_parameter<double>("steering_gain", -0.37);
+    this->declare_parameter<double>("throttle_gain", 1.0);
+    this->declare_parameter<double>("throttle_multiplier", 1.0);
+    this->declare_parameter<double>("steering_gain", 0.2567);
     this->declare_parameter<double>("steering_offset", 0.0);
-    this->declare_parameter<double>("constant_throttle", 0.5);
+    this->declare_parameter<double>("constant_throttle", 1.0);
 
     // Get parameters
     lb_button_idx_ = this->get_parameter("lb_button_idx").as_int();
     rb_button_idx_ = this->get_parameter("rb_button_idx").as_int();
+    // brake_button_idx_ = this->get_parameter("brake_button_idx").as_int();
     rt_axis_idx_ = this->get_parameter("rt_axis_idx").as_int();
     lt_axis_idx_ = this->get_parameter("lt_axis_idx").as_int();
     left_horizontal_axis_idx_ = this->get_parameter("left_horizontal_axis_idx").as_int();
@@ -38,14 +38,14 @@ ManualControlNode::ManualControlNode() : Node("manual_control_node"){
         joy_topic_, 10, std::bind(&ManualControlNode::joyCallback, this, std::placeholders::_1));
     drive_sub_ = this->create_subscription<ackermann_msgs::msg::AckermannDriveStamped>(
         drive_topic_, 10, std::bind(&ManualControlNode::driveCallback, this, std::placeholders::_1));
+
     ackermann_pub_ = this->create_publisher<ackermann_msgs::msg::AckermannDriveStamped>(ackermann_cmd_topic_, 10);
     enable_button_pub_ = this->create_publisher<std_msgs::msg::Int8>("/enable_0", 10);
     enable_button1_pub_ = this->create_publisher<std_msgs::msg::Int8>("/enable_1", 10);
 
-    drive_multiplier_ = 1.0;
     button_pressed_ = false;
-    prev_drive_multiplier_button_value_ = 0.0;
-    kill_button_prev_ = 0;
+    prev_throttle_gain_button_value_ = 0.0;
+
     RCLCPP_INFO(this->get_logger(), "constant_throttle_: %f", constant_throttle_);
     RCLCPP_INFO(get_logger(), "Manual control node initialized");
 }
@@ -54,89 +54,74 @@ float ManualControlNode::linear_map(float x, float in_min, float in_max, float o
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-/*
-void ManualControlNode::setDS4LED(int red, int green, int blue) {
-    std::ofstream red_led(DS4_PATH ":1:red/brightness");
-    std::ofstream green_led(DS4_PATH ":1:green/brightness");
-    std::ofstream blue_led(DS4_PATH ":1:blue/brightness");
-
-    if (!red_led || !green_led || !blue_led) {
-        std::cerr << "Failed to access DualShock LED files!" << std::endl;
-        return;
-    }
-
-    red_led << red;
-    green_led << green;
-    blue_led << blue;
-
-    red_led.close();
-    green_led.close();
-    blue_led.close();
-}
-*/
-
 void ManualControlNode::joyCallback(const sensor_msgs::msg::Joy::SharedPtr joy) {
-    std_msgs::msg::Int8 enable_button_publish;
-    enable_button_publish.data = joy->buttons[0];
-    enable_button_pub_->publish(enable_button_publish);
-    enable_button_publish.data = joy->buttons[1];
-    enable_button1_pub_->publish(enable_button_publish);
+
+    publishEnableButtons(joy);
 
     button_pressed_ = joy->buttons[lb_button_idx_];
 
-    if (button_pressed_ && !joy->buttons[rb_button_idx_]) {
-        //setDS4LED(0,150,0);
-        return;
-    } else {
-        //setDS4LED(0,0,150);
-    }
-
-    auto ackermann_msg = ackermann_msgs::msg::AckermannDriveStamped();
-    ackermann_msg.header.stamp = this->now();
+    ackermann_msgs::msg::AckermannDriveStamped ackermann_msg;
+    ackermann_msg.header.stamp = now();
     ackermann_msg.header.frame_id = "base_link";
 
-    // Map joystick axes to servo and throttle values
-    ackermann_msg.drive.speed = linear_map(joy->axes[rt_axis_idx_], 1, -1, 0, 1) * 
-        throttle_gain_ * (joy->buttons[rb_button_idx_] && joy->buttons[lb_button_idx_] ? throttle_multiplier_ : 1);
-    
-    if (joy->axes[lt_axis_idx_] != 1.0) {
-        ackermann_msg.drive.speed = -linear_map(joy->axes[lt_axis_idx_], 1, -1, 0, 1) * 
-            throttle_gain_ * (joy->buttons[rb_button_idx_] && joy->buttons[lb_button_idx_] ? throttle_multiplier_ : 1);
-    }
-    
-    if (joy->buttons[rb_button_idx_]) {
-        ackermann_msg.drive.speed = 4.5;
-    }
-
+    ackermann_msg.drive.speed = calculateThrottle(joy);
     ackermann_msg.drive.steering_angle = -joy->axes[left_horizontal_axis_idx_] * steering_gain_ + steering_offset_;
-    ackermann_pub_->publish(ackermann_msg);
 
-    if (joy->axes[7] == 1.0 && prev_drive_multiplier_button_value_ == 0.0) {
-        drive_multiplier_ += 0.05;
-        RCLCPP_INFO(this->get_logger(), "multiplier changed to %f", drive_multiplier_);
-    } else if (joy->axes[7] == -1.0 && prev_drive_multiplier_button_value_ == 0.0) {
-        drive_multiplier_ -= 0.05;
-        RCLCPP_INFO(this->get_logger(), "multiplier changed to %f", drive_multiplier_);
+    // if (joy->buttons[brake_button_idx_]) {
+    //     ackermann_msg.drive.acceleration = 2.0;  // Stop the vehicle if brake button is pressed
+    //     RCLCPP_INFO(get_logger(), "BRAKE!!");
+    // }
+
+    // RCLCPP_DEBUG(get_logger(), "Speed: %f, Steering Angle: %f, Brake: %f", ackermann_msg.drive.speed, ackermann_msg.drive.steering_angle, ackermann_msg.drive.acceleration);
+    RCLCPP_DEBUG(get_logger(), "Speed: %f, Steering Angle: %f", ackermann_msg.drive.speed, ackermann_msg.drive.steering_angle);
+    ackermann_pub_->publish(ackermann_msg);
+    handleDriveMultiplierAdjustment(joy);
+}
+
+void ManualControlNode::publishEnableButtons(const sensor_msgs::msg::Joy::SharedPtr& joy) {
+    std_msgs::msg::Int8 enable_msg;
+    
+    enable_msg.data = joy->buttons[0];
+    enable_button_pub_->publish(enable_msg);
+
+    enable_msg.data = joy->buttons[1];
+    enable_button1_pub_->publish(enable_msg);
+}
+
+double ManualControlNode::calculateThrottle(const sensor_msgs::msg::Joy::SharedPtr& joy) {
+    const bool both_buttons_pressed = joy->buttons[lb_button_idx_] && joy->buttons[rb_button_idx_];
+    const float multiplier = both_buttons_pressed ? throttle_multiplier_ : 1.0;
+
+     if (joy->buttons[rb_button_idx_]) 
+    {
+        return constant_throttle_;  // Override speed if RB is pressed
+
+    }   else if (joy->axes[lt_axis_idx_] != 1.0) 
+    {
+        return -linear_map(joy->axes[lt_axis_idx_], 1, -1, 0, 1) * throttle_gain_ * multiplier;
     }
-    prev_drive_multiplier_button_value_ = joy->axes[7];
-/*
-    if (kill_button_prev_ == 0 && joy->buttons[1] == 1) {
-        system("pkill async_slam_tool && pkill vesc_to_odom_node");
-        RCLCPP_INFO(this->get_logger(), "Killed async_slam_tool and vesc_to_odom_node");
+
+    return linear_map(joy->axes[rt_axis_idx_], 1, -1, 0, 1) * throttle_gain_ * multiplier;
+}
+
+void ManualControlNode::handleDriveMultiplierAdjustment(const sensor_msgs::msg::Joy::SharedPtr& joy) {
+    constexpr int dpad_vertical_axis = 7;
+    float current_value = joy->axes[dpad_vertical_axis];
+
+    if (current_value == 1.0 && prev_throttle_gain_button_value_ == 0.0) {
+        throttle_gain_ += 0.05;
+        RCLCPP_INFO(get_logger(), "Multiplier increased to %f", throttle_gain_);
+    } else if (current_value == -1.0 && prev_throttle_gain_button_value_ == 0.0) {
+        throttle_gain_ -= 0.05;
+        RCLCPP_INFO(get_logger(), "Multiplier decreased to %f", throttle_gain_);
     }
-*/
-    kill_button_prev_ = joy->buttons[1];
+
+    prev_throttle_gain_button_value_ = current_value;
 }
 
 void ManualControlNode::driveCallback(const ackermann_msgs::msg::AckermannDriveStamped::SharedPtr drive) {
-    if (button_pressed_) {
-        auto modified_drive = *drive;
+    if (!button_pressed_) return;
 
-        modified_drive.drive.speed *= drive_multiplier_;
-        
-        RCLCPP_INFO(this->get_logger(), "Modified speed: %f (multiplier: %f)", 
-                    modified_drive.drive.speed, drive_multiplier_);
-
-        ackermann_pub_->publish(modified_drive);
-    }
+    auto modified_drive = *drive;
+    ackermann_pub_->publish(modified_drive);
 }

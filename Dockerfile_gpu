@@ -20,17 +20,17 @@ RUN apt-get update && apt-get install -y --fix-missing \
     cython3 \
     libhidapi-dev \
     libusb-1.0-0-dev \
+    build-essential \
     dbus \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /root/coche_ws
 
 # Set source file to install asio dependency later on
-# RUN wget https://github.com/chriskohlhoff/asio/archive/asio-1-12-2.tar.gz && \
-#     tar -xvzf asio-1-12-2.tar.gz && \
-#     cd asio-asio-1-12-2 && \
-#     cp -r asio/include/asio /usr/include/ && \
-#     apt-get update
+RUN wget https://github.com/chriskohlhoff/asio/archive/asio-1-12-2.tar.gz && \
+    tar -xvzf asio-1-12-2.tar.gz && \
+    cd asio-asio-1-12-2 && \
+    cp -r asio/include/asio /usr/include/ 
 
 # Create a workspace directory
 WORKDIR /root/coche_ws/src
@@ -52,21 +52,39 @@ RUN git clone https://github.com/ros-drivers/transport_drivers.git
 WORKDIR /root/coche_ws
 
 # Install the associated dependencies
-RUN rosdep update --include-eol-distros && \
-    rosdep install --from-paths src --ignore-src --rosdistro foxy -y
+# RUN rosdep update --include-eol-distros && rosdep install --from-paths src -i -y 
 
-RUN sudo apt install -y ros-foxy-joy  \
-    ros-foxy-slam-toolbox \
-    ros-foxy-rviz2 
-    
-RUN sudo apt-get install -y ros-foxy-urg-node 
+RUN rosdep update --include-eol-distros && rosdep install --from-path src --ignore-src -y
 
-    # Set shell to bash
+# Install Joy and Lidar Ros package
+RUN apt-get install -y ros-foxy-joy ros-foxy-urg-node
+
+# Install other required dependencies
+# RUN apt install -y ros-foxy-diagnostics
+
+#Install SLAM toolbox
+# RUN apt install -y ros-foxy-slam-toolbox
+
+#Install RVIZ2
+RUN apt install -y ros-foxy-rviz2
+
+# RUN apt install -y ros-foxy-rqt-common-plugins \
+#     ros-foxy-rqt-tf-tree
+
+RUN apt install -y ros-foxy-ackermann-msgs \
+    # ros-foxy-geographic-msgs \
+    ros-foxy-nav2-lifecycle-manager \
+    # ros-foxy-navigation2 \
+    ros-foxy-tf-transformations
+
+# RUN apt install -y libgeographic-dev
+
+RUN pip3 install transforms3d
+
+
 SHELL ["/bin/bash", "-c"]
 
-# Build workspace with explicit bash shell
-RUN source /opt/ros/foxy/setup.bash && \
-    colcon build
+RUN source /opt/ros/foxy/setup.bash && colcon build
 
 # Set the entrypoint to run the container in a bash shell
 CMD ["/bin/bash"]

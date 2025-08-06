@@ -45,12 +45,13 @@ private:
 
     double max_speed;
     double min_speed;
+    double max_steering_angle;
     int bubble_radius;
     double processed_angle;
     double safety_distance_min;
     double safety_distance_threshold;
     double safety_distance_gain;
-    double vehicule_width;
+    double vehicle_width;
 
     double max_lidar_distance;
     double weight_speed;
@@ -61,9 +62,14 @@ private:
     size_t end_index;
     double start_angle;
     double end_angle;
-    int gp_index;  // renamed from pg_index to match use
+    size_t gp_index;  // renamed from pg_index to match use
     double safety_distance;
     size_t min_gap_size;
+    double lidar_angle_rad;
+    double processed_angle_rad;
+    double lidar_angle_front_car_rad;
+    double max_steering_angle_rad;
+
 
     // Transform handling
     std::unique_ptr<tf2_ros::Buffer> tf_buffer_;
@@ -74,6 +80,8 @@ private:
     rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr lidar_subscriber_;
     rclcpp::Subscription<interfaces_pkg::msg::GoalPoint>::SharedPtr goal_subscriber_;
     rclcpp::Publisher<ackermann_msgs::msg::AckermannDriveStamped>::SharedPtr drive_publisher_;  
+    rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr lidar_publisher_;
+
 
     // Additional message storage members
     sensor_msgs::msg::LaserScan::ConstSharedPtr latest_scan_msg_;
@@ -84,13 +92,15 @@ private:
     void preprocess_lidar(std::vector<float> &ranges);
     int find_closest_point(const std::vector<float> &ranges);
     void eliminate_bubble(std::vector<float> &ranges, int closest_idx, float bubble_radius);
+    void publishLaser(const std::vector<float> &ranges);
+
 
     double calculate_safety_distance(double speed);
     size_t calculate_min_gap_size(double safety_distance);
-    int point_to_lidar_index();
+    size_t point_to_lidar_index();
 
     std::vector<Gap> find_gaps(const std::vector<float>& ranges, size_t min_gap);
-    bool gp_in_gaps(const std::vector<Gap>& gaps);
+    bool gp_in_gaps(const std::vector<Gap>& gaps, const std::vector<float> &ranges);
     std::pair<double, double> alternative_commands(const std::vector<Gap>& gaps, const std::vector<float>& ranges);
     
     // Callback

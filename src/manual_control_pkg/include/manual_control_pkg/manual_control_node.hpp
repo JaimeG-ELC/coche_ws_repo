@@ -19,6 +19,7 @@ private:
     
     int lb_button_idx_;
     int rb_button_idx_;
+    // int brake_button_idx_;
     int rt_axis_idx_;
     int lt_axis_idx_;
     int left_horizontal_axis_idx_;
@@ -28,12 +29,10 @@ private:
     double steering_gain_;
     double steering_offset_;
     double constant_throttle_;
-    double drive_multiplier_;
     
     // State variables
     bool button_pressed_;
-    double prev_drive_multiplier_button_value_;
-    int kill_button_prev_;
+    double prev_throttle_gain_button_value_;
 
     // ROS communication
     rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr joy_sub_;
@@ -48,7 +47,9 @@ private:
 
     // Helper functions
     float linear_map(float x, float in_min, float in_max, float out_min, float out_max);
-    //void setDS4LED(int red, int green, int blue);
+    void publishEnableButtons(const sensor_msgs::msg::Joy::SharedPtr& joy);
+    double calculateThrottle(const sensor_msgs::msg::Joy::SharedPtr& joy);
+    void handleDriveMultiplierAdjustment(const sensor_msgs::msg::Joy::SharedPtr& joy);
 };
 
 #endif // MANUAL_CONTROL_NODE_HPP_

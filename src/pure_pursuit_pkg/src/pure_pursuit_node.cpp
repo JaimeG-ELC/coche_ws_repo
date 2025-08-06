@@ -212,8 +212,8 @@ int PurePursuit::load_pathpoints2memory()
             v = min_speed; // Default to min_speed if v is missing
         } else {
             try {
-                // v = std::stod(v_str);
-                v = 0.5;
+                v = std::stod(v_str);
+                // v = 0.5;
             } catch (...) {
                 v = min_speed;
             }
@@ -373,20 +373,27 @@ void PurePursuit::steering_angle_calculation()
 
 void PurePursuit::get_closest_pathpoint()
 {
-    // Find the closest point to the car within the window
-    int start_point = start_index;  // Start from current index
-    int speed_i = start_point;
-    double shortest_distance = p2pdist(pathpoints[start_point].x, curr_pose.x, 
-                                     pathpoints[start_point].y, curr_pose.y);
+    // Start from the current index
+    int speed_i = start_index;
+    double shortest_distance = p2pdist(
+        pathpoints[start_index].x, curr_pose.x,
+        pathpoints[start_index].y, curr_pose.y);
 
-    // Search with circular indexing, just like get_lookahead_point
-    for (int n = 0; n < window_size; ++n) 
+    // Only need to search the “window_size” points centered on start_index
+    int half_w = window_size / 2;
+
+    // n = 0 would re-check start_index, so start at n = 1
+    for (int n = 1; n < window_size; ++n) 
     {
-        int i = (start_point - (window_size / 2) + n) % n_pathpoints;
-        double distance = p2pdist(pathpoints[i].x, curr_pose.x, 
-                                pathpoints[i].y, curr_pose.y);
+        int raw = start_index + n - half_w;
+        int i   = (raw % n_pathpoints + n_pathpoints) % n_pathpoints;
+
+        double distance = p2pdist(
+            pathpoints[i].x, curr_pose.x,
+            pathpoints[i].y, curr_pose.y);
         
-        if (distance <= shortest_distance) 
+        // use strict “<” so that in ties you keep the lower index
+        if (distance < shortest_distance) 
         {
             shortest_distance = distance;
             speed_i = i;
@@ -398,8 +405,8 @@ void PurePursuit::get_closest_pathpoint()
 void PurePursuit::speed_calculation()
 {
     // Base speed from path
-    double target_speed = pathpoints[lookahead_point].v;
-        RCLCPP_INFO(this->get_logger(), "Target Speed: %f:", target_speed);
+    double target_speed = pathpoints[closest_pathpoint].v;
+        // RCLCPP_INFO(this->get_logger(), "Target Speed: %f:", target_speed);
 
     // Adjust speed based on steering angle magnitude
     if (std::abs(steering_angle) > 0.1) { // About 2.86 degrees
@@ -413,7 +420,7 @@ void PurePursuit::speed_calculation()
         double curve_speed = std::sqrt(max_lateral_acc * radius);
 
         target_speed = std::min(target_speed, curve_speed);
-        RCLCPP_INFO(this->get_logger(), "Max curve speed: %f", curve_speed);
+        // RCLCPP_INFO(this->get_logger(), "Max curve speed: %f", curve_speed);
     }
     // Clamp to speed limits
     speed = std::clamp(target_speed, min_speed, max_speed);
@@ -478,8 +485,8 @@ void PurePursuit::odom_callback(const nav_msgs::msg::Odometry::ConstSharedPtr od
         auto drive_msg = ackermann_msgs::msg::AckermannDriveStamped();
         drive_msg.drive.speed = speed;
         drive_msg.drive.steering_angle = steering_angle;
-        RCLCPP_INFO(this->get_logger(), "Steering angle: %f", steering_angle);
-        RCLCPP_INFO(this->get_logger(), "Speed: %f", speed);
+        // RCLCPP_INFO(this->get_logger(), "Steering angle: %f", steering_angle);
+        // RCLCPP_INFO(this->get_logger(), "Speed: %f", speed);
         drive_pub_->publish(drive_msg);
     } 
     // static int i = 0;
