@@ -51,14 +51,14 @@ private:
   // conversion gain and offset
   double speed_to_erpm_gain_, speed_to_erpm_offset_;
   double steering_to_servo_gain_, steering_to_servo_offset_;
-  // double brake_min_, brake_max_;
+  double brake_min_, brake_max_;
 
   /** @todo consider also providing an interpolated look-up table conversion */
 
   // ROS services
   rclcpp::Publisher<Float64>::SharedPtr erpm_pub_;
   rclcpp::Publisher<Float64>::SharedPtr servo_pub_;
-  // rclcpp::Publisher<Float64>::SharedPtr brake_pub_;
+  rclcpp::Publisher<Float64>::SharedPtr brake_pub_;
   rclcpp::Subscription<AckermannDriveStamped>::SharedPtr ackermann_sub_;
 
   // ROS callbacks

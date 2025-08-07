@@ -4,7 +4,8 @@ ManualControlNode::ManualControlNode() : Node("manual_control_node"){
     // Declare and retrieve parameters
     this->declare_parameter<int>("lb_button_idx", 4);
     this->declare_parameter<int>("rb_button_idx", 5);
-    // this->declare_parameter<int>("brake_button_idx", 3);
+    this->declare_parameter<int>("brake_button_idx", 3);
+    this->declare_parameter<int>("test_button_idx", 0);
     this->declare_parameter<int>("rt_axis_idx", 5);
     this->declare_parameter<int>("lt_axis_idx", 2);
     this->declare_parameter<int>("left_horizontal_axis_idx", 0);
@@ -20,7 +21,8 @@ ManualControlNode::ManualControlNode() : Node("manual_control_node"){
     // Get parameters
     lb_button_idx_ = this->get_parameter("lb_button_idx").as_int();
     rb_button_idx_ = this->get_parameter("rb_button_idx").as_int();
-    // brake_button_idx_ = this->get_parameter("brake_button_idx").as_int();
+    brake_button_idx_ = this->get_parameter("brake_button_idx").as_int();
+    test_button_idx_ = this->get_parameter("test_button_idx").as_int();
     rt_axis_idx_ = this->get_parameter("rt_axis_idx").as_int();
     lt_axis_idx_ = this->get_parameter("lt_axis_idx").as_int();
     left_horizontal_axis_idx_ = this->get_parameter("left_horizontal_axis_idx").as_int();
@@ -67,10 +69,10 @@ void ManualControlNode::joyCallback(const sensor_msgs::msg::Joy::SharedPtr joy) 
     ackermann_msg.drive.speed = calculateThrottle(joy);
     ackermann_msg.drive.steering_angle = -joy->axes[left_horizontal_axis_idx_] * steering_gain_ + steering_offset_;
 
-    // if (joy->buttons[brake_button_idx_]) {
-    //     ackermann_msg.drive.acceleration = 2.0;  // Stop the vehicle if brake button is pressed
-    //     RCLCPP_INFO(get_logger(), "BRAKE!!");
-    // }
+    if (joy->buttons[brake_button_idx_]) {
+        ackermann_msg.drive.acceleration = 2.0;  // Stop the vehicle if brake button is pressed
+        RCLCPP_INFO(get_logger(), "BRAKE!!");
+    }
 
     // RCLCPP_DEBUG(get_logger(), "Speed: %f, Steering Angle: %f, Brake: %f", ackermann_msg.drive.speed, ackermann_msg.drive.steering_angle, ackermann_msg.drive.acceleration);
     RCLCPP_DEBUG(get_logger(), "Speed: %f, Steering Angle: %f", ackermann_msg.drive.speed, ackermann_msg.drive.steering_angle);
@@ -92,7 +94,12 @@ double ManualControlNode::calculateThrottle(const sensor_msgs::msg::Joy::SharedP
     const bool both_buttons_pressed = joy->buttons[lb_button_idx_] && joy->buttons[rb_button_idx_];
     const float multiplier = both_buttons_pressed ? throttle_multiplier_ : 1.0;
 
-     if (joy->buttons[rb_button_idx_]) 
+
+    if (joy->buttons[test_button_idx_]) 
+    {
+        return 0.0;  // Override speed if test button is pressed
+        RCLCPP_INFO(get_logger(), "Test button pressed, speed set to 0.0");
+    }   else if (joy->buttons[rb_button_idx_]) 
     {
         return constant_throttle_;  // Override speed if RB is pressed
 

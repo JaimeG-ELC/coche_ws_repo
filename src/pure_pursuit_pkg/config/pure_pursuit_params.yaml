@@ -1,8 +1,8 @@
 /**:
   ros__parameters:
-    min_lookahead_dist: 0.5
+    min_lookahead_dist: 0.8
     max_lookahead_dist: 4.0
-    lookahead_ratio: 8.0
+    lookahead_ratio: 8.5
     max_speed: 5.0
     min_speed: 0.4
     kp: 0.25

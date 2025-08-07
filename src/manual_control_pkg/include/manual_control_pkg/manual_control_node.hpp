@@ -19,7 +19,8 @@ private:
     
     int lb_button_idx_;
     int rb_button_idx_;
-    // int brake_button_idx_;
+    int brake_button_idx_;
+    int test_button_idx_;
     int rt_axis_idx_;
     int lt_axis_idx_;
     int left_horizontal_axis_idx_;

@@ -154,16 +154,18 @@ void ReactiveFollowerNode::eliminate_bubble(std::vector<float> &ranges, int clos
 
 // returns safety distance based on speed
 double ReactiveFollowerNode::calculate_safety_distance(double speed){
-    if (speed < safety_distance_threshold) {
-        return safety_distance_min; // Safety distance for low speeds
-    } else {
-        return safety_distance_min + (speed) * safety_distance_gain; // Proportional increase for higher speeds
-    }
-    // return safety_distance_min;
+    // if (speed < safety_distance_threshold) {
+    //     RCLCPP_INFO(this->get_logger(), "Safety distance for low speed: %f", safety_distance_min);
+    //     return safety_distance_min; // Safety distance for low speeds
+    // } else {
+    //     RCLCPP_INFO(this->get_logger(), "Safety distance for high speed: %f", safety_distance_min + (speed) * safety_distance_gain);
+    //     return safety_distance_min + (speed) * safety_distance_gain; // Proportional increase for higher speeds
+    // }
+    return safety_distance_min;
 }
     // Calculate the minimum number of LiDAR beams for a safe gap
 size_t ReactiveFollowerNode::calculate_min_gap_size(double safety_distance) {
-    double alpha = 2*(atan2((vehicle_width/ 2), 2 * safety_distance)); //geometry cacl
+    double alpha = 2*(atan2((vehicle_width/ 2), safety_distance)); //geometry cacl
     size_t min_gap = static_cast<size_t>(std::ceil(alpha * (lidar_scans / lidar_angle_rad))); // Number of scans in alpha radians (1180 scans in 270º)
     RCLCPP_INFO(this->get_logger(), "Calculated min gap size: %zu", min_gap);
     return min_gap;
@@ -185,11 +187,12 @@ size_t ReactiveFollowerNode::point_to_lidar_index(){
     double angle = atan2(y, x);
     //RCLCPP_INFO(this->get_logger(), "Angle to goal point: %f", angle);
 
-    angle += (processed_angle_rad / 2); // Adjust angle to match LiDAR frame (0 rad = front of the car)
-    RCLCPP_INFO(this->get_logger(), "Adjusted angle to LiDAR frame: %f", angle);
+    // angle += (processed_angle_rad / 2); // Adjust angle to match LiDAR frame (0 rad = front of the car)
+    // RCLCPP_INFO(this->get_logger(), "Adjusted angle to LiDAR frame: %f", angle);
+    angle = goal_msg_->s + (processed_angle_rad / 2); // Adjust angle to match LiDAR frame (0 rad = front of the car)
 
     int idx = std::round(angle * lidar_scans/lidar_angle_rad);
-    // RCLCPP_INFO(this->get_logger(), "Angle: %f, Index: %i", angle, idx);
+    RCLCPP_INFO(this->get_logger(), "Angle: %f, Index: %i", angle, idx);
     // double lidar_clamp = lidar_scans - 1;
     return std::clamp(idx, 0, 1179);
 }    
@@ -202,7 +205,7 @@ std::pair<size_t, size_t> ReactiveFollowerNode::find_gap(const std::vector<float
     std::pair<size_t, size_t> biggest_gap{0, 0};
 
     for (size_t i = 0; i < ranges.size(); ++i) {
-        if (ranges[i] > safety_distance) {
+        if (ranges[i] > 0.5) {
             if (!in_gap) { start = i; in_gap = true; }
         } else if (in_gap) {
             size_t end = i - 1;
@@ -225,8 +228,8 @@ std::pair<size_t, size_t> ReactiveFollowerNode::find_gap(const std::vector<float
     }
 
     if (max_gap_size > 0) {
-        RCLCPP_INFO(this->get_logger(), "Found biggest gap: start=%zu, end=%zu, size=%zu", 
-                   biggest_gap.first, biggest_gap.second, max_gap_size);
+        // RCLCPP_INFO(this->get_logger(), "Found biggest gap: start=%zu, end=%zu, size=%zu", 
+        //            biggest_gap.first, biggest_gap.second, max_gap_size);
     } else {
         RCLCPP_WARN(this->get_logger(), "No valid gaps found with min size %zu", min_gap);
     }
@@ -259,15 +262,15 @@ bool ReactiveFollowerNode::gp_in_gaps(const std::vector<Gap> &gaps, const std::v
     
     // Check if all points from goal point to right half have sufficient distance
     for (int i = static_cast<int>(gp_index); i <= right_check_end; ++i) {
-        if (ranges[i] <= safety_distance) {
+        if (ranges[i] <= 0.5) {
             RCLCPP_INFO(this->get_logger(), "Right side not safe: index=%d, distance=%f, safety_distance=%f", 
                        i, ranges[i], safety_distance);
             return false;
         }
     }
     
-    RCLCPP_INFO(this->get_logger(), "Goal point is safe: gp_index=%zu, left_range=[%d,%d], right_range=[%d,%d]", 
-               gp_index, left_check_start, static_cast<int>(gp_index)-1, static_cast<int>(gp_index), right_check_end);
+    // RCLCPP_INFO(this->get_logger(), "Goal point is safe: gp_index=%zu, left_range=[%d,%d], right_range=[%d,%d]", 
+    //            gp_index, left_check_start, static_cast<int>(gp_index)-1, static_cast<int>(gp_index), right_check_end);
     return true;
 }
 
@@ -287,8 +290,8 @@ std::pair<double, double> ReactiveFollowerNode::alternative_commands(
     // Place best_idx at the center of the biggest gap
     int best_idx = static_cast<int>(biggest_gap.first + (biggest_gap.second - biggest_gap.first) / 2);
 
-    RCLCPP_INFO(this->get_logger(), "Targeting center of biggest gap: start=%zu, end=%zu, center_idx=%d", 
-               biggest_gap.first, biggest_gap.second, best_idx);
+    // RCLCPP_INFO(this->get_logger(), "Targeting center of biggest gap: start=%zu, end=%zu, center_idx=%d", 
+    //            biggest_gap.first, biggest_gap.second, best_idx);
 
     // Convert index to angle
     double best_angle = best_idx * (lidar_angle_rad / lidar_scans);
@@ -342,7 +345,7 @@ void ReactiveFollowerNode::goal_callback(const interfaces_pkg::msg::GoalPoint::C
 
     preprocess_lidar(cropped_ranges);
     int closest_idx = find_closest_point(cropped_ranges);
-    // eliminate_bubble(cropped_ranges, closest_idx, bubble_radius);
+    eliminate_bubble(cropped_ranges, closest_idx, bubble_radius);
 
     publishLaser(cropped_ranges);
 
@@ -353,21 +356,19 @@ void ReactiveFollowerNode::goal_callback(const interfaces_pkg::msg::GoalPoint::C
     min_gap_size = calculate_min_gap_size(safety_distance);
     gp_index = point_to_lidar_index();
 
-    gp_index = std::clamp(static_cast<int>(gp_index - start_index), 0, static_cast<int>(cropped_ranges.size())-1); // Adjust gp_index to the cropped range
-
     // Check if goal point is safe using the new logic
     bool is_goal_safe = gp_in_gaps(std::vector<Gap>(), cropped_ranges);  // We don't need gaps for the new logic
     
     if (is_goal_safe) {
         // Goal point is safe, use pure pursuit commands
-        RCLCPP_INFO(get_logger(), "Goal point is safe, using Pure Pursuit commands.");
+        RCLCPP_INFO(get_logger(), "Pure Pursuit");
         steering_angle = std::clamp(steering_angle, -max_steering_angle_rad, max_steering_angle_rad);
     } else {
         // Goal point is not safe, find biggest gap and drive to it
-        RCLCPP_INFO(get_logger(), "Goal point not safe, using alternative commands to biggest gap.");
+        RCLCPP_INFO(get_logger(), "Alternative commands");
         auto biggest_gap = find_gap(cropped_ranges, min_gap_size);
         auto [alt_steering_angle, alt_speed] = alternative_commands(biggest_gap, cropped_ranges);
-        steering_angle = alt_steering_angle;
+        steering_angle = -alt_steering_angle;
         speed = alt_speed;
     }
 

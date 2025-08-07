@@ -5,6 +5,8 @@
     ackermann_cmd_topic: "/ackermann_cmd"
     lb_button_idx: 4
     rb_button_idx: 5
+    brake_button_idx: 3
+    test_button_idx: 0
     rt_axis_idx: 5
     lt_axis_idx: 2
     left_horizontal_axis_idx: 0
@@ -12,4 +14,4 @@
     throttle_multiplier: 1.0
     steering_gain: 0.2567
     steering_offset: 0.0
-    constant_throttle: 1.0
+    constant_throttle: 5.0
