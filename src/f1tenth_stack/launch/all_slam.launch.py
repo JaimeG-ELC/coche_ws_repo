@@ -1,0 +1,43 @@
+from launch import LaunchDescription
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from ament_index_python.packages import get_package_share_directory
+import os
+
+def generate_launch_description():
+    pkg_f1tenth = get_package_share_directory('f1tenth_stack')
+    pkg_robot = get_package_share_directory('robot_localization')
+
+
+    # First launch bringup to establish odom->base_link->laser
+    bringup_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_f1tenth, 'launch', 'bringup.launch.py')
+        )
+    )
+
+    robot_localization_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_f1tenth, 'launch', 'robot_localization.launch.py')
+        )
+    )
+
+    tf_odom_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_f1tenth, 'launch', 'tf_odom.launch.py')
+        )
+    )
+
+    # Then launch localization to add map->odom
+    localize_slam_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_f1tenth, 'launch', 'localize_slam.launch.py')
+        )
+    )
+
+    return LaunchDescription([
+        bringup_launch,
+        robot_localization_launch,
+        tf_odom_launch,
+        localize_slam_launch
+    ])

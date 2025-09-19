@@ -1,3 +1,0 @@
-[console_scripts]
-stanley_avoidance = stanley_avoidance.stanley_avoidance:main
-

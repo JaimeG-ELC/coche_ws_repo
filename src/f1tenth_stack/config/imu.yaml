@@ -1,0 +1,10 @@
+urg_node:
+  ros__parameters:
+    imu_frame: "sensors/imu/raw"
+    imu_out_frame: "sensors/imu/transformed"
+    imu_x: -0.09
+    imu_y: -0.02
+    imu_z: 0.06
+    roll_offset: 0.0
+    pitch_offset: 0.0
+    yaw_offset: 3.14159

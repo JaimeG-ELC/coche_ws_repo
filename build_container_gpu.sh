@@ -1,0 +1,1 @@
+docker build -f Dockerfile_gpu -t f1tenth-system-gpu .

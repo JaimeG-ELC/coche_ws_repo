@@ -1,6 +1,0 @@
-CMake Error at cmake_install.cmake:41 (file):
-  file INSTALL cannot find
-  "/home/coche/coche_ws/src/f1tenth_system/bringup/launch/final_race_sim_launch.py":
-  No such file or directory.
-
-

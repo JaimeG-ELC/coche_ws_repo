@@ -1,9 +1,0 @@
-{
-  "package_name": "vesc_msgs",
-  "non_idl_tuples": [
-    "/home/coche/coche_ws/src/f1tenth_system/vesc/vesc_msgs:msg/VescState.msg",
-    "/home/coche/coche_ws/src/f1tenth_system/vesc/vesc_msgs:msg/VescStateStamped.msg",
-    "/home/coche/coche_ws/src/f1tenth_system/vesc/vesc_msgs:msg/VescImu.msg",
-    "/home/coche/coche_ws/src/f1tenth_system/vesc/vesc_msgs:msg/VescImuStamped.msg"
-  ]
-}

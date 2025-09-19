@@ -1,0 +1,24 @@
+/**:
+  ros__parameters:
+    lidarscan_topic: "/scan"
+    drive_topic: "/drive"
+    goalpoint_topic: "/goalpoint"
+    laser_frame: "laser"
+    robot_frame: "base_link"
+    lidar_angle: 270.0
+    lidar_angle_front_car: 135.0
+    lidar_scans: 1180
+
+    max_speed: 0.6
+    min_speed: 0.2
+    max_steering_angle: 14.705
+    bubble_radius: 150
+    processed_angle: 135.0
+    safety_distance_min: 1.2
+    safety_distance_threshold: 1.5
+    safety_distance_gain: 0.8
+    vehicle_width: 0.2
+    
+    max_lidar_distance: 20.0
+    weight_speed: 0.5
+    weight_steering: 0.5
